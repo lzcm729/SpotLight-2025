@@ -29,3 +29,8 @@ func _get_current_radial_speed() -> float:
 	var percentage = clamp(distance / black_hole.GetAttractionRadius(), 0.0, 1.0)
 	# 计算径向速度
 	return radial_speed * (1.0 - percentage)
+
+
+func GetDistanceToBlackHole() -> float:
+	# 返回当前与黑洞的距离
+	return position.distance_to(black_hole.position)
