@@ -23,6 +23,7 @@ SceneLoader="*res://addons/maaacks_game_template/base/scenes/autoloads/scene_loa
 ProjectMusicController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_music_controller.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
 DaughterManager="*res://Manager/DaughterManager/DaughterManager.tscn"
+SpaceShipManager="*res://Manager/SpaceShipManager/SpaceShipManager.tscn"
 
 [display]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=4 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
+[ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 
 [node name="MainLevel" type="Node2D"]
 
@@ -13,6 +14,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="DaughterInfo" type="Control" parent="HUD"]
+layout_mode = 1
 anchors_preset = 0
 offset_right = 553.0
 offset_bottom = 182.0
@@ -69,3 +71,60 @@ offset_right = 450.0
 offset_bottom = 107.0
 
 [node name="CreateTimer" type="Timer" parent="HUD/DaughterInfo/SentenceList"]
+
+[node name="SpaceShipState" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -161.0
+offset_top = -80.0
+offset_right = 161.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_smhem")
+
+[node name="Panel" type="Panel" parent="HUD/SpaceShipState"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/SpaceShipState"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/SpaceShipState/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Energy" type="Label" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "飞船能量"
+horizontal_alignment = 1
+
+[node name="EnergyProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD/SpaceShipState/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Health" type="Label" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "飞船完整度"
+horizontal_alignment = 1
+
+[node name="HealthProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
