@@ -3,7 +3,7 @@ class_name SpaceShip
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
-var black_hole: BlackHole
+@export var black_hole: BlackHole
 
 
 func _ready() -> void:
@@ -34,3 +34,19 @@ func _get_current_radial_speed() -> float:
 func GetDistanceToBlackHole() -> float:
 	# 返回当前与黑洞的距离
 	return position.distance_to(black_hole.position)
+
+
+# 使用WASD给飞船施加力
+func _process(delta: float) -> void:
+	var force = Vector2.ZERO
+	if Input.is_action_pressed("move_up"):
+		force.y -= 1
+	if Input.is_action_pressed("move_down"):
+		force.y += 1
+	if Input.is_action_pressed("move_left"):
+		force.x -= 1
+	if Input.is_action_pressed("move_right"):
+		force.x += 1
+	if force != Vector2.ZERO:
+		force = force.normalized() * 100000.0  # 设置施加的力大小
+		apply_central_impulse(force)	

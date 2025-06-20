@@ -3,7 +3,7 @@ class_name Pickable
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
-var black_hole: BlackHole
+@export var black_hole: BlackHole
 
 
 func _ready() -> void:
