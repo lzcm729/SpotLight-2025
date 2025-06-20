@@ -10,14 +10,24 @@ func _ready() -> void:
 	pass
 		
 
-#func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	#var offset = state.transform.origin - black_hole.position
-	#if offset.length() <= 0: return
-	## 1) 计算径向和切向单位向量
-	#var radial = offset.normalized()
-	#var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
-	## 2) 合成螺旋速度
-	#state.linear_velocity = tangential * tangential_speed + radial * _get_current_radial_speed()
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	var offset = state.transform.origin - black_hole.position
+	if offset.length() <= 0: return
+	# 计算径向和切向单位向量
+	var radial = offset.normalized()
+	var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
+
+	# 拆出“已有轨道分量”
+	var v_radial = radial * state.linear_velocity.dot(radial)
+	var v_tang = tangential * state.linear_velocity.dot(tangential)
+	var user_velocity = state.linear_velocity - (v_radial + v_tang)
+
+	# 合成螺旋速度
+	var orbital_velocity = tangential * tangential_speed \
+						 + radial * _get_current_radial_speed()
+
+	# 施加合成的螺旋速度
+	state.linear_velocity = user_velocity + orbital_velocity
 
 
 func _get_current_radial_speed() -> float:
@@ -37,7 +47,7 @@ func GetDistanceToBlackHole() -> float:
 
 
 # 使用WASD给飞船施加力
-func _process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var force = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
 		force.y -= 1
@@ -48,5 +58,5 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("move_right"):
 		force.x += 1
 	if force != Vector2.ZERO:
-		force = force.normalized() * 100.0  # 设置施加的力大小
+		force = force.normalized() * 5000.0  # 设置施加的力大小
 		apply_central_impulse(force)	
