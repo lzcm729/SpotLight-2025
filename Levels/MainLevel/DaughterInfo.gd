@@ -97,7 +97,21 @@ func setup_timer_progress_bar():
 	update_timer_progress()
 
 func update_timer_progress():
-	# 使用DaughterManager的真实Timer信息
+	# 检查Timer状态
+	if DaughterManager.age_pass.is_stopped():
+		# Timer停止且从未开始过，显示0%
+		progress_bar.value = 0.0
+		return
+	elif DaughterManager.age_pass.paused:
+		# Timer暂停，保留当前进度
+		var time_left = DaughterManager.get_real_time_left()
+		var total_time = DaughterManager.get_real_cycle_time()
+		var elapsed_time = total_time - time_left
+		var progress = elapsed_time / total_time
+		progress_bar.value = progress * 10.0
+		return
+	
+	# Timer正常工作，显示实时进度
 	var time_left = DaughterManager.get_real_time_left()
 	var total_time = DaughterManager.get_real_cycle_time()
 	

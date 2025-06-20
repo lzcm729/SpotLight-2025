@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=7 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -7,14 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://b35x771tjnleh" path="res://Manager/SpaceShipManager/SpaceShipManager.tscn" id="3_1h6rh"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
-radius = 437.07
-
 [node name="MainLevel" type="Node2D"]
 
-[node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
+[node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("1_mqakj")]
 space_ship = NodePath("../Universe/SpaceShip")
-black_hole = NodePath("../Universe/BlackHole")
 
 [node name="SpaceShipManager" parent="." instance=ExtResource("3_1h6rh")]
 
@@ -125,11 +121,7 @@ layout_mode = 2
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)
 
-[node name="CollisionShape2D" parent="Universe/BlackHole/引力范围" index="0"]
-shape = SubResource("CircleShape2D_30g7l")
-
-[node name="SpaceShip" parent="Universe" index="2"]
-position = Vector2(290, 320)
+[node name="Pickable" parent="Universe" index="1" groups=["Float"]]
+mass = 500.0
 
 [editable path="Universe"]
-[editable path="Universe/BlackHole"]

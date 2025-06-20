@@ -5,10 +5,16 @@ var global_daughter_age: int = 0
 var time_speed: float = 1.0
 @onready var age_pass: Timer = $AgePass
 
+@export var space_ship: SpaceShip
+@export var black_hole: BlackHole
+
+
+
 # 时间流逝相关变量
 var time_elapsed: float = 0.0  # 当前周期内已经流逝的时间
 var base_cycle_time: float = 10.0  # 基础周期时间（1倍速时的周期）
 var current_cycle_time: float = 10.0  # 当前周期时间
+var is_in_black_hole_range: bool = false  # 是否在黑洞影响范围内
 
 # 年龄文本字典，索引直接对应年龄，每5岁存储2-3条文本内容
 var age_texts: Dictionary = {
@@ -130,13 +136,85 @@ func _ready():
 	
 	# 初始化Timer系统
 	initialize_timer_system()
+	
+	# 初始化时检查是否已在黑洞吸引半径内
+	initialize_black_hole_range_check()
 
 # 初始化Timer系统
 func initialize_timer_system():
 	current_cycle_time = base_cycle_time / time_speed
 	age_pass.wait_time = current_cycle_time
 	age_pass.timeout.connect(_on_age_pass_timeout)
-	age_pass.start()
+	# 不立即启动Timer，等待进入黑洞范围
+	# 确保Timer初始状态为停止
+	age_pass.stop()
+
+# 初始化时检查黑洞范围状态
+func initialize_black_hole_range_check():
+	# 等待一帧确保所有节点都已准备好
+	await get_tree().process_frame
+	
+	# 检查是否已在黑洞吸引半径内
+	var gravity_radius = 0.0
+	if black_hole:
+		gravity_radius = black_hole.GetAttractionRadius()
+	
+	var distance_to_black_hole = get_distance_to_black_hole()
+	is_in_black_hole_range = distance_to_black_hole <= gravity_radius
+	
+	# 如果初始化时就在黑洞范围内，立即开始年龄增长
+	if is_in_black_hole_range:
+		start_age_timer()
+		print("初始化检测：已在黑洞引力范围内，开始年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+	else:
+		print("初始化检测：不在黑洞引力范围内，等待进入 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+
+# 检查黑洞影响范围并更新Timer状态
+func check_black_hole_range():
+	var was_in_range = is_in_black_hole_range
+	
+	# 使用黑洞的引力半径来判断是否在范围内
+	var gravity_radius = 0.0
+	if black_hole:
+		gravity_radius = black_hole.GetAttractionRadius()
+	
+	var distance_to_black_hole = get_distance_to_black_hole()
+	is_in_black_hole_range = distance_to_black_hole <= gravity_radius
+	
+	# 如果状态发生变化
+	if is_in_black_hole_range != was_in_range:
+		if is_in_black_hole_range:
+			# 进入黑洞范围，启动Timer
+			start_age_timer()
+			print("进入黑洞引力范围，开始年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+		else:
+			# 离开黑洞范围，暂停Timer
+			pause_age_timer()
+			print("离开黑洞引力范围，暂停年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+
+# 暂停年龄增长Timer
+func pause_age_timer():
+	if age_pass.is_stopped():
+		return  # 如果Timer已经停止，不需要暂停
+	
+	# 暂停Timer，保持当前进度
+	age_pass.paused = true
+
+# 启动年龄增长Timer
+func start_age_timer():
+	# 只有在黑洞范围内才启动Timer
+	if not is_in_black_hole_range:
+		return
+	
+	# 如果Timer被暂停，恢复运行
+	if age_pass.paused:
+		age_pass.paused = false
+		return
+	
+	# 如果Timer已经停止且没有剩余时间，重新开始
+	if age_pass.is_stopped() and age_pass.time_left <= 0:
+		age_pass.wait_time = current_cycle_time
+		age_pass.start()
 
 # 获取真实的剩余时间（考虑已流逝时间）
 func get_real_time_left() -> float:
@@ -175,35 +253,46 @@ func set_time_speed(speed_multiplier: float):
 	var old_speed = time_speed
 	time_speed = speed_multiplier
 	
-	# 计算当前已经流逝的时间
-	var current_time_left = age_pass.time_left
-	var old_cycle_time = current_cycle_time
-	time_elapsed = old_cycle_time - current_time_left
+	# 只有在黑洞范围内才调整Timer
+	if is_in_black_hole_range:
+		# 计算当前已经流逝的时间
+		var current_time_left = age_pass.time_left
+		var old_cycle_time = current_cycle_time
+		time_elapsed = old_cycle_time - current_time_left
+		
+		# 计算新的周期时间
+		current_cycle_time = base_cycle_time / time_speed
+		
+		# 计算新的剩余时间，保持已流逝时间的比例
+		var new_time_left = current_cycle_time - time_elapsed
+		
+		# 确保剩余时间不为负数
+		if new_time_left <= 0:
+			new_time_left = 0.1
+		
+		# 更新Timer设置
+		age_pass.wait_time = current_cycle_time
+		age_pass.start(new_time_left)
+	else:
+		# 不在范围内时只更新周期时间，不启动Timer
+		current_cycle_time = base_cycle_time / time_speed
 	
-	# 计算新的周期时间
-	current_cycle_time = base_cycle_time / time_speed
-	
-	# 计算新的剩余时间，保持已流逝时间的比例
-	var new_time_left = current_cycle_time - time_elapsed
-	
-	# 确保剩余时间不为负数
-	if new_time_left <= 0:
-		new_time_left = 0.1
-	
-	# 更新Timer设置
-	age_pass.wait_time = current_cycle_time
-	age_pass.start(new_time_left)
-	
-	print("时间速度调整为：", speed_multiplier, "倍速（", current_cycle_time, "秒/岁），剩余时间：", new_time_left, "秒，已流逝：", time_elapsed, "秒")
+	print("时间速度调整为：", speed_multiplier, "倍速（", current_cycle_time, "秒/岁），在黑洞范围内：", is_in_black_hole_range)
 
 # Timer超时回调函数
 func _on_age_pass_timeout():
-	increase_age(1)
-	# 重置已流逝时间
-	time_elapsed = 0.0
-	# 重新启动Timer，使用当前速度下的完整周期时间
-	age_pass.wait_time = current_cycle_time
-	age_pass.start()
+	# 只有在黑洞范围内才增加年龄
+	if is_in_black_hole_range:
+		increase_age(1)
+		# 重置已流逝时间
+		time_elapsed = 0.0
+		# 重新启动Timer，使用当前速度下的完整周期时间
+		age_pass.wait_time = current_cycle_time
+		age_pass.start()
+	else:
+		# 如果不在黑洞范围内，停止Timer
+		age_pass.stop()
+		print("Timer超时但不在黑洞范围内，停止Timer")
 
 # 增加年龄函数
 func increase_age(amount: int = 1):
@@ -264,3 +353,18 @@ func is_max_age() -> bool:
 # 获取年龄百分比
 func get_age_percentage() -> float:
 	return float(global_daughter_age) / 100.0 * 100.0
+
+# 通过飞船获取与黑洞的距离
+func get_distance_to_black_hole() -> float:
+	if space_ship:
+		return space_ship.GetDistanceToBlackHole()
+	return 0.0
+
+
+# 每帧检查黑洞范围
+func _process(_delta):
+	check_black_hole_range()
+	
+	# 调试信息：如果Timer在运行但不在黑洞范围内，输出警告
+	if not age_pass.is_stopped() and not age_pass.paused and not is_in_black_hole_range:
+		print("警告：Timer正在运行但不在黑洞范围内！距离: ", get_distance_to_black_hole(), ", 范围状态: ", is_in_black_hole_range)
