@@ -10,14 +10,14 @@ func _ready() -> void:
 	pass
 		
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var offset = state.transform.origin - black_hole.position
-	if offset.length() <= 0: return
-	# 1) 计算径向和切向单位向量
-	var radial = offset.normalized()
-	var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
-	# 2) 合成螺旋速度
-	state.linear_velocity = tangential * tangential_speed + radial * _get_current_radial_speed()
+#func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	#var offset = state.transform.origin - black_hole.position
+	#if offset.length() <= 0: return
+	## 1) 计算径向和切向单位向量
+	#var radial = offset.normalized()
+	#var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
+	## 2) 合成螺旋速度
+	#state.linear_velocity = tangential * tangential_speed + radial * _get_current_radial_speed()
 
 
 func _get_current_radial_speed() -> float:
@@ -48,5 +48,5 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("move_right"):
 		force.x += 1
 	if force != Vector2.ZERO:
-		force = force.normalized() * 100000.0  # 设置施加的力大小
+		force = force.normalized() * 100.0  # 设置施加的力大小
 		apply_central_impulse(force)	
