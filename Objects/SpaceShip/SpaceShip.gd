@@ -60,3 +60,11 @@ func _physics_process(_delta: float) -> void:
 	if force != Vector2.ZERO:
 		force = force.normalized() * 5000.0  # 设置施加的力大小
 		apply_central_impulse(force)	
+
+
+func _on_拾取范围_body_entered(body: Node2D) -> void:
+	if body is Pickable:
+		# 执行拾取逻辑
+		body.BePickUp(self)
+	else:
+		print("无法拾取: ", body.name)

@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=4 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b810l"]
 radius = 20.0
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["漂浮物"]]
+[node name="SpaceShip" type="RigidBody2D" groups=["漂浮物"]]
 collision_layer = 2
 collision_mask = 0
 mass = 1000.0
@@ -15,3 +17,13 @@ script = ExtResource("1_cj7jq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cj7jq")
 debug_color = Color(0.949391, 0.146495, 0.436627, 0.42)
+
+[node name="拾取范围" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="拾取范围"]
+shape = SubResource("CircleShape2D_b810l")
+debug_color = Color(0.695671, 0.494787, 0, 0.42)
+
+[connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]

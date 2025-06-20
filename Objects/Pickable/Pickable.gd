@@ -29,3 +29,9 @@ func _get_current_radial_speed() -> float:
 	var percentage = clamp(distance / black_hole.GetAttractionRadius(), 0.0, 1.0)
 	# 计算径向速度
 	return radial_speed * (1.0 - percentage)
+
+
+func BePickUp(space_ship:SpaceShip) -> void:
+	# 物体被拾取时调用
+	# 可以在这里添加拾取逻辑
+	queue_free()  # 直接销毁物体

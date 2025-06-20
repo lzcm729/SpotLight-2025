@@ -29,6 +29,6 @@ mass = 10.0
 black_hole = NodePath("../BlackHole")
 
 [node name="Pickable3" parent="." node_paths=PackedStringArray("black_hole") instance=ExtResource("4_jlf7i")]
-position = Vector2(480, 305)
+position = Vector2(243, 295)
 mass = 10.0
 black_hole = NodePath("../BlackHole")
