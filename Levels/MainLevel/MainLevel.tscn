@@ -1,42 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=8 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
+[ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
+[ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
+[ext_resource type="PackedScene" uid="uid://b35x771tjnleh" path="res://Manager/SpaceShipManager/SpaceShipManager.tscn" id="3_1h6rh"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
+[ext_resource type="PackedScene" uid="uid://cecmvjicbvl0q" path="res://Manager/UniverseManager/UniverseManager.tscn" id="5_3e37x"]
 
 [node name="MainLevel" type="Node2D"]
 
-[node name="HUD" type="Control" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="DaughterManager" parent="." instance=ExtResource("1_mqakj")]
 
-[node name="DaughterInfo" type="Control" parent="HUD"]
-layout_mode = 1
+[node name="UniverseManager" parent="." instance=ExtResource("5_3e37x")]
+
+[node name="SpaceShipManager" parent="." instance=ExtResource("3_1h6rh")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="DaughterInfo" type="Control" parent="HUD" node_paths=PackedStringArray("DaughterManager")]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 553.0
 offset_bottom = 182.0
 mouse_filter = 1
 script = ExtResource("1_7ry3r")
+DaughterManager = NodePath("../../DaughterManager")
 sentence_ui_scene = ExtResource("2_51lro")
-
-[node name="SpeedDown" type="Button" parent="HUD/DaughterInfo"]
-layout_mode = 0
-offset_left = 299.0
-offset_top = 134.0
-offset_right = 399.0
-offset_bottom = 173.0
-text = "减速"
-
-[node name="Speedup" type="Button" parent="HUD/DaughterInfo"]
-layout_mode = 0
-offset_left = 191.0
-offset_top = 134.0
-offset_right = 291.0
-offset_bottom = 173.0
-text = "加速"
 
 [node name="Bg" type="Panel" parent="HUD/DaughterInfo"]
 layout_mode = 2
@@ -72,8 +62,8 @@ offset_bottom = 107.0
 
 [node name="CreateTimer" type="Timer" parent="HUD/DaughterInfo/SentenceList"]
 
-[node name="SpaceShipState" type="Control" parent="HUD"]
-layout_mode = 1
+[node name="SpaceShipState" type="Control" parent="HUD" node_paths=PackedStringArray("SpaceShipManager")]
+layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -85,6 +75,7 @@ offset_right = 161.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("3_smhem")
+SpaceShipManager = NodePath("../../SpaceShipManager")
 
 [node name="Panel" type="Panel" parent="HUD/SpaceShipState"]
 layout_mode = 1
@@ -128,3 +119,8 @@ horizontal_alignment = 1
 
 [node name="HealthProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+
+[node name="Universe" parent="." instance=ExtResource("1_8cxht")]
+position = Vector2(31, -57)
+
+[editable path="Universe"]

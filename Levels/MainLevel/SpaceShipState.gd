@@ -4,6 +4,8 @@ extends Control
 @onready var health: Label = $HBoxContainer/VBoxContainer2/Health
 @onready var health_progress: ProgressBar = $HBoxContainer/VBoxContainer2/HealthProgress
 
+@export var SpaceShipManager:Node
+
 func _ready() -> void:
 	# 连接SpaceShipManager的信号
 	SpaceShipManager.health_changed.connect(_on_health_changed)
