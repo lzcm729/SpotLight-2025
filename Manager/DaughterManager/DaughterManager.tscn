@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://7qnw6eityjdk"]
+
+[ext_resource type="Script" uid="uid://o2mw3vyp3ur7" path="res://Manager/DaughterManager/DaughterManager.gd" id="1_m4n6f"]
+
+[node name="DaughterManager" type="Node"]
+script = ExtResource("1_m4n6f")
+
+[node name="AgePass" type="Timer" parent="."]
+autostart = true

@@ -8,6 +8,7 @@
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("black_hole")]
 script = ExtResource("1_aejir")
 black_hole = NodePath("BlackHole")
+gravitational_constant = 750.0
 
 [node name="BlackHole" parent="." instance=ExtResource("1_dr86c")]
 position = Vector2(638, 359)

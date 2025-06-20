@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5kmfws1g7esq"]
+
+[ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
+[ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
+
+[node name="MainLevel" type="Node2D"]
+
+[node name="HUD" type="Control" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DaughterInfo" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_right = 553.0
+offset_bottom = 182.0
+mouse_filter = 1
+script = ExtResource("1_7ry3r")
+sentence_ui_scene = ExtResource("2_51lro")
+
+[node name="SpeedDown" type="Button" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 134.0
+offset_right = 399.0
+offset_bottom = 173.0
+text = "减速"
+
+[node name="Speedup" type="Button" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 134.0
+offset_right = 291.0
+offset_bottom = 173.0
+text = "加速"
+
+[node name="Bg" type="Panel" parent="HUD/DaughterInfo"]
+layout_mode = 2
+offset_right = 181.0
+offset_bottom = 179.0
+
+[node name="Daughter" type="TextureRect" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 115.0
+
+[node name="Age" type="Label" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 117.0
+offset_right = 82.0
+offset_bottom = 140.0
+text = "年龄 12岁"
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 142.0
+offset_right = 175.0
+offset_bottom = 169.0
+
+[node name="SentenceList" type="VBoxContainer" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 20.0
+offset_right = 450.0
+offset_bottom = 107.0
+
+[node name="CreateTimer" type="Timer" parent="HUD/DaughterInfo/SentenceList"]
