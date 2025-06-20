@@ -9,7 +9,7 @@ radius = 500.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1uv36"]
 radius = 40.0
 
-[node name="BlackHole" type="Node2D"]
+[node name="BlackHole" type="Node2D" groups=["BlackHole"]]
 script = ExtResource("1_uk4tw")
 attraction_strength = 500.0
 

@@ -3,11 +3,11 @@ class_name Pickable
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
-@export var black_hole: BlackHole
+var black_hole: BlackHole
 
 
 func _ready() -> void:
-	pass
+	black_hole = get_tree().get_first_node_in_group("BlackHole")
 		
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
