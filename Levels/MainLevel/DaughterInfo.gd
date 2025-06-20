@@ -1,10 +1,10 @@
 extends Control
 @onready var age = $Age
 @onready var progress_bar: ProgressBar = $ProgressBar
-@onready var speedup: Button = $Speedup
-@onready var speed_down: Button = $SpeedDown
 @onready var sentence_list: VBoxContainer = $SentenceList
 @onready var create_timer: Timer = $SentenceList/CreateTimer
+
+@export var DaughterManager: Node
 
 # 句子UI预制体
 @export var sentence_ui_scene: PackedScene
@@ -13,8 +13,6 @@ extends Control
 var sentence_queue: Array[String] = []
 
 func _ready() -> void:
-	speedup.pressed.connect(_on_speedup_pressed)
-	speed_down.pressed.connect(_on_speed_down_pressed)
 
 	update_age_display(DaughterManager.global_daughter_age)
 	DaughterManager.age_changed.connect(update_age_display)

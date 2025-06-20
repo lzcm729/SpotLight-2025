@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://da11t01q5j683"]
+
+[ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="1_3ntlc"]
+[ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="2_vuhwi"]
+[ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="3_8aayg"]
+
+[node name="Universe" type="Node2D"]
+
+[node name="BlackHole" parent="." instance=ExtResource("2_vuhwi")]
+position = Vector2(750, 451)
+
+[node name="Pickable" parent="." node_paths=PackedStringArray("black_hole") instance=ExtResource("3_8aayg")]
+position = Vector2(371, 454)
+tangential_speed = 10.0
+radial_speed = -5.0
+black_hole = NodePath("../BlackHole")
+
+[node name="SpaceShip" parent="." node_paths=PackedStringArray("black_hole") instance=ExtResource("1_3ntlc")]
+position = Vector2(53, 91)
+black_hole = NodePath("../BlackHole")
+
+[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
