@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dumuxw7jmvdut"]
+[gd_scene load_steps=6 format=3 uid="uid://dumuxw7jmvdut"]
 
 [ext_resource type="Script" uid="uid://16d5acuwno3b" path="res://Levels/LevelTest/LevelTest.gd" id="1_aejir"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="1_dr86c"]
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="2_k3570"]
 [ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="4_jlf7i"]
+[ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragments/Fragments.tscn" id="6_0d4eq"]
 
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("black_hole")]
 script = ExtResource("1_aejir")
@@ -31,4 +32,8 @@ black_hole = NodePath("../BlackHole")
 [node name="Pickable3" parent="." node_paths=PackedStringArray("black_hole") instance=ExtResource("4_jlf7i")]
 position = Vector2(243, 295)
 mass = 10.0
+black_hole = NodePath("../BlackHole")
+
+[node name="Fragments" parent="." node_paths=PackedStringArray("black_hole") instance=ExtResource("6_0d4eq")]
+position = Vector2(315, 383)
 black_hole = NodePath("../BlackHole")

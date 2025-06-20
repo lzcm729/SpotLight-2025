@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr8ovisevql15"]
+
+[ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="1_skgle"]
+[ext_resource type="Script" uid="uid://7bunlku5pwxo" path="res://Objects/Pickable/Fragments/Fragments.gd" id="2_hmi2g"]
+
+[node name="Pickable" instance=ExtResource("1_skgle")]
+script = ExtResource("2_hmi2g")
+
+[node name="CollisionShape2D" parent="." index="0"]
+debug_color = Color(2.45467e-06, 0.650127, 0.110895, 0.42)
