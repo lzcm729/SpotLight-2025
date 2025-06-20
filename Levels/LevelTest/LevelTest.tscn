@@ -8,22 +8,23 @@
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("black_hole")]
 script = ExtResource("1_aejir")
 black_hole = NodePath("BlackHole")
+gravitational_constant = 1000.0
 
 [node name="BlackHole" parent="." instance=ExtResource("1_dr86c")]
 position = Vector2(638, 359)
-attraction_strength = 1000.0
 
 [node name="SpaceShip" parent="." instance=ExtResource("2_k3570")]
 position = Vector2(324, 494)
+mass = 100.0
 
 [node name="Pickable" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(409, 325)
+position = Vector2(324, 494)
+mass = 10.0
 
 [node name="Pickable2" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(820, 205)
+position = Vector2(698, 568)
+mass = 10.0
 
 [node name="Pickable3" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(485, 643)
-
-[node name="Pickable4" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(678, 528)
+position = Vector2(480, 305)
+mass = 10.0

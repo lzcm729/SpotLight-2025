@@ -9,3 +9,8 @@ class_name BlackHole
 func _on_吞噬范围_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
 		body.queue_free()  # 吞噬物体
+
+
+func GetAttractionRadius() -> float:
+	# 返回黑洞的吸引半径
+	return $"引力范围/CollisionShape2D".shape.radius
