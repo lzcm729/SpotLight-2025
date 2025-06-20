@@ -3,6 +3,7 @@ class_name SpaceShip
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
+@export var power:float = 5000    #移动时施加的力
 var black_hole: BlackHole
 
 
@@ -58,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("move_right"):
 		force.x += 1
 	if force != Vector2.ZERO:
-		force = force.normalized() * 5000.0  # 设置施加的力大小
+		force = force.normalized() * power  # 设置施加的力大小
 		apply_central_impulse(force)	
 
 

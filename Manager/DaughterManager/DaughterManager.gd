@@ -15,6 +15,8 @@ var time_elapsed: float = 0.0  # 当前周期内已经流逝的时间
 var base_cycle_time: float = 10.0  # 基础周期时间（1倍速时的周期）
 var current_cycle_time: float = 10.0  # 当前周期时间
 var is_in_black_hole_range: bool = false  # 是否在黑洞影响范围内
+var min_speed_multiplier: float = 1.0  # 最小速度倍数（最远距离）
+var max_speed_multiplier: float = 3.0  # 最大速度倍数（最近距离）
 
 # 年龄文本字典，索引直接对应年龄，每5岁存储2-3条文本内容
 var age_texts: Dictionary = {
@@ -181,16 +183,38 @@ func check_black_hole_range():
 	var distance_to_black_hole = get_distance_to_black_hole()
 	is_in_black_hole_range = distance_to_black_hole <= gravity_radius
 	
+	# 如果在黑洞范围内，根据距离调整速度
+	if is_in_black_hole_range:
+		update_speed_based_on_distance(distance_to_black_hole, gravity_radius)
+	
 	# 如果状态发生变化
 	if is_in_black_hole_range != was_in_range:
 		if is_in_black_hole_range:
 			# 进入黑洞范围，启动Timer
 			start_age_timer()
-			print("进入黑洞引力范围，开始年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+			print("进入黑洞引力范围，开始年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ", 当前速度: ", time_speed, "倍)")
 		else:
 			# 离开黑洞范围，暂停Timer
 			pause_age_timer()
 			print("离开黑洞引力范围，暂停年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
+
+# 根据距离更新速度
+func update_speed_based_on_distance(distance: float, gravity_radius: float):
+	# 计算距离比例（0.0 = 黑洞中心，1.0 = 引力范围边缘）
+	var distance_ratio = distance / gravity_radius
+	
+	# 反转比例，使距离越近速度越快
+	var speed_ratio = 1.0 - distance_ratio
+	
+	# 确保比例在有效范围内
+	speed_ratio = clamp(speed_ratio, 0.0, 1.0)
+	
+	# 计算新的速度倍数（从min_speed_multiplier到max_speed_multiplier）
+	var new_speed = min_speed_multiplier + (max_speed_multiplier - min_speed_multiplier) * speed_ratio
+	
+	# 如果速度发生变化，更新Timer
+	if abs(new_speed - time_speed) > 0.01:  # 避免微小变化
+		set_time_speed(new_speed)
 
 # 暂停年龄增长Timer
 func pause_age_timer():

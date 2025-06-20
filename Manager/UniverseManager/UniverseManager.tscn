@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cecmvjicbvl0q"]
-
-[ext_resource type="Script" uid="uid://bbs7c5bjl6j07" path="res://Manager/UniverseManager/UniverseManager.gd" id="1_njpfm"]
-
-[node name="UniverseManager" type="Node"]
-script = ExtResource("1_njpfm")
