@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh7aegyh7egpt"]
+
+[ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
+radius = 20.0
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["漂浮物"]]
+collision_layer = 2
+collision_mask = 0
+mass = 100.0
+gravity_scale = 0.0
+script = ExtResource("1_cj7jq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cj7jq")

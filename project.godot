@@ -37,6 +37,10 @@ naming/script_name_casing=1
 
 enabled=PackedStringArray("res://addons/maaacks_game_template/plugin.cfg")
 
+[global_group]
+
+"漂浮物"=""
+
 [gui]
 
 theme/custom="res://resources/themes/expedition.tres"
@@ -78,6 +82,12 @@ interact={
 [internationalization]
 
 locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_game_template/base/translations/menus_translations.fr.translation")
+
+[layer_names]
+
+2d_physics/layer_1="DeadZone"
+2d_physics/layer_2="宇宙飞船"
+2d_physics/layer_3="拾取物"
 
 [maaacks_game_template]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b50e4gduaeyb7"]
+
+[ext_resource type="Script" uid="uid://01i5crkqy2w3" path="res://Objects/Pickable/Pickable.gd" id="1_ryjb1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryjb1"]
+radius = 20.0
+
+[node name="Pickable" type="RigidBody2D" groups=["漂浮物"]]
+collision_layer = 4
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_ryjb1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ryjb1")

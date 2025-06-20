@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dumuxw7jmvdut"]
+
+[ext_resource type="Script" uid="uid://16d5acuwno3b" path="res://Levels/LevelTest/LevelTest.gd" id="1_aejir"]
+[ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="1_dr86c"]
+[ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="2_k3570"]
+
+[node name="LevelTest" type="Node2D" node_paths=PackedStringArray("core")]
+script = ExtResource("1_aejir")
+core = NodePath("BlackHole")
+
+[node name="BlackHole" parent="." instance=ExtResource("1_dr86c")]
+position = Vector2(638, 359)
+attraction_strength = 1000.0
+
+[node name="SpaceShip" parent="." instance=ExtResource("2_k3570")]
+position = Vector2(324, 494)
+
+[node name="SpaceShip2" parent="." instance=ExtResource("2_k3570")]
+position = Vector2(741, 691)
+
+[node name="SpaceShip3" parent="." instance=ExtResource("2_k3570")]
+position = Vector2(524, 173)
+
+[node name="SpaceShip4" parent="." instance=ExtResource("2_k3570")]
+position = Vector2(750, 494)
