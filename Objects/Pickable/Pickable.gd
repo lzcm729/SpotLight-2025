@@ -4,10 +4,14 @@ class_name Pickable
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
 var black_hole: BlackHole
+@export var item_id: int = 0
+signal pick(item_id: int)
+@onready var pick_id: Label = $pick_id
 
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
+	pick_id.text = str(item_id)
 		
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
@@ -34,4 +38,5 @@ func _get_current_radial_speed() -> float:
 func BePickUp(space_ship:SpaceShip) -> void:
 	# 物体被拾取时调用
 	# 可以在这里添加拾取逻辑
+	emit_signal("pick", item_id)
 	queue_free()  # 直接销毁物体

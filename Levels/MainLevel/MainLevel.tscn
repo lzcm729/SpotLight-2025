@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=11 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
 [ext_resource type="PackedScene" uid="uid://b35x771tjnleh" path="res://Manager/SpaceShipManager/SpaceShipManager.tscn" id="3_1h6rh"]
+[ext_resource type="PackedScene" uid="uid://bm5nyfgvamny2" path="res://Manager/TaskManager/TaskManager.tscn" id="3_mqakj"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
+[ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
+[ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 437.07
@@ -17,6 +20,8 @@ space_ship = NodePath("../Universe/SpaceShip")
 black_hole = NodePath("../Universe/BlackHole")
 
 [node name="SpaceShipManager" parent="." instance=ExtResource("3_1h6rh")]
+
+[node name="TaskManager" parent="." instance=ExtResource("3_mqakj")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -122,6 +127,51 @@ horizontal_alignment = 1
 [node name="HealthProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
+[node name="TaskInfo" type="Control" parent="HUD" node_paths=PackedStringArray("task_manager")]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -148.0
+offset_right = 180.0
+offset_bottom = 85.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("7_1h6rh")
+task_manager = NodePath("../../TaskManager")
+task_icon_scene = ExtResource("8_tspbq")
+
+[node name="Panel" type="Panel" parent="HUD/TaskInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/TaskInfo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "心愿清单"
+
+[node name="GridContainer" type="GridContainer" parent="HUD/TaskInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.146
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.0180016
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)
 
@@ -132,5 +182,8 @@ shape = SubResource("CircleShape2D_30g7l")
 position = Vector2(290, 320)
 power = 50000.0
 
+[node name="SelectItem" parent="Universe" index="3" groups=["Float"]]
+
 [editable path="Universe"]
 [editable path="Universe/BlackHole"]
+[editable path="Universe/SelectItem"]

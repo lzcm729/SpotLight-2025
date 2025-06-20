@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ryjb1"]
 radius = 20.0
 
-[node name="Pickable" type="RigidBody2D" groups=["漂浮物"]]
+[node name="Pickable" type="RigidBody2D" groups=["Float", "漂浮物"]]
 collision_layer = 4
 collision_mask = 0
 mass = 100.0
@@ -14,3 +14,11 @@ script = ExtResource("1_ryjb1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ryjb1")
+
+[node name="pick_id" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 11.0
+horizontal_alignment = 1
+vertical_alignment = 1
