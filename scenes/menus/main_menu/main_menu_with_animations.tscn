@@ -352,7 +352,7 @@ graph_offset = Vector2(-180.277, 49)
 [node name="MainMenu" instance=ExtResource("1_rr1rn")]
 script = ExtResource("2_sr523")
 level_select_packed_scene = null
-game_scene_path = "res://scenes/game_scene/game_ui.tscn"
+game_scene_path = "uid://dumuxw7jmvdut"
 options_packed_scene = ExtResource("3_ixa71")
 credits_packed_scene = ExtResource("4_rr1rn")
 
@@ -371,6 +371,9 @@ modulate = Color(1, 1, 1, 0)
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
+
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+text = "SpotLight2025"
 
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
