@@ -103,10 +103,6 @@ func _physics_process(_delta: float) -> void:
 
 func _on_拾取范围_body_entered(body: Node2D) -> void:
 	if body is Pickable:
-		var is_boom = body.check_is_boom()
-		if is_boom:
-			reduce_health(10)
-
 		# 执行拾取逻辑
 		body.BePickUp(self)
 	else:
@@ -129,11 +125,8 @@ func set_health(new_health: float) -> void:
 			health_depleted.emit()
 
 
-func add_health(amount: float) -> void:
+func modify_health(amount: float) -> void:
 	set_health(health + amount)
-
-func reduce_health(amount: float) -> void:
-	set_health(health - amount)
 
 
 func get_energy_percentage() -> float:

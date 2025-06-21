@@ -9,7 +9,6 @@ var _is_eaten: bool = false  # 是否被黑洞吞噬
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
 @export var item_id: int = 0
-@export var is_boom: bool = false
 
 @onready var pick_id: Label = $pick_id
 
@@ -41,11 +40,13 @@ func _get_current_radial_speed() -> float:
 	# 计算径向速度
 	return radial_speed * (1.0 - percentage)
 
-func check_is_boom() -> bool:
-	return is_boom
 
 func BePickUp(space_ship:SpaceShip) -> void:
 	# 物体被拾取时调用
-	# 可以在这里添加拾取逻辑
-	emit_signal("pick", item_id)
+	_be_picked_up(space_ship)
+	pick.emit(item_id)
 	queue_free()  # 直接销毁物体
+
+
+func _be_picked_up(space_ship:SpaceShip) -> void:
+	return

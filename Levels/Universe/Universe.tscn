@@ -1,34 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://da11t01q5j683"]
+[gd_scene load_steps=5 format=3 uid="uid://da11t01q5j683"]
 
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="1_3ntlc"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="2_vuhwi"]
-[ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="3_8aayg"]
-[ext_resource type="PackedScene" uid="uid://40slfl7ja0ja" path="res://Objects/Pickable/SelectItem/SelectItem.tscn" id="4_jg2sh"]
-[ext_resource type="PackedScene" uid="uid://boxruok3ywrx2" path="res://Objects/Pickable/BoomItem/BoomItem.tscn" id="5_sxudy"]
+[ext_resource type="PackedScene" uid="uid://gvoaqrdh15k5" path="res://Objects/Pickable/Target/Target.tscn" id="5_62dg1"]
+[ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragment/Fragment.tscn" id="5_sxudy"]
 
 [node name="Universe" type="Node2D"]
 
 [node name="BlackHole" parent="." instance=ExtResource("2_vuhwi")]
 position = Vector2(750, 451)
 
-[node name="Pickable" parent="." instance=ExtResource("3_8aayg")]
-position = Vector2(371, 454)
-mass = 500.0
-tangential_speed = 10.0
-radial_speed = -5.0
-
 [node name="SpaceShip" parent="." instance=ExtResource("1_3ntlc")]
 position = Vector2(53, 91)
 
 [node name="Camera2D" type="Camera2D" parent="SpaceShip"]
 
-[node name="SelectItem" parent="." instance=ExtResource("4_jg2sh")]
-position = Vector2(335, 99)
+[node name="Fragment" parent="." instance=ExtResource("5_sxudy")]
+position = Vector2(487, 295)
 
-[node name="Pickable" parent="SelectItem" index="0"]
-item_id = 1
-
-[node name="BoomItem" parent="." instance=ExtResource("5_sxudy")]
-position = Vector2(290, 202)
-
-[editable path="SelectItem"]
+[node name="Target" parent="." instance=ExtResource("5_62dg1")]
+position = Vector2(519, 115)
