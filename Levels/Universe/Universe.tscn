@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="1_3ntlc"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="2_vuhwi"]
-[ext_resource type="PackedScene" uid="uid://gvoaqrdh15k5" path="res://Objects/Pickable/Target/Target.tscn" id="5_62dg1"]
+[ext_resource type="PackedScene" uid="uid://gvoaqrdh15k5" path="res://Objects/Pickable/Knowledge/Knowledge.tscn" id="5_62dg1"]
 [ext_resource type="PackedScene" uid="uid://bstqpg8gy5ra4" path="res://Objects/Spawner/Spawner.tscn" id="5_goyut"]
 [ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragment/Fragment.tscn" id="5_sxudy"]
 [ext_resource type="PackedScene" uid="uid://b0cj2a1nvyb6r" path="res://Objects/Pickable/Crystal/Crystal.tscn" id="6_62dg1"]

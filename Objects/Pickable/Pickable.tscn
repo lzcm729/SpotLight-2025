@@ -16,7 +16,7 @@ script = ExtResource("1_ryjb1")
 tangential_speed = 10.0
 radial_speed = -10.0
 
-[node name="Xx2" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.194444, 0.194444)
 texture = ExtResource("2_vldtf")
 
