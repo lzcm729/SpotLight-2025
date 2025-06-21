@@ -56,6 +56,10 @@ func _input(event: InputEvent) -> void:
 		var hits = get_world_2d().direct_space_state.intersect_shape(q)
 		for hit in hits:
 			if hit.collider is Pickable:
+				if _grabbed_pickable:
+					# 如果已经有物品被抓取，则先释放它
+					_grabbed_pickable.pick.disconnect(_on_grabbed_pickable_picked)
+					_grabbed_pickable = null
 				_grabbed_pickable = hit.collider
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
