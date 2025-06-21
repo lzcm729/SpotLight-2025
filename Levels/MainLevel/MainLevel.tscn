@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
-radius = 538.98
+radius = 839.87
 
 [node name="MainLevel" type="Node2D"]
 
@@ -232,48 +232,58 @@ script = ExtResource("11_8rk0s")
 [node name="BlackHole1" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0392157)
 z_index = -1
-position = Vector2(781, 393)
-scale = Vector2(1.74038, 1.74038)
+position = Vector2(1096, 192)
+scale = Vector2(3, 3)
 texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole2" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0784314)
 z_index = -1
-position = Vector2(781, 393)
-scale = Vector2(1.23718, 1.23718)
+position = Vector2(1096, 192)
+scale = Vector2(2.3, 2.3)
 texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole3" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.117647)
 z_index = -1
-position = Vector2(781, 393)
-scale = Vector2(0.746795, 0.746795)
+position = Vector2(1096, 192)
+scale = Vector2(1.7, 1.7)
 texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole4" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.196078)
 z_index = -1
-position = Vector2(781, 393)
-scale = Vector2(0.411859, 0.411859)
+position = Vector2(1096, 192)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole5" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.27451)
 z_index = -1
-position = Vector2(781, 393)
-scale = Vector2(0.23, 0.23)
+position = Vector2(1096, 192)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("18_ca0l4")
+
+[node name="BlackHole6" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.27451)
+z_index = -1
+position = Vector2(1096, 192)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("18_ca0l4")
 
 [node name="BlackHoleCore" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(0, 0, 0, 1)
 z_index = -1
 z_as_relative = false
-position = Vector2(781, 393)
+position = Vector2(1096, 192)
 scale = Vector2(0.206731, 0.206731)
 texture = ExtResource("18_ca0l4")
 
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)
+
+[node name="BlackHole" parent="Universe" index="0"]
+position = Vector2(1065, 248)
 
 [node name="CollisionShape2D" parent="Universe/BlackHole/引力范围" index="0"]
 shape = SubResource("CircleShape2D_30g7l")
@@ -284,6 +294,18 @@ rotation = 1.59508
 
 [node name="Camera2D" parent="Universe/SpaceShip" index="7"]
 zoom = Vector2(2, 2)
+
+[node name="Spawner" parent="Universe" index="4"]
+position = Vector2(400, -20)
+
+[node name="Spawner2" parent="Universe" index="5"]
+position = Vector2(394, 18)
+
+[node name="Spawner3" parent="Universe" index="6"]
+position = Vector2(359, -6)
+
+[node name="Spawner4" parent="Universe" index="7"]
+position = Vector2(353, 63)
 
 [connection signal="pressed" from="HUD/SkipGuide" to="StoryManager" method="_on_skip_guide_pressed"]
 
