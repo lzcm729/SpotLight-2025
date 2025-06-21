@@ -22,12 +22,10 @@ radial_speed = -10.0
 [node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(-10, 20)
 rotation = 1.5708
-emitting = false
 
 [node name="FireRight" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(10, 20)
 rotation = 1.5708
-emitting = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)
@@ -48,5 +46,6 @@ debug_color = Color(0.695671, 0.494787, 0, 0.42)
 
 [node name="GrabLine" type="Line2D" parent="."]
 visible = false
+width = 2.0
 
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]

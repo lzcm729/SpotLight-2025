@@ -58,6 +58,7 @@ func _input(event: InputEvent) -> void:
 			if hit.collider is Pickable:
 				_grabbed_pickable = hit.collider
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
+				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
 				_grab_line.visible = true
 				break
 
@@ -72,13 +73,7 @@ func _physics_process(delta: float) -> void:
 			to_local(_grabbed_pickable.global_position)
 		]
 		var dir = (global_position - _grabbed_pickable.global_position)
-		var dist = dir.length()
-		if dist < 10.0:
-			_grabbed_pickable.BePickUp(self)
-			_grabbed_pickable = null
-			_grab_line.visible = false
-		else:
-			_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
+		_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
 	else:
 		_grab_line.visible = false
 
@@ -210,6 +205,14 @@ func _rotate_towards_pointer() -> void:
 	var dir = mouse_pos - global_position
 	if dir.length() > 0:
 		rotation = dir.angle() + PI/2
+
+
+func _on_grabbed_pickable_picked(item_id: int) -> void:
+	# 当拾取物品时，处理拾取逻辑
+	print("拾取物品: ", item_id)
+	# 这里可以添加更多的逻辑，比如更新UI或状态等
+	_grabbed_pickable = null
+	_grab_line.visible = false
 
 
 func _on_拾取范围_body_entered(body: Node2D) -> void:
