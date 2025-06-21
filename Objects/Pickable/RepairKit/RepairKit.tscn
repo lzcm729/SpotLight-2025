@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpr7yk85us2n7"]
+
+[ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="1_0ubvk"]
+[ext_resource type="Script" uid="uid://dmr8w1ub55lgd" path="res://Objects/Pickable/RepairKit/RepairKit.gd" id="2_t76qp"]
+
+[node name="RepairKit" instance=ExtResource("1_0ubvk")]
+script = ExtResource("2_t76qp")
+item_id = 4
