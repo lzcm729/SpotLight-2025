@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=20 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -10,7 +10,8 @@
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 [ext_resource type="PackedScene" uid="uid://n0x54vjmwcc4" path="res://Manager/MouseManager/MouseManager.tscn" id="4_mamnk"]
 [ext_resource type="Texture2D" uid="uid://drx83fj5kex4m" path="res://assets/yuani.png" id="4_nspbb"]
-[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Texture2D" uid="uid://cxejfowua8mj0" path="res://assets/human/daughter.png" id="9_xu22b"]
+[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
 [ext_resource type="Script" uid="uid://cq0a27o8bp8l2" path="res://Levels/MainLevel/Guide.gd" id="13_0ibg0"]
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
@@ -87,6 +88,11 @@ mouse_filter = 1
 script = ExtResource("1_7ry3r")
 DaughterManager = NodePath("../../DaughterManager")
 sentence_ui_scene = ExtResource("2_51lro")
+
+[node name="Daughter" type="Sprite2D" parent="HUD/DaughterInfo"]
+position = Vector2(42, 52)
+scale = Vector2(0.118056, 0.118056)
+texture = ExtResource("9_xu22b")
 
 [node name="Age" type="Label" parent="HUD/DaughterInfo"]
 layout_mode = 0
@@ -203,6 +209,15 @@ theme_override_font_sizes/font_size = 30
 text = "指导文本"
 autowrap_mode = 3
 
+[node name="SkipGuide" type="Button" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "跳过"
+
 [node name="BlackHoleLayers" type="Node" parent="."]
 script = ExtResource("11_8rk0s")
 
@@ -261,6 +276,8 @@ rotation = 1.59508
 
 [node name="Camera2D" parent="Universe/SpaceShip" index="7"]
 zoom = Vector2(2, 2)
+
+[connection signal="pressed" from="HUD/SkipGuide" to="StoryManager" method="_on_skip_guide_pressed"]
 
 [editable path="Universe"]
 [editable path="Universe/BlackHole"]

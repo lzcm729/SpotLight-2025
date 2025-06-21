@@ -105,4 +105,4 @@ func is_showing_dialog() -> bool:
 # 跳过当前对话（直接完成）
 func skip_dialog():
 	if is_dialog_active:
-		complete_dialog()
+		self.visible = false

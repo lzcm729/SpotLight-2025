@@ -8,6 +8,7 @@ extends Node
 @export var space_ship_state : Control
 @export var dialog:Dialog
 @export var guide:Guide
+@onready var skip_guide: Button = $"../HUD/SkipGuide"
 
 var boom = preload("res://Objects/Pickable/Boom/Boom.tscn")
 
@@ -185,9 +186,25 @@ func play_black_hole_story():
 	# 平滑移动到指定位置
 	await move_space_ship_to_position(Vector2(100, 400), 3.0)
 	
-	
 	space_ship._can_impulse = true
 	space_ship._can_rotate = true
+
+
+
+func _on_skip_guide_pressed() -> void:
+	space_ship.global_position = Vector2(-150, 400)
+	await move_space_ship_to_position(Vector2(100, 400), 3.0)
+	story_progress[1]["completed"] = true
+	story_progress[2]["completed"] = true
+	current_stage = 2
+	play_current_stage_story()
+	dialog.skip_dialog()
+	space_ship._can_impulse = false
+	space_ship._can_rotate = false
 	
-	
+	skip_guide.visible = false
+	guide.hide_guide()
+
+	daughter_info.visible = true
+	space_ship_state.visible = true
 	
