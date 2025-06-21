@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://wsujvbh7haji"]
+
+[ext_resource type="Texture2D" uid="uid://cjtn1x45w6o3h" path="res://assets/human/leader.png" id="1_ptdee"]
+[ext_resource type="Script" uid="uid://d4g80rqgrm0mu" path="res://scenes/Dialog/Dialog.gd" id="1_u13j6"]
+
+[node name="Dialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u13j6")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 553.0
+offset_right = 1090.0
+offset_bottom = 718.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -395.0
+offset_top = -253.0
+offset_right = -144.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_ptdee")
+expand_mode = 1
+
+[node name="Content" type="Label" parent="."]
+custom_minimum_size = Vector2(598, 158)
+layout_mode = 0
+offset_left = 487.0
+offset_top = 557.0
+offset_right = 1085.0
+offset_bottom = 715.0
+theme_override_font_sizes/font_size = 30
+text = "对话文本内容，对话文本内容"
+autowrap_mode = 3
+
+[node name="ClickNext" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 363.0
+offset_top = -33.0
+offset_right = 443.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "点击下一句"
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
