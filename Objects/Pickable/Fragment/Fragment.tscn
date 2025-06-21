@@ -6,5 +6,5 @@
 [node name="Fragment" instance=ExtResource("1_skgle")]
 script = ExtResource("2_hmi2g")
 
-[node name="CollisionShape2D" parent="." index="0"]
-debug_color = Color(2.45467e-06, 0.650127, 0.110895, 0.42)
+[node name="CollisionShape2D" parent="." index="1"]
+debug_color = Color(0.953967, 0.216173, 1.92523e-07, 0.42)
