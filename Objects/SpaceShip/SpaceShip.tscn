@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=5 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
+[ext_resource type="Texture2D" uid="uid://dcy5n5nhciq0p" path="res://assets/spaceship.png" id="2_b810l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
 
@@ -14,6 +15,11 @@ mass = 100.0
 gravity_scale = 0.0
 continuous_cd = 2
 script = ExtResource("1_cj7jq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(11, 4.99999)
+scale = Vector2(0.234615, 0.234615)
+texture = ExtResource("2_b810l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cj7jq")

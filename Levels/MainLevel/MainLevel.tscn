@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=15 format=3 uid="uid://b5kmfws1g7esq"]
 
-[ext_resource type="Texture2D" uid="uid://34pogl2gc3aa" path="res://assets/base map background_2.png" id="1_6ujvp"]
+[ext_resource type="Texture2D" uid="uid://c6w3ksqo60hu1" path="res://assets/base map background_3.png" id="1_6ujvp"]
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
+[ext_resource type="Texture2D" uid="uid://dlobh0q6d50xu" path="res://assets/black hole_0.png" id="2_0fekk"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
 [ext_resource type="PackedScene" uid="uid://bm5nyfgvamny2" path="res://Manager/TaskManager/TaskManager.tscn" id="3_mqakj"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
@@ -11,15 +12,16 @@
 [ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
+[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
-radius = 437.07
+radius = 538.98
 
 [node name="MainLevel" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(590, 349)
-scale = Vector2(1.60595, 1.60595)
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(777, 420)
+scale = Vector2(0.801413, 0.801413)
 texture = ExtResource("1_6ujvp")
 
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
@@ -183,17 +185,53 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
+[node name="BlackHoleLayers" type="Node" parent="."]
+script = ExtResource("11_8rk0s")
+
+[node name="BlackHole1" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.0392157)
+position = Vector2(781, 393)
+scale = Vector2(1.74038, 1.74038)
+texture = ExtResource("2_0fekk")
+
+[node name="BlackHole2" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.0784314)
+position = Vector2(781, 393)
+scale = Vector2(1.23718, 1.23718)
+texture = ExtResource("2_0fekk")
+
+[node name="BlackHole3" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.117647)
+position = Vector2(781, 393)
+scale = Vector2(0.746795, 0.746795)
+texture = ExtResource("2_0fekk")
+
+[node name="BlackHole4" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(781, 393)
+scale = Vector2(0.411859, 0.411859)
+texture = ExtResource("2_0fekk")
+
+[node name="BlackHole5" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(1, 1, 1, 0.27451)
+position = Vector2(781, 393)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_0fekk")
+
+[node name="BlackHoleCore" type="Sprite2D" parent="BlackHoleLayers"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(781, 393)
+scale = Vector2(0.206731, 0.206731)
+texture = ExtResource("2_0fekk")
+
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)
 
 [node name="CollisionShape2D" parent="Universe/BlackHole/引力范围" index="0"]
 shape = SubResource("CircleShape2D_30g7l")
 
-[node name="SpaceShip" parent="Universe" index="2"]
+[node name="SpaceShip" parent="Universe" index="1"]
 position = Vector2(290, 320)
-
-[node name="SelectItem" parent="Universe" index="3" groups=["Float"]]
 
 [editable path="Universe"]
 [editable path="Universe/BlackHole"]
-[editable path="Universe/SelectItem"]
