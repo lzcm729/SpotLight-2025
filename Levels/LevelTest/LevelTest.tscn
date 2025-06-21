@@ -26,8 +26,14 @@ position = Vector2(698, 568)
 mass = 10.0
 
 [node name="Pickable3" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(243, 295)
+position = Vector2(254, 295)
 mass = 10.0
+
+[node name="Pickable4" parent="." instance=ExtResource("4_jlf7i")]
+position = Vector2(266, 440)
+mass = 10.0
+tangential_speed = 200.0
 
 [node name="Fragments" parent="." instance=ExtResource("6_0d4eq")]
 position = Vector2(315, 383)
+collision_mask = 0
