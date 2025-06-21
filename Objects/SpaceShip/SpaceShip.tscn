@@ -11,7 +11,7 @@ radius = 20.0
 [node name="SpaceShip" type="RigidBody2D" groups=["漂浮物"]]
 collision_layer = 2
 collision_mask = 0
-mass = 1000.0
+mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("1_cj7jq")
 

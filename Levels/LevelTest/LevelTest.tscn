@@ -16,10 +16,9 @@ position = Vector2(638, 359)
 
 [node name="SpaceShip" parent="." instance=ExtResource("2_k3570")]
 position = Vector2(324, 494)
-mass = 100.0
 
 [node name="Pickable" parent="." instance=ExtResource("4_jlf7i")]
-position = Vector2(324, 494)
+position = Vector2(442, 519)
 mass = 10.0
 
 [node name="Pickable2" parent="." instance=ExtResource("4_jlf7i")]
