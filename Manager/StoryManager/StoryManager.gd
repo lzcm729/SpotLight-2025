@@ -50,6 +50,7 @@ func _ready():
 # 飞船平滑移动到指定位置
 func move_space_ship_to_position(target_position: Vector2, duration: float = 3.0):
 	print("StoryManager: 飞船开始移动到位置 ", target_position)
+	# space_ship.freeze = true
 	
 	# 创建Tween进行平滑移动
 	var tween = create_tween()
@@ -57,6 +58,7 @@ func move_space_ship_to_position(target_position: Vector2, duration: float = 3.0
 	
 	# 等待移动完成
 	await tween.finished
+	# space_ship.freeze = false
 	print("StoryManager: 飞船移动完成")
 
 # 播放当前阶段的故事
@@ -111,10 +113,8 @@ func play_intro_story():
 	# 当旋转角度>90度时，进入下一阶段
 	# 记录初始角度
 	var start_angle := space_ship.rotation
-	var total_rotation := 0.0
 	# 等待旋转差超过 90°
-	while total_rotation < PI/2:
-		total_rotation += abs(space_ship.rotation - start_angle)
+	while abs(space_ship.rotation - start_angle) < PI/2:
 		await get_tree().process_frame
 
 	guide.hide_guide()
