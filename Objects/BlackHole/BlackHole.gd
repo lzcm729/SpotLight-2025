@@ -21,6 +21,7 @@ func GetAttractionRadius() -> float:
 
 
 func Strengthen() -> void:
+	mass *= 10
 	var floating_objects = get_tree().get_nodes_in_group("漂浮物") as Array[RigidBody2D]
 	for obj in floating_objects:
 		if obj is Pickable:
