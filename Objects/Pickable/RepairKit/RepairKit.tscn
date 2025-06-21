@@ -6,3 +6,6 @@
 [node name="RepairKit" instance=ExtResource("1_0ubvk")]
 script = ExtResource("2_t76qp")
 item_id = 4
+
+[node name="Xx2" parent="." index="0"]
+scale = Vector2(0.194444, 0.194444)

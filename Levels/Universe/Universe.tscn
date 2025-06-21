@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://da11t01q5j683"]
+[gd_scene load_steps=9 format=3 uid="uid://da11t01q5j683"]
 
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="1_3ntlc"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="2_vuhwi"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragment/Fragment.tscn" id="5_sxudy"]
 [ext_resource type="PackedScene" uid="uid://b0cj2a1nvyb6r" path="res://Objects/Pickable/Crystal/Crystal.tscn" id="6_62dg1"]
 [ext_resource type="PackedScene" uid="uid://bpr7yk85us2n7" path="res://Objects/Pickable/RepairKit/RepairKit.tscn" id="7_goyut"]
+[ext_resource type="PackedScene" uid="uid://cfqf5rgibhkoa" path="res://Objects/Pickable/Boom/Boom.tscn" id="8_58d5w"]
 
 [node name="Universe" type="Node2D"]
 
@@ -36,3 +37,7 @@ spawn_class = ExtResource("6_62dg1")
 
 [node name="Spawner4" parent="." instance=ExtResource("5_goyut")]
 spawn_class = ExtResource("7_goyut")
+
+[node name="Boom" parent="." instance=ExtResource("8_58d5w")]
+position = Vector2(156, 20)
+item_id = 0

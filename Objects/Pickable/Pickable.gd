@@ -42,9 +42,11 @@ func _get_current_radial_speed() -> float:
 
 
 func BePickUp(space_ship:SpaceShip) -> void:
-	# 物体被拾取时调用
 	_be_picked_up(space_ship)
 	pick.emit(item_id)
+
+
+func _be_picked_up(_space_ship:SpaceShip) -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	# 播放拾取动画,向上移动并慢慢消失
 	var tween = create_tween()
@@ -54,24 +56,13 @@ func BePickUp(space_ship:SpaceShip) -> void:
 	tween.tween_callback(queue_free).set_delay(1.0)
 
 
-func _be_picked_up(space_ship:SpaceShip) -> void:
-	return
-
-
 func Destroy() -> void:
-	if _is_eaten:
-		# 移动到黑洞的中心，同时慢慢消失
-		var tween = create_tween()
-		tween.set_parallel(true)  # 设置并行执行
-		tween.tween_property(self, "position", black_hole.position + Vector2.UP * 10, 1.0)
-		tween.tween_property(self, "modulate:a", 0.0, 1.0)
-		tween.tween_callback(queue_free).set_delay(1.0)
-	else:
-		_destroy()
-		queue_free()
+	_destroy()
 		
 
-
-
 func _destroy() -> void:
-	pass
+	var tween = create_tween()
+	tween.set_parallel(true)  # 设置并行执行
+	tween.tween_property(self, "position", black_hole.position + Vector2.UP * 10, 1.0)
+	tween.tween_property(self, "modulate:a", 0.0, 1.0)
+	tween.tween_callback(queue_free).set_delay(1.0)

@@ -18,3 +18,10 @@ func _on_吞噬范围_body_entered(body: Node2D) -> void:
 # 返回黑洞的吸引半径
 func GetAttractionRadius() -> float:
 	return $"引力范围/CollisionShape2D".shape.radius
+
+
+func Strengthen() -> void:
+	var floating_objects = get_tree().get_nodes_in_group("漂浮物") as Array[RigidBody2D]
+	for obj in floating_objects:
+		if obj is Pickable:
+			obj.tangential_speed *= 10.0  # 增加切向速度
