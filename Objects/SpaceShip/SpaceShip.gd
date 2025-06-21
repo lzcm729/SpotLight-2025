@@ -29,6 +29,8 @@ var _grabbed_pickable: Pickable = null
 @export var pickup_attract_speed: float = 100.0  # 吸附速度
 
 @onready var _grab_line : Line2D = $GrabLine
+@onready var fire_left: GPUParticles2D = $FireLeft
+@onready var fire_right: GPUParticles2D = $FireRight
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
@@ -181,6 +183,9 @@ func _move_method_2(_delta: float) -> void:
 			var f_radial = radial * force.dot(radial)
 			var f_tangential = tangential * force.dot(tangential) * 0.1 # 调节切向分量的强度（越小摆动越弱）
 			apply_central_impulse(f_radial + f_tangential)
+		# 发射时喷射推进火焰
+		fire_left.emitting = true
+		fire_right.emitting = true
 	else:
 		# 未按鼠标或没能量时重置推力
 		_current_thrust = 0.0
