@@ -19,8 +19,10 @@ mass = 100.0
 gravity_scale = 0.0
 continuous_cd = 2
 script = ExtResource("1_cj7jq")
-tangential_speed = 50.0
-radial_speed = -10.0
+tangential_speed = 0.0
+radial_speed = 0.0
+max_power = 75000.0
+thrust_acceleration = 15000.0
 
 [node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(-10, 20)

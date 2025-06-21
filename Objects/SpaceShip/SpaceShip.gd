@@ -86,26 +86,16 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if _is_controlled: return
 
 	var offset = state.transform.origin - black_hole.position
-	if offset.length() <= 0: return
+	var distance = offset.length()
+	if distance <= 0: return
 
-	# 计算径向和切向单位向量
+	# 计算径向单位向量
 	var radial = offset.normalized()
-	# var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
-
-	# 拆出"已有轨道分量"
-	var v_radial = radial * state.linear_velocity.dot(radial)
-	# var v_tang = tangential * state.linear_velocity.dot(tangential)
-	# var user_velocity = state.linear_velocity - (v_radial + v_tang)
-	var user_velocity = state.linear_velocity - v_radial
-
-	# # 合成螺旋速度
-	# var orbital_velocity = tangential * tangential_speed \
-	# 					 + radial * _get_current_radial_speed()
-
-	var radial_velocity = radial * _get_current_radial_speed()
-
-	# 施加合成的螺旋速度
-	state.linear_velocity = user_velocity + radial_velocity
+	var gravitational_constant = 10.0  # 万有引力常数
+	# 施加万有引力
+	var force_magnitude = black_hole.mass * (1/state.inverse_mass) * gravitational_constant / (distance * distance)
+	var force = radial * force_magnitude
+	apply_central_force(-force)
 
 
 func _get_current_radial_speed() -> float:
