@@ -18,8 +18,12 @@ signal energy_depleted
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
-@export var power:float = 5000    #移动时施加的力
+@export var max_power: float = 750000            # 最大推力（Impulse 上限）
+@export var thrust_acceleration: float = 250000  # 推力增长速率 (Impulse 增量/s)
+@export var energy_consumption_rate: float = 5.0  # 能量消耗速率 (per second)
+
 var black_hole: BlackHole
+var _current_thrust: float = 0.0               # 当前累积推力
 
 
 func _ready() -> void:
@@ -64,18 +68,34 @@ func GetDistanceToBlackHole() -> float:
 
 # 使用WASD给飞船施加力
 func _physics_process(_delta: float) -> void:
-	var force = Vector2.ZERO
+	var dir = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
-		force.y -= 1
+		dir.y -= 1
 	if Input.is_action_pressed("move_down"):
-		force.y += 1
+		dir.y += 1
 	if Input.is_action_pressed("move_left"):
-		force.x -= 1
+		dir.x -= 1
 	if Input.is_action_pressed("move_right"):
-		force.x += 1
-	if force != Vector2.ZERO:
-		force = force.normalized() * power  # 设置施加的力大小
-		apply_central_impulse(force)	
+		dir.x += 1
+
+	# 只有在有输入且有能量时才产生推力
+	if dir != Vector2.ZERO and energy > 0.0:
+		dir = dir.normalized()
+
+		# 累积推力
+		_current_thrust = clamp(_current_thrust + thrust_acceleration * _delta, 0.0, max_power)
+		print("当前推力: ", _current_thrust)
+
+		# 消耗能量
+		var used = energy_consumption_rate * _delta
+		modify_energy(-used)
+
+		# 施加推力
+		var force = dir * _current_thrust * _delta
+		apply_central_impulse(force)
+	else:
+		# 重置推力
+		_current_thrust = 0.0
 
 
 func _on_拾取范围_body_entered(body: Node2D) -> void:
@@ -116,6 +136,7 @@ func reduce_health(amount: float) -> void:
 func get_energy_percentage() -> float:
 	return (energy / max_energy) * 100.0
 
+
 func set_energy(new_energy: float) -> void:
 	var old_energy = energy
 	energy = clamp(new_energy, 0.0, max_energy)
@@ -126,16 +147,15 @@ func set_energy(new_energy: float) -> void:
 		if energy <= 0.0:
 			energy_depleted.emit()
 
-func add_energy(amount: float) -> void:
-	set_energy(energy + amount)
 
-func reduce_energy(amount: float) -> void:
-	set_energy(energy - amount)
+func modify_energy(amount: float) -> void:
+	set_energy(energy + amount)
 
 
 # 血量相关方法
 func get_health() -> float:
 	return health
+
 
 # 能量相关方法
 func get_energy() -> float:
