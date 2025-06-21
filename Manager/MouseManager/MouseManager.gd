@@ -30,12 +30,6 @@ func _ready():
 	# 初始化鼠标位置
 	last_mouse_pos = get_viewport().get_mouse_position()
 
-# 判断是否应该显示错误抓取光标（红叉）
-func _should_show_wrong_grab() -> bool:
-	# 预留函数，你可以在这里添加具体的判断逻辑
-	# 例如：检查鼠标位置是否在可抓取物体上，检查物体是否可以被抓取等
-	return true  # 默认返回false，你可以根据需要修改
-
 func _create_mouse_cursor():
 	# 创建鼠标光标精灵
 	cursor_sprite = Sprite2D.new()
@@ -134,9 +128,8 @@ func _input(event):
 		
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed:
-				# 检查是否应该显示错误抓取光标
-				if _should_show_wrong_grab():
-					_show_wrong_grab_cursor(last_mouse_pos)
+				# 右键按下时，由外部接口决定是否显示错误抓取光标
+				pass
 			else:
 				_hide_wrong_grab_cursor()
 
@@ -229,3 +222,22 @@ func set_wrong_grab_cursor(texture: Texture2D):
 func _exit_tree():
 	# 恢复系统鼠标
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+# ===== 外部接口函数 =====
+
+# 显示错误抓取光标（红叉）
+func show_wrong_grab_cursor():
+	if wrong_grab_sprite and mouse_entered:
+		_show_wrong_grab_cursor(last_mouse_pos)
+
+# 隐藏错误抓取光标（红叉）
+func hide_wrong_grab_cursor():
+	_hide_wrong_grab_cursor()
+
+# 检查错误抓取光标是否正在显示
+func is_wrong_grab_cursor_visible() -> bool:
+	return is_right_clicking and wrong_grab_sprite and wrong_grab_sprite.visible
+
+# 获取当前鼠标位置
+func get_mouse_position() -> Vector2:
+	return last_mouse_pos
