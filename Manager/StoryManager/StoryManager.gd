@@ -94,8 +94,10 @@ func play_intro_story():
 	# 当旋转角度>90度时，进入下一阶段
 	# 记录初始角度
 	var start_angle := space_ship.rotation
+	var total_rotation := 0.0
 	# 等待旋转差超过 90°
-	while abs(space_ship.rotation - start_angle) < PI/2:
+	while total_rotation < PI/2:
+		total_rotation += abs(space_ship.rotation - start_angle)
 		await get_tree().process_frame
 
 
