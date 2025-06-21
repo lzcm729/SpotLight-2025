@@ -70,16 +70,8 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_rotate_towards_pointer()
 	_move_method_2(delta)
-	if _grabbed_pickable:
-		# 更新连线两端点
-		_grab_line.points = [
-			Vector2.ZERO,
-			to_local(_grabbed_pickable.global_position)
-		]
-		var dir = (global_position - _grabbed_pickable.global_position)
-		_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
-	else:
-		_grab_line.visible = false
+	_grab_pickable()
+
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
@@ -201,6 +193,19 @@ func _move_method_3(_delta: float) -> void:
 			position += offset.normalized() * move_speed * _delta
 	else:
 		_is_controlled = false  # 如果没有按下鼠标左键，则不再控制飞船
+
+
+func _grab_pickable() -> void:
+	if _grabbed_pickable:
+		# 更新连线两端点
+		_grab_line.points = [
+			Vector2.ZERO,
+			to_local(_grabbed_pickable.global_position)
+		]
+		var dir = (global_position - _grabbed_pickable.global_position)
+		_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
+	else:
+		_grab_line.visible = false
 
 
 # 飞船朝向指针方向
