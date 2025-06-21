@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
-[ext_resource type="Texture2D" uid="uid://dcy5n5nhciq0p" path="res://assets/spaceship.png" id="2_b810l"]
+[ext_resource type="Texture2D" uid="uid://weo44pf6n1xb" path="res://assets/top_down view.png" id="2_b810l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
 
@@ -19,8 +19,8 @@ tangential_speed = 50.0
 radial_speed = -10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(11, 4.99999)
-scale = Vector2(0.234615, 0.234615)
+position = Vector2(0, -4)
+scale = Vector2(0.345568, 0.345568)
 texture = ExtResource("2_b810l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
