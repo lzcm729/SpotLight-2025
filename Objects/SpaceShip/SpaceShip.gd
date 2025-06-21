@@ -45,9 +45,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		var world_pos = get_global_mouse_position()
 		# 如果点击位置超出牵引光束范围则不处理
-		if position.distance_to(world_pos) > %"牵引光束范围".shape.radius: return
+		var distance = global_position.distance_to(world_pos)
+		if distance > %"牵引光束范围".shape.radius: return
 		
-		var pick_radius = 32.0
+		var pick_radius = 16.0
 
 		var circle = CircleShape2D.new()
 		circle.radius = pick_radius
