@@ -74,10 +74,8 @@ func _input(event: InputEvent) -> void:
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
 				_grab_line.visible = true
-				break
-			else:
-				# 如果没有拾取到物品，则发出信号
-				grab_failed.emit()
+				return
+		grab_failed.emit()
 
 
 func _physics_process(delta: float) -> void:
