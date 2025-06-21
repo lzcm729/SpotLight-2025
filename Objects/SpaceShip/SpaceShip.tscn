@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=6 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
 [ext_resource type="Texture2D" uid="uid://weo44pf6n1xb" path="res://assets/top_down view.png" id="2_b810l"]
+[ext_resource type="PackedScene" uid="uid://c40ekmjv8by4v" path="res://assets/Particles/Fire.tscn" id="3_tgbed"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
 
@@ -37,5 +38,14 @@ debug_color = Color(0.695671, 0.494787, 0, 0.42)
 
 [node name="GrabLine" type="Line2D" parent="."]
 visible = false
+
+[node name="FireRight" parent="." instance=ExtResource("3_tgbed")]
+position = Vector2(10, 20)
+rotation = 1.5708
+scale = Vector2(1, 1)
+
+[node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
+position = Vector2(-10, 19)
+rotation = 1.5708
 
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]
