@@ -192,6 +192,9 @@ func play_black_hole_story():
 	space_ship._can_impulse = true
 	space_ship._can_rotate = true
 
+	daughter_info.visible = true
+	space_ship_state.visible = true
+
 
 
 func _on_skip_guide_pressed() -> void:

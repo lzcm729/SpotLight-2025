@@ -8,6 +8,8 @@ signal health_depleted
 signal energy_depleted
 signal start_impulsed
 signal grab_failed
+signal level_up(new_level: int)
+signal experience_gained(amount: int)
 
 # 飞船属性
 var health: float = 100.0
@@ -16,6 +18,10 @@ var energy: float = 100.0
 # 属性上限
 var max_health: float = 100.0
 var max_energy: float = 100.0
+
+# 等级相关属性
+var level: int = 1
+var experience: int = 0
 
 var black_hole: BlackHole
 var _current_thrust: float = 0.0               # 当前累积推力
@@ -312,3 +318,25 @@ func _draw_range_indicator() -> void:
 			var point = Vector2(cos(angle), sin(angle)) * radius
 			_range_indicator.add_point(point)
 		_range_indicator.visible = true
+
+
+#################################等级相关方法
+
+func gain_experience(amount: int) -> void:
+	experience += amount
+	experience_gained.emit(amount)
+	
+	# 检查升级（每100经验升级）
+	var experience_needed = level * 100
+	if experience >= experience_needed:
+		experience -= experience_needed
+		level += 1
+		level_up.emit(level)
+
+
+func get_level() -> int:
+	return level
+
+
+func get_experience() -> int:
+	return experience

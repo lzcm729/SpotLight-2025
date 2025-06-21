@@ -1,9 +1,9 @@
 extends Control
 class_name Guide
 
-@onready var guide3: Sprite2D = $Guide3
-@onready var guide2: Sprite2D = $Guide2
-@onready var guide1:Sprite2D = $Guide1
+@onready var guide3: TextureRect = $Guide3
+@onready var guide2: TextureRect = $Guide2
+@onready var guide1:TextureRect = $Guide1
 @onready var guidetext: Label = $GuideText
 
 # 鼠标点击检测变量
