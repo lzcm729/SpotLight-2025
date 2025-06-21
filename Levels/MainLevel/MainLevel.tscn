@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://b5kmfws1g7esq"]
 
-[ext_resource type="Texture2D" uid="uid://c6w3ksqo60hu1" path="res://assets/base map background_3.png" id="1_6ujvp"]
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
+[ext_resource type="Texture2D" uid="uid://btglyla5bvykb" path="res://assets/daxingkong_0.png" id="1_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="Texture2D" uid="uid://dlobh0q6d50xu" path="res://assets/black hole_0.png" id="2_0fekk"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
@@ -20,9 +20,9 @@ radius = 538.98
 [node name="MainLevel" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(777, 420)
-scale = Vector2(0.801413, 0.801413)
-texture = ExtResource("1_6ujvp")
+position = Vector2(773, 399)
+scale = Vector2(1.5878, 1.5878)
+texture = ExtResource("1_8rk0s")
 
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
 space_ship = NodePath("../Universe/SpaceShip")
