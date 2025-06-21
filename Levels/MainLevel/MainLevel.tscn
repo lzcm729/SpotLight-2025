@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=13 format=3 uid="uid://b5kmfws1g7esq"]
 
+[ext_resource type="Texture2D" uid="uid://34pogl2gc3aa" path="res://assets/base map background_2.png" id="1_6ujvp"]
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
 [ext_resource type="PackedScene" uid="uid://bm5nyfgvamny2" path="res://Manager/TaskManager/TaskManager.tscn" id="3_mqakj"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
+[ext_resource type="Texture2D" uid="uid://ce8erchmqa25m" path="res://assets/Earth_1.2.0.1.png" id="5_tspbq"]
+[ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
 
@@ -13,6 +16,11 @@
 radius = 437.07
 
 [node name="MainLevel" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(590, 349)
+scale = Vector2(1.60595, 1.60595)
+texture = ExtResource("1_6ujvp")
 
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
 space_ship = NodePath("../Universe/SpaceShip")
@@ -32,15 +40,21 @@ script = ExtResource("1_7ry3r")
 DaughterManager = NodePath("../../DaughterManager")
 sentence_ui_scene = ExtResource("2_51lro")
 
-[node name="Bg" type="Panel" parent="HUD/DaughterInfo"]
-layout_mode = 2
-offset_right = 181.0
-offset_bottom = 179.0
+[node name="EarthBg" type="TextureRect" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = -129.0
+offset_top = -97.0
+offset_right = 279.0
+offset_bottom = 295.0
+scale = Vector2(0.707432, 0.707432)
+texture = ExtResource("5_tspbq")
 
 [node name="Daughter" type="TextureRect" parent="HUD/DaughterInfo"]
 layout_mode = 0
 offset_right = 112.0
 offset_bottom = 115.0
+scale = Vector2(0.450785, 0.456897)
+texture = ExtResource("6_ko1cg")
 
 [node name="Age" type="Label" parent="HUD/DaughterInfo"]
 layout_mode = 0
@@ -177,7 +191,6 @@ shape = SubResource("CircleShape2D_30g7l")
 
 [node name="SpaceShip" parent="Universe" index="2"]
 position = Vector2(290, 320)
-power = 50000.0
 
 [node name="SelectItem" parent="Universe" index="3" groups=["Float"]]
 
