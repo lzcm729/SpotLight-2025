@@ -15,6 +15,8 @@ mass = 100.0
 gravity_scale = 0.0
 continuous_cd = 2
 script = ExtResource("1_cj7jq")
+tangential_speed = 50.0
+radial_speed = -10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(11, 4.99999)
@@ -32,5 +34,8 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="拾取范围"]
 shape = SubResource("CircleShape2D_b810l")
 debug_color = Color(0.695671, 0.494787, 0, 0.42)
+
+[node name="GrabLine" type="Line2D" parent="."]
+visible = false
 
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]

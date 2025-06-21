@@ -37,3 +37,4 @@ tangential_speed = 200.0
 [node name="Fragments" parent="." instance=ExtResource("6_0d4eq")]
 position = Vector2(315, 383)
 collision_mask = 0
+freeze_mode = 0
