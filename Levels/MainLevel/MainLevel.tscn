@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=15 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -13,8 +13,6 @@
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
 [ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
-[ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_game_template/base/scripts/pause_menu_controller.gd" id="14_y80sm"]
-[ext_resource type="PackedScene" uid="uid://b51ffq7jnmic5" path="res://scenes/overlaid_menus/pause_menu.tscn" id="15_nspbb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 538.98
@@ -187,10 +185,6 @@ offset_top = -0.0180016
 grow_horizontal = 2
 grow_vertical = 2
 columns = 2
-
-[node name="PauseMenuController" type="Node" parent="HUD"]
-script = ExtResource("14_y80sm")
-pause_menu_packed = ExtResource("15_nspbb")
 
 [node name="BlackHoleLayers" type="Node" parent="."]
 script = ExtResource("11_8rk0s")
