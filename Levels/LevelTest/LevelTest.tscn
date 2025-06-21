@@ -11,7 +11,6 @@
 script = ExtResource("1_aejir")
 black_hole = NodePath("BlackHole")
 gravitational_constant = 1000.0
-fragment_scene = ExtResource("6_0d4eq")
 
 [node name="BlackHole" parent="." instance=ExtResource("1_dr86c")]
 position = Vector2(638, 359)
