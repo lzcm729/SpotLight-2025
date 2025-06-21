@@ -31,26 +31,30 @@ func _ready() -> void:
 		
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if _is_eaten:
-		# 如果飞船已经被黑洞吞噬，则不再施加任何力
-		return
+	# 如果飞船已经被黑洞吞噬，则不再施加任何力
+	if _is_eaten: return
+
 	var offset = state.transform.origin - black_hole.position
 	if offset.length() <= 0: return
+
 	# 计算径向和切向单位向量
 	var radial = offset.normalized()
-	var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
+	# var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
 
 	# 拆出“已有轨道分量”
 	var v_radial = radial * state.linear_velocity.dot(radial)
-	var v_tang = tangential * state.linear_velocity.dot(tangential)
-	var user_velocity = state.linear_velocity - (v_radial + v_tang)
+	# var v_tang = tangential * state.linear_velocity.dot(tangential)
+	# var user_velocity = state.linear_velocity - (v_radial + v_tang)
+	var user_velocity = state.linear_velocity - v_radial
 
-	# 合成螺旋速度
-	var orbital_velocity = tangential * tangential_speed \
-						 + radial * _get_current_radial_speed()
+	# # 合成螺旋速度
+	# var orbital_velocity = tangential * tangential_speed \
+	# 					 + radial * _get_current_radial_speed()
+
+	var radial_velocity = radial * radial_speed
 
 	# 施加合成的螺旋速度
-	state.linear_velocity = user_velocity + orbital_velocity
+	state.linear_velocity = user_velocity + radial_velocity
 
 
 func _get_current_radial_speed() -> float:
