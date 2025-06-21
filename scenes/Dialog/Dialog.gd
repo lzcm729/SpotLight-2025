@@ -5,8 +5,10 @@ signal next_dialog_requested  # 请求显示下一句的信号
 signal dialog_completed  # 所有对话显示完毕的信号
 
 @onready var content: Label = $Content
-@onready var texture_rect: TextureRect = $TextureRect
 @onready var panel: Panel = $Panel  # 假设Panel是根节点或直接子节点
+@onready var leader: TextureRect = $Leader
+@onready var daughter: TextureRect = $Daughter
+@onready var phone: TextureRect = $Phone
 
 # 对话内容管理
 var dialog_list: Array = []
@@ -19,10 +21,15 @@ func _ready():
 		panel.gui_input.connect(_on_panel_gui_input)
 
 # 开始显示对话列表
-func start_dialog(dialog_texts: Array):
+func start_dialog(dialog_texts: Array, speek_id:int):
 	dialog_list = dialog_texts
 	current_dialog_index = 0
 	is_dialog_active = true
+	
+	leader.visible = speek_id == 1
+	daughter.visible = speek_id == 2
+	phone.visible = speek_id == 2
+		
 	
 	# 显示对话框
 	set_dialog_visible(true)

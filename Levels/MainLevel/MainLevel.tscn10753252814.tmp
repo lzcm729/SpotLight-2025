@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=20 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -10,18 +10,27 @@
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 [ext_resource type="PackedScene" uid="uid://n0x54vjmwcc4" path="res://Manager/MouseManager/MouseManager.tscn" id="4_mamnk"]
 [ext_resource type="Texture2D" uid="uid://drx83fj5kex4m" path="res://assets/yuani.png" id="4_nspbb"]
+[ext_resource type="Texture2D" uid="uid://ce8erchmqa25m" path="res://assets/Earth_1.2.0.1.png" id="5_tspbq"]
+[ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
 [ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
 [ext_resource type="Script" uid="uid://cq0a27o8bp8l2" path="res://Levels/MainLevel/Guide.gd" id="13_0ibg0"]
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
 [ext_resource type="Texture2D" uid="uid://cxpls1jykmehh" path="res://assets/guide/guide3.png" id="14_ca0l4"]
 [ext_resource type="Texture2D" uid="uid://bl7enrnbsuifw" path="res://assets/guide/guide2.png" id="14_xu22b"]
-[ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 538.98
 
 [node name="MainLevel" type="Node2D"]
+
+[node name="BG" type="Node" parent="."]
+
+[node name="Background" type="Sprite2D" parent="BG"]
+z_index = -2
+position = Vector2(773, 388)
+scale = Vector2(1.5878, 1.5878)
+texture = ExtResource("1_8rk0s")
 
 [node name="StoryManager" parent="." node_paths=PackedStringArray("space_ship", "daughter_info", "space_ship_state", "dialog", "guide") instance=ExtResource("2_0ibg0")]
 space_ship = NodePath("../Universe/SpaceShip")
@@ -43,8 +52,8 @@ black_hole = NodePath("../Universe/BlackHole")
 
 [node name="Parallax2D" type="Parallax2D" parent="FirstStory"]
 z_index = -1
-scroll_offset = Vector2(-5043, -17)
-repeat_size = Vector2(200, 0)
+scroll_offset = Vector2(300, 0)
+repeat_size = Vector2(300, 0)
 autoscroll = Vector2(-30, 0)
 repeat_times = 50
 ignore_camera_scroll = true
@@ -52,28 +61,6 @@ ignore_camera_scroll = true
 [node name="Daxingkong0" type="Sprite2D" parent="FirstStory/Parallax2D"]
 position = Vector2(-927, 576)
 scale = Vector2(0.476132, 0.476132)
-texture = ExtResource("1_8rk0s")
-
-[node name="SecondStory" type="Node" parent="."]
-
-[node name="Parallax2D" type="Parallax2D" parent="SecondStory"]
-z_index = -1
-scroll_offset = Vector2(-157, -25)
-repeat_size = Vector2(800, 0)
-autoscroll = Vector2(-500, 0)
-repeat_times = 300
-
-[node name="Daxingkong0" type="Sprite2D" parent="SecondStory/Parallax2D"]
-position = Vector2(-3184, 576)
-scale = Vector2(0.476132, 0.476132)
-texture = ExtResource("1_8rk0s")
-
-[node name="BG" type="Node" parent="."]
-
-[node name="Background" type="Sprite2D" parent="BG"]
-z_index = -1
-position = Vector2(773, 388)
-scale = Vector2(1.5878, 1.5878)
 texture = ExtResource("1_8rk0s")
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -87,6 +74,22 @@ mouse_filter = 1
 script = ExtResource("1_7ry3r")
 DaughterManager = NodePath("../../DaughterManager")
 sentence_ui_scene = ExtResource("2_51lro")
+
+[node name="EarthBg" type="TextureRect" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_left = -129.0
+offset_top = -97.0
+offset_right = 279.0
+offset_bottom = 295.0
+scale = Vector2(0.707432, 0.707432)
+texture = ExtResource("5_tspbq")
+
+[node name="Daughter" type="TextureRect" parent="HUD/DaughterInfo"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 115.0
+scale = Vector2(0.450785, 0.456897)
+texture = ExtResource("6_ko1cg")
 
 [node name="Age" type="Label" parent="HUD/DaughterInfo"]
 layout_mode = 0
@@ -211,35 +214,30 @@ modulate = Color(1, 1, 1, 0.0392157)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.74038, 1.74038)
-texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole2" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0784314)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.23718, 1.23718)
-texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole3" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.117647)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.746795, 0.746795)
-texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole4" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.196078)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.411859, 0.411859)
-texture = ExtResource("18_ca0l4")
 
 [node name="BlackHole5" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.27451)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.23, 0.23)
-texture = ExtResource("18_ca0l4")
 
 [node name="BlackHoleCore" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(0, 0, 0, 1)
@@ -247,7 +245,6 @@ z_index = -1
 z_as_relative = false
 position = Vector2(781, 393)
 scale = Vector2(0.206731, 0.206731)
-texture = ExtResource("18_ca0l4")
 
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)
@@ -256,7 +253,7 @@ position = Vector2(31, -57)
 shape = SubResource("CircleShape2D_30g7l")
 
 [node name="SpaceShip" parent="Universe" index="1"]
-position = Vector2(-3435, 602)
+position = Vector2(-1507, 681)
 rotation = 1.59508
 
 [node name="Camera2D" parent="Universe/SpaceShip" index="7"]
