@@ -20,6 +20,7 @@ var _current_thrust: float = 0.0               # 当前累积推力
 var _is_eaten: bool = false  # 是否被黑洞吞噬
 var _is_controlled: bool = false  # 是否由玩家控制
 var _grabbed_pickable: Pickable = null
+var _can_rotate: bool = true  # 是否允许旋转
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向"下落"速度
@@ -43,6 +44,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		var world_pos = get_global_mouse_position()
+		# 如果点击位置超出牵引光束范围则不处理
+		if position.distance_to(world_pos) > %"牵引光束范围".shape.radius: return
+		
 		var pick_radius = 32.0
 
 		var circle = CircleShape2D.new()
@@ -210,6 +214,8 @@ func _grab_pickable() -> void:
 
 # 飞船朝向指针方向
 func _rotate_towards_pointer() -> void:
+	if not _can_rotate:
+		return
 	var mouse_pos = get_global_mouse_position()
 	var dir = mouse_pos - global_position
 	if dir.length() > 0:

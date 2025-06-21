@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=7 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
 [ext_resource type="Texture2D" uid="uid://weo44pf6n1xb" path="res://assets/top_down view.png" id="2_b810l"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b810l"]
 radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tgbed"]
+radius = 160.0
 
 [node name="SpaceShip" type="RigidBody2D" groups=["SpaceShip", "漂浮物"]]
 collision_layer = 2
@@ -47,5 +50,11 @@ debug_color = Color(0.695671, 0.494787, 0, 0.42)
 [node name="GrabLine" type="Line2D" parent="."]
 visible = false
 width = 2.0
+
+[node name="牵引光束范围" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_tgbed")
+disabled = true
+debug_color = Color(0, 0.619923, 0.566506, 0.42)
 
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]
