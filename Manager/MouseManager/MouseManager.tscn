@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://n0x54vjmwcc4"]
+[gd_scene load_steps=5 format=3 uid="uid://n0x54vjmwcc4"]
 
 [ext_resource type="Script" uid="uid://bfs4v75jwmbqx" path="res://Manager/MouseManager/MouseManager.gd" id="1_5cm4h"]
+[ext_resource type="Texture2D" uid="uid://cmaosc6nbc747" path="res://assets/shizi.png" id="2_ephqv"]
+[ext_resource type="Texture2D" uid="uid://drx83fj5kex4m" path="res://assets/yuani.png" id="3_24oj2"]
+[ext_resource type="Texture2D" uid="uid://bp3ay1f225tpw" path="res://assets/hint.png" id="4_g1bmj"]
 
 [node name="MouseManager" type="Node"]
 script = ExtResource("1_5cm4h")
+mouse_cursor = ExtResource("2_ephqv")
+mouse_cursor_circle = ExtResource("3_24oj2")
+mouse_cursor_wrong_grab = ExtResource("4_g1bmj")

@@ -2,11 +2,14 @@ extends Node
 
 @export var mouse_cursor: Texture2D
 @export var mouse_cursor_circle: Texture2D
+@export var mouse_cursor_wrong_grab:Texture2D
 
 # 鼠标光标节点
 var cursor_sprite: Sprite2D
 var circle_sprite: Sprite2D
+var wrong_grab_sprite: Sprite2D  # 错误抓取光标
 var is_clicking: bool = false
+var is_right_clicking: bool = false  # 右键点击状态
 var last_mouse_pos: Vector2
 var mouse_entered: bool = true
 @export var hud_layer: CanvasLayer
@@ -21,8 +24,17 @@ func _ready():
 	# 创建点击圆圈
 	_create_click_circle()
 	
+	# 创建错误抓取光标
+	_create_wrong_grab_cursor()
+	
 	# 初始化鼠标位置
 	last_mouse_pos = get_viewport().get_mouse_position()
+
+# 判断是否应该显示错误抓取光标（红叉）
+func _should_show_wrong_grab() -> bool:
+	# 预留函数，你可以在这里添加具体的判断逻辑
+	# 例如：检查鼠标位置是否在可抓取物体上，检查物体是否可以被抓取等
+	return true  # 默认返回false，你可以根据需要修改
 
 func _create_mouse_cursor():
 	# 创建鼠标光标精灵
@@ -44,6 +56,17 @@ func _create_click_circle():
 	# 添加到HUD层
 	hud_layer.add_child(circle_sprite)
 
+func _create_wrong_grab_cursor():
+	# 创建错误抓取光标精灵
+	wrong_grab_sprite = Sprite2D.new()
+	wrong_grab_sprite.texture = mouse_cursor_wrong_grab
+	wrong_grab_sprite.z_index = 1001  # 在普通光标上方
+	wrong_grab_sprite.modulate.a = 0.0  # 初始透明
+	
+	# 添加到HUD层
+	hud_layer.add_child(wrong_grab_sprite)
+	print("MouseManager: 错误抓取光标已添加到HUD层")
+
 func _process(_delta):
 	# 获取当前鼠标位置（相对于视口）
 	var current_mouse_pos = get_viewport().get_mouse_position()
@@ -59,7 +82,9 @@ func _process(_delta):
 			# 鼠标重新进入视口，重置位置
 			mouse_entered = true
 			last_mouse_pos = current_mouse_pos
-			cursor_sprite.visible = true
+			# 只有在没有显示错误抓取光标时才显示普通光标
+			if cursor_sprite and not is_right_clicking:
+				cursor_sprite.visible = true
 		else:
 			# 鼠标在视口内正常移动
 			last_mouse_pos = current_mouse_pos
@@ -68,6 +93,7 @@ func _process(_delta):
 		if mouse_entered:
 			mouse_entered = false
 			cursor_sprite.visible = false
+			wrong_grab_sprite.visible = false
 	
 	# 更新光标位置（HUD层中的位置）
 	if mouse_entered and cursor_sprite:
@@ -76,20 +102,52 @@ func _process(_delta):
 	# 如果正在点击，更新圆圈位置
 	if is_clicking and mouse_entered and circle_sprite:
 		circle_sprite.position = last_mouse_pos
+	
+	# 如果正在右键点击，更新错误抓取光标位置
+	if is_right_clicking and mouse_entered and wrong_grab_sprite:
+		wrong_grab_sprite.position = last_mouse_pos
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseMotion:
+		# 更新鼠标位置
+		last_mouse_pos = event.position
+		
+		# 更新光标位置
+		if cursor_sprite and cursor_sprite.visible:
+			cursor_sprite.position = last_mouse_pos
+		if wrong_grab_sprite and wrong_grab_sprite.visible:
+			wrong_grab_sprite.position = last_mouse_pos
+		
+		# 如果鼠标刚进入视口，显示光标
+		if not mouse_entered:
+			mouse_entered = true
+			if cursor_sprite and not is_right_clicking:
+				cursor_sprite.visible = true
+			print("MouseManager: 鼠标进入视口")
+	
+	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				# 鼠标按下时显示圆圈
-				_show_click_circle(event.position)
+				_show_click_circle(last_mouse_pos)
 			else:
-				# 鼠标松开时隐藏圆圈
 				_hide_click_circle()
-	elif event is InputEventMouseMotion:
-		# 处理鼠标移动事件，确保位置同步
-		if mouse_entered:
-			last_mouse_pos = event.position
+		
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.pressed:
+				# 检查是否应该显示错误抓取光标
+				if _should_show_wrong_grab():
+					_show_wrong_grab_cursor(last_mouse_pos)
+			else:
+				_hide_wrong_grab_cursor()
+
+func _notification(what):
+	if what == NOTIFICATION_WM_MOUSE_EXIT:
+		mouse_entered = false
+		if cursor_sprite:
+			cursor_sprite.visible = false
+		if wrong_grab_sprite:
+			wrong_grab_sprite.visible = false
+		print("MouseManager: 鼠标离开视口")
 
 func _show_click_circle(pos: Vector2):
 	is_clicking = true
@@ -114,6 +172,41 @@ func _hide_click_circle():
 	tween.tween_property(circle_sprite, "modulate:a", 0.0, 0.2)
 	tween.tween_property(circle_sprite, "scale", Vector2(0.8, 0.8), 0.2)
 
+func _show_wrong_grab_cursor(pos: Vector2):
+	is_right_clicking = true
+	if wrong_grab_sprite:
+		wrong_grab_sprite.position = pos
+	
+	# 隐藏原来的鼠标光标
+	if cursor_sprite:
+		cursor_sprite.visible = false
+	
+	# 创建显示动画
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(wrong_grab_sprite, "modulate:a", 1.0, 0.1)
+	tween.tween_property(wrong_grab_sprite, "scale", Vector2(1.2, 1.2), 0.1)
+	
+	# 然后缩小回正常大小
+	tween.tween_property(wrong_grab_sprite, "scale", Vector2(1.0, 1.0), 0.2).set_delay(0.1)
+	
+	print("MouseManager: 显示错误抓取光标")
+
+func _hide_wrong_grab_cursor():
+	is_right_clicking = false
+	
+	# 显示原来的鼠标光标
+	if cursor_sprite and mouse_entered:
+		cursor_sprite.visible = true
+	
+	# 创建隐藏动画
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(wrong_grab_sprite, "modulate:a", 0.0, 0.2)
+	tween.tween_property(wrong_grab_sprite, "scale", Vector2(0.8, 0.8), 0.2)
+	
+	print("MouseManager: 隐藏错误抓取光标")
+
 # 设置鼠标光标纹理
 func set_mouse_cursor(texture: Texture2D):
 	mouse_cursor = texture
@@ -125,6 +218,12 @@ func set_click_circle(texture: Texture2D):
 	mouse_cursor_circle = texture
 	if circle_sprite:
 		circle_sprite.texture = texture
+
+# 设置错误抓取光标纹理
+func set_wrong_grab_cursor(texture: Texture2D):
+	mouse_cursor_wrong_grab = texture
+	if wrong_grab_sprite:
+		wrong_grab_sprite.texture = texture
 
 # 清理函数
 func _exit_tree():

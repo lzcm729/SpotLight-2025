@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=21 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="PackedScene" uid="uid://ch43mk6ci2t1j" path="res://Manager/StoryManager/StoryManager.tscn" id="2_0ibg0"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
-[ext_resource type="Texture2D" uid="uid://cmaosc6nbc747" path="res://assets/shizi.png" id="3_nspbb"]
+[ext_resource type="Texture2D" uid="uid://cb8kfgdfcwb5c" path="res://assets/mouse/cursor.png" id="3_ca0l4"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 [ext_resource type="PackedScene" uid="uid://n0x54vjmwcc4" path="res://Manager/MouseManager/MouseManager.tscn" id="4_mamnk"]
-[ext_resource type="Texture2D" uid="uid://drx83fj5kex4m" path="res://assets/yuani.png" id="4_nspbb"]
+[ext_resource type="Texture2D" uid="uid://djsv6a1ndx4d5" path="res://assets/mouse/circle.png" id="4_s2twg"]
+[ext_resource type="Texture2D" uid="uid://b2hvfoo0cqpa" path="res://assets/mouse/hint.png" id="5_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://cxejfowua8mj0" path="res://assets/human/daughter.png" id="9_xu22b"]
 [ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
@@ -32,8 +33,9 @@ dialog = NodePath("../HUD/Dialog")
 guide = NodePath("../HUD/Guide")
 
 [node name="MouseManager" parent="." node_paths=PackedStringArray("hud_layer") instance=ExtResource("4_mamnk")]
-mouse_cursor = ExtResource("3_nspbb")
-mouse_cursor_circle = ExtResource("4_nspbb")
+mouse_cursor = ExtResource("3_ca0l4")
+mouse_cursor_circle = ExtResource("4_s2twg")
+mouse_cursor_wrong_grab = ExtResource("5_5dgdr")
 hud_layer = NodePath("../HUD")
 
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
