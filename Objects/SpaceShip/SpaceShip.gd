@@ -1,6 +1,11 @@
 extends RigidBody2D
 class_name SpaceShip
 
+# 信号
+signal health_changed(new_health: float, old_health: float)
+signal energy_changed(new_energy: float, old_energy: float)
+signal health_depleted
+signal energy_depleted
 
 # 飞船属性
 var health: float = 100.0
@@ -10,11 +15,10 @@ var energy: float = 100.0
 var max_health: float = 100.0
 var max_energy: float = 100.0
 
-# 信号
-signal health_changed(new_health: float, old_health: float)
-signal energy_changed(new_energy: float, old_energy: float)
-signal health_depleted
-signal energy_depleted
+var black_hole: BlackHole
+var _current_thrust: float = 0.0               # 当前累积推力
+var _is_eaten: bool = false  # 是否被黑洞吞噬
+var _is_controlled: bool = false  # 是否由玩家控制
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
@@ -22,35 +26,43 @@ signal energy_depleted
 @export var thrust_acceleration: float = 250000  # 推力增长速率 (Impulse 增量/s)
 @export var energy_consumption_rate: float = 5.0  # 能量消耗速率 (per second)
 
-var black_hole: BlackHole
-var _current_thrust: float = 0.0               # 当前累积推力
-var _is_eaten: bool = false  # 是否被黑洞吞噬
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
-		
+
+
+func _physics_process(delta: float) -> void:
+	# _move_method_1(delta)
+	_move_method_2(delta)
+	# _move_method_3(delta)
+
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if _is_eaten:
-		# 如果飞船已经被黑洞吞噬，则不再施加任何力
-		return
+	# 如果飞船已经被黑洞吞噬，则不再施加任何力
+	if _is_eaten: return
+	if _is_controlled: return
+
 	var offset = state.transform.origin - black_hole.position
 	if offset.length() <= 0: return
+
 	# 计算径向和切向单位向量
 	var radial = offset.normalized()
-	var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
+	# var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
 
 	# 拆出“已有轨道分量”
 	var v_radial = radial * state.linear_velocity.dot(radial)
-	var v_tang = tangential * state.linear_velocity.dot(tangential)
-	var user_velocity = state.linear_velocity - (v_radial + v_tang)
+	# var v_tang = tangential * state.linear_velocity.dot(tangential)
+	# var user_velocity = state.linear_velocity - (v_radial + v_tang)
+	var user_velocity = state.linear_velocity - v_radial
 
-	# 合成螺旋速度
-	var orbital_velocity = tangential * tangential_speed \
-						 + radial * _get_current_radial_speed()
+	# # 合成螺旋速度
+	# var orbital_velocity = tangential * tangential_speed \
+	# 					 + radial * _get_current_radial_speed()
+
+	var radial_velocity = radial * _get_current_radial_speed()
 
 	# 施加合成的螺旋速度
-	state.linear_velocity = user_velocity + orbital_velocity
+	state.linear_velocity = user_velocity + radial_velocity
 
 
 func _get_current_radial_speed() -> float:
@@ -70,7 +82,7 @@ func GetDistanceToBlackHole() -> float:
 
 
 # 使用WASD给飞船施加力
-func _physics_process(_delta: float) -> void:
+func _move_method_1(_delta: float) -> void:
 	var dir = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
 		dir.y -= 1
@@ -99,6 +111,48 @@ func _physics_process(_delta: float) -> void:
 	else:
 		# 重置推力
 		_current_thrust = 0.0
+
+# 使用鼠标点击给飞船施加力
+func _move_method_2(_delta: float) -> void:
+	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
+		var target = get_global_mouse_position()
+		var dir = target - global_position
+		if dir.length() > 0:
+			dir = dir.normalized()
+			# 累积推力
+			_current_thrust = clamp(_current_thrust + thrust_acceleration * _delta, 0.0, max_power)
+			print("当前推力: ", _current_thrust)
+			# 消耗能量
+			var used = energy_consumption_rate * _delta
+			modify_energy(-used)
+
+			# 施加冲量
+			var force = dir * _current_thrust * _delta
+			# 相对于黑洞中心的径向/切向单位向量
+			var radial = (global_position - black_hole.position).normalized()
+			var tangential = radial.rotated(PI / 2)
+
+			# 分解、削弱切向分量
+			var f_radial = radial * force.dot(radial)
+			var f_tangential = tangential * force.dot(tangential) * 0.1 # 调节切向分量的强度（越小摆动越弱）
+			apply_central_impulse(f_radial + f_tangential)
+	else:
+		# 未按鼠标或没能量时重置推力
+		_current_thrust = 0.0
+
+# 使用鼠标点击改变飞船位置
+func _move_method_3(_delta: float) -> void:
+	var move_speed = 200.0  # 移动速度
+	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
+		_is_controlled = true  # 标记为由玩家控制
+		var target = get_global_mouse_position()
+		var offset = target - position
+		if offset.length() > 0:
+			position += offset.normalized() * move_speed * _delta
+	else:
+		_is_controlled = false  # 如果没有按下鼠标左键，则不再控制飞船
 
 
 func _on_拾取范围_body_entered(body: Node2D) -> void:
