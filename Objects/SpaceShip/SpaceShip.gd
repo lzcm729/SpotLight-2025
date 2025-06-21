@@ -21,6 +21,7 @@ var _is_eaten: bool = false  # 是否被黑洞吞噬
 var _is_controlled: bool = false  # 是否由玩家控制
 var _grabbed_pickable: Pickable = null
 var _can_rotate: bool = true  # 是否允许旋转
+var _can_impulse: bool = true # 是否能喷火
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向"下落"速度
@@ -156,6 +157,7 @@ func _move_method_1(_delta: float) -> void:
 
 # 使用鼠标点击给飞船施加力
 func _move_method_2(_delta: float) -> void:
+	if not _can_impulse: return
 	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
 		var target = get_global_mouse_position()
@@ -188,6 +190,7 @@ func _move_method_2(_delta: float) -> void:
 
 # 使用鼠标点击改变飞船位置
 func _move_method_3(_delta: float) -> void:
+	if not _can_impulse: return
 	var move_speed = 200.0  # 移动速度
 	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
