@@ -74,9 +74,13 @@ func play_intro_story():
 	##禁用所有的UI展示，只在星空中漂浮  
 	daughter_info.visible = false
 	space_ship_state.visible = false
+	guide.hide_guide()
 
 	#教学禁用相关操控
 	space_ship._can_rotate = false
+	space_ship._can_impulse = false
+
+	await get_tree().create_timer(1.0).timeout
 	
 	dialog.set_dialog_visible(true)
 	var dialog1 = ["在吗，约翰森","很抱歉打扰你的日常巡航，宇航局有紧急任务需要你协助","飞船的自由航行功能已解锁，你现在可以自由的控制飞船的航行方向"]
@@ -93,6 +97,16 @@ func play_intro_story():
 		await get_tree().process_frame
 
 
+
+	await get_tree().create_timer(2.0).timeout
+	guide.hide_guide()
+
+
+	var dialog2 = ["宇航局监测到，80年后黑洞将吞没地球","为了避免这一灾难，我们委托你带着新研制的反物质炸弹前往黑洞","它接近你了，你可以接住它"]
+	dialog.set_dialog_visible(true)
+	dialog.start_dialog(dialog2)
+	await dialog.dialog_completed
+	guide.change_guide_show_state(2,true)
 
 
 # 第二阶段故事：探索
