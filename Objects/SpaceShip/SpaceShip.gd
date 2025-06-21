@@ -96,7 +96,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	# 计算径向单位向量
 	var radial = offset.normalized()
-	var gravitational_constant = 10.0  # 万有引力常数
+	var gravitational_constant = 5.0  # 万有引力常数
 	# 施加万有引力
 	var force_magnitude = black_hole.mass * (1/state.inverse_mass) * gravitational_constant / (distance * distance)
 	var force = radial * force_magnitude

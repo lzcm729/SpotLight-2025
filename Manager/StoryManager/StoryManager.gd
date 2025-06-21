@@ -52,6 +52,7 @@ func _ready():
 func move_space_ship_to_position(target_position: Vector2, duration: float = 3.0):
 	print("StoryManager: 飞船开始移动到位置 ", target_position)
 	# space_ship.freeze = true
+	space_ship.linear_velocity = Vector2.ZERO  # 停止飞船的线速度
 	
 	# 创建Tween进行平滑移动
 	var tween = create_tween()
