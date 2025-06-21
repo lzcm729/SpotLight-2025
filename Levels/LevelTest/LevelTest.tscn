@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="1_dr86c"]
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="2_k3570"]
 [ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="4_jlf7i"]
-[ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragments/Fragments.tscn" id="6_0d4eq"]
+[ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragment/Fragment.tscn" id="6_0d4eq"]
 
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("black_hole")]
 script = ExtResource("1_aejir")
