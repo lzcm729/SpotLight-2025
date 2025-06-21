@@ -21,7 +21,6 @@ var _is_eaten: bool = false  # 是否被黑洞吞噬
 var _is_controlled: bool = false  # 是否由玩家控制
 
 @export var tangential_speed: float = 100 # 切向速度
-@export var radial_speed: float = -100    # 径向“下落”速度
 @export var max_power: float = 750000            # 最大推力（Impulse 上限）
 @export var thrust_acceleration: float = 250000  # 推力增长速率 (Impulse 增量/s)
 @export var energy_consumption_rate: float = 5.0  # 能量消耗速率 (per second)
@@ -49,7 +48,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var radial = offset.normalized()
 	# var tangential = radial.rotated(PI / 2)  # 切向向量是径向向量逆时针旋转90度
 
-	# 拆出“已有轨道分量”
 	var v_radial = radial * state.linear_velocity.dot(radial)
 	# var v_tang = tangential * state.linear_velocity.dot(tangential)
 	# var user_velocity = state.linear_velocity - (v_radial + v_tang)
