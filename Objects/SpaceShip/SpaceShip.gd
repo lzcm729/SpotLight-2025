@@ -74,10 +74,8 @@ func _input(event: InputEvent) -> void:
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
 				_grab_line.visible = true
-				break
-			else:
-				# 如果没有拾取到物品，则发出信号
-				grab_failed.emit()
+				return
+		grab_failed.emit()
 
 
 func _physics_process(delta: float) -> void:
@@ -98,7 +96,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	# 计算径向单位向量
 	var radial = offset.normalized()
-	var gravitational_constant = 10.0  # 万有引力常数
+	var gravitational_constant = 5.0  # 万有引力常数
 	# 施加万有引力
 	var force_magnitude = black_hole.mass * (1/state.inverse_mass) * gravitational_constant / (distance * distance)
 	var force = radial * force_magnitude

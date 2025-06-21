@@ -52,6 +52,7 @@ func _ready():
 func move_space_ship_to_position(target_position: Vector2, duration: float = 3.0):
 	print("StoryManager: 飞船开始移动到位置 ", target_position)
 	# space_ship.freeze = true
+	space_ship.linear_velocity = Vector2.ZERO  # 停止飞船的线速度
 	
 	# 创建Tween进行平滑移动
 	var tween = create_tween()
@@ -160,7 +161,7 @@ func play_daughter_story():
 	space_ship.fire_right.emitting = true
 	space_ship._can_impulse = false
 	space_ship._can_rotate = false
-	space_ship.rotation = 90
+	space_ship.rotation = PI / 2  # 初始朝向
 
 
 
