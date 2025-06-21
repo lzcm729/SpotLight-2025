@@ -160,7 +160,7 @@ func play_daughter_story():
 	space_ship.fire_right.emitting = true
 	space_ship._can_impulse = false
 	space_ship._can_rotate = false
-	space_ship.rotation = 90
+	space_ship.rotation = PI / 2  # 初始朝向
 
 
 
