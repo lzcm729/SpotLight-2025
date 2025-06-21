@@ -3,6 +3,7 @@ extends Node
 @export var mouse_cursor: Texture2D
 @export var mouse_cursor_circle: Texture2D
 @export var mouse_cursor_wrong_grab:Texture2D
+@export var space_ship:SpaceShip
 
 # 鼠标光标节点
 var cursor_sprite: Sprite2D
@@ -29,6 +30,13 @@ func _ready():
 	
 	# 初始化鼠标位置
 	last_mouse_pos = get_viewport().get_mouse_position()
+	
+	# 连接space_ship的抓取失败信号
+	if space_ship:
+		space_ship.grab_failed.connect(_on_space_ship_grab_failed)
+		print("MouseManager: 已连接SpaceShip的grab_failed信号")
+	else:
+		print("MouseManager: 警告 - space_ship未设置")
 
 func _create_mouse_cursor():
 	# 创建鼠标光标精灵
@@ -241,3 +249,10 @@ func is_wrong_grab_cursor_visible() -> bool:
 # 获取当前鼠标位置
 func get_mouse_position() -> Vector2:
 	return last_mouse_pos
+
+# ===== 信号处理函数 =====
+
+# 处理SpaceShip抓取失败信号
+func _on_space_ship_grab_failed():
+	print("MouseManager: 收到SpaceShip抓取失败信号，显示红叉光标")
+	show_wrong_grab_cursor()
