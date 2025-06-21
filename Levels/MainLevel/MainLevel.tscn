@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
-[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 538.98
@@ -232,6 +232,9 @@ shape = SubResource("CircleShape2D_30g7l")
 
 [node name="SpaceShip" parent="Universe" index="1"]
 position = Vector2(290, 320)
+
+[node name="Camera2D" parent="Universe/SpaceShip" index="6"]
+zoom = Vector2(2, 2)
 
 [editable path="Universe"]
 [editable path="Universe/BlackHole"]

@@ -18,10 +18,12 @@ gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_3jdxn")
 
 [node name="GPUParticles2D" type="GPUParticles2D"]
-amount = 300
-lifetime = 0.38
-preprocess = 0.73
-speed_scale = 1.53
-randomness = 1.0
+emitting = false
+amount = 400
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.5
+fixed_fps = 60
+local_coords = true
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_wsbqy")

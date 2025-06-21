@@ -20,19 +20,14 @@ tangential_speed = 50.0
 radial_speed = -10.0
 
 [node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
-position = Vector2(-10, 19)
+position = Vector2(-10, 20)
 rotation = 1.5708
 emitting = false
-lifetime = 0.34
-one_shot = true
 
 [node name="FireRight" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(10, 20)
 rotation = 1.5708
-scale = Vector2(1, 1)
 emitting = false
-lifetime = 0.36
-one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)
