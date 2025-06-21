@@ -61,6 +61,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_rotate_towards_pointer()
 	_move_method_2(delta)
 	if _grabbed_pickable:
 		# 更新连线两端点
@@ -196,6 +197,14 @@ func _move_method_3(_delta: float) -> void:
 			position += offset.normalized() * move_speed * _delta
 	else:
 		_is_controlled = false  # 如果没有按下鼠标左键，则不再控制飞船
+
+
+# 飞船朝向指针方向
+func _rotate_towards_pointer() -> void:
+	var mouse_pos = get_global_mouse_position()
+	var dir = mouse_pos - global_position
+	if dir.length() > 0:
+		rotation = dir.angle() + PI/2
 
 
 func _on_拾取范围_body_entered(body: Node2D) -> void:
