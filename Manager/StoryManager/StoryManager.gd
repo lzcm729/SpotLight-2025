@@ -99,7 +99,6 @@ func play_intro_story():
 		await get_tree().process_frame
 
 
-
 	await get_tree().create_timer(2.0).timeout
 	guide.hide_guide()
 
@@ -113,9 +112,27 @@ func play_intro_story():
 	var instance = boom.instantiate() as Pickable
 	# 放置在(-1620,620)位置
 	instance.global_position = Vector2(-1620, 620)
+	instance.pick.connect(_on_boom_picked)
 	add_child(instance)
 
 # 第二阶段故事：探索
 func play_exploration_story():
 	print("StoryManager: 播放探索故事 - 探索未知")
 	# 在这里添加具体的探索故事逻辑
+
+
+func _on_boom_picked(_item_id: int) -> void:
+	print("StoryManager: 反物质炸弹已被拾取，进入下一阶段")
+	advance_to_next_stage()
+	
+	# 销毁炸弹
+	var boom_instance = get_tree().get_first_node_in_group("Boom")
+	if boom_instance:
+		boom_instance.Destroy()
+	
+	# 显示下一阶段的提示
+	dialog.set_dialog_visible(true)
+	var dialog3 = ["很好，你已经成功拾取了反物质炸弹","现在你可以前往黑洞，使用炸弹摧毁它"]
+	dialog.start_dialog(dialog3)
+	await dialog.dialog_completed
+	guide.change_guide_show_state(3,true)
