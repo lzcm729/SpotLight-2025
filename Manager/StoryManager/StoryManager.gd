@@ -9,8 +9,6 @@ extends Node
 @export var dialog:Dialog
 @export var guide:Guide
 
-
-
 #游戏进度
 enum GameStage {
 	STAGE_1_INTRO,      # 第一阶段：背景介绍，新手教程
@@ -87,8 +85,12 @@ func play_intro_story():
 	space_ship._can_rotate = true
 	guide.change_guide_show_state(1,true)
 	
-
-
+	# 当旋转角度>90度时，进入下一阶段
+	# 记录初始角度
+	var start_angle := space_ship.rotation
+	# 等待旋转差超过 90°
+	while abs(space_ship.rotation - start_angle) < PI/2:
+		await get_tree().process_frame
 
 
 
