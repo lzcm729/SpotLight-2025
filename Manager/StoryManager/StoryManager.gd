@@ -185,6 +185,8 @@ func play_black_hole_story():
 
 	# 平滑移动到指定位置
 	await move_space_ship_to_position(Vector2(100, 400), 3.0)
+
+	_spawn_boom_according_ship(Vector2(100, -100))
 	
 	space_ship._can_impulse = true
 	space_ship._can_rotate = true
@@ -208,3 +210,10 @@ func _on_skip_guide_pressed() -> void:
 	daughter_info.visible = true
 	space_ship_state.visible = true
 	
+
+func _spawn_boom_according_ship(offset: Vector2):
+	var instance = boom.instantiate() as Pickable
+	instance.tangential_speed = 0
+	instance.radial_speed = 0
+	instance.global_position = space_ship.position + offset
+	add_child(instance)

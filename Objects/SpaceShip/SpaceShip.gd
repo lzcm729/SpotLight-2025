@@ -7,6 +7,7 @@ signal energy_changed(new_energy: float, old_energy: float)
 signal health_depleted
 signal energy_depleted
 signal start_impulsed
+signal grab_failed
 
 # 飞船属性
 var health: float = 100.0
@@ -48,7 +49,9 @@ func _input(event: InputEvent) -> void:
 		var world_pos = get_global_mouse_position()
 		# 如果点击位置超出牵引光束范围则不处理
 		var distance = global_position.distance_to(world_pos)
-		if distance > %"牵引光束范围".shape.radius: return
+		if distance > %"牵引光束范围".shape.radius:
+			grab_failed.emit()
+			return
 		
 		var pick_radius = 16.0
 
@@ -72,6 +75,9 @@ func _input(event: InputEvent) -> void:
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
 				_grab_line.visible = true
 				break
+			else:
+				# 如果没有拾取到物品，则发出信号
+				grab_failed.emit()
 
 
 func _physics_process(delta: float) -> void:
