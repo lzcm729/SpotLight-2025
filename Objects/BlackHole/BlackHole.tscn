@@ -11,7 +11,6 @@ radius = 40.0
 
 [node name="BlackHole" type="Node2D" groups=["BlackHole"]]
 script = ExtResource("1_uk4tw")
-attraction_strength = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1uv36")

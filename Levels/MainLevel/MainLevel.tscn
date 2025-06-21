@@ -177,7 +177,6 @@ shape = SubResource("CircleShape2D_30g7l")
 
 [node name="SpaceShip" parent="Universe" index="2"]
 position = Vector2(290, 320)
-power = 50000.0
 
 [node name="SelectItem" parent="Universe" index="3" groups=["Float"]]
 

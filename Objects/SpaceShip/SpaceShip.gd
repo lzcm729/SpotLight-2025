@@ -24,13 +24,16 @@ signal energy_depleted
 
 var black_hole: BlackHole
 var _current_thrust: float = 0.0               # 当前累积推力
-
+var _is_eaten: bool = false  # 是否被黑洞吞噬
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
 		
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if _is_eaten:
+		# 如果飞船已经被黑洞吞噬，则不再施加任何力
+		return
 	var offset = state.transform.origin - black_hole.position
 	if offset.length() <= 0: return
 	# 计算径向和切向单位向量

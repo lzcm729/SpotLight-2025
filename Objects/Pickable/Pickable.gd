@@ -1,15 +1,17 @@
 extends RigidBody2D
 class_name Pickable
 
+signal pick(item_id: int)
+
+var black_hole: BlackHole
+var _is_eaten: bool = false  # 是否被黑洞吞噬
+
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向“下落”速度
-var black_hole: BlackHole
 @export var item_id: int = 0
-signal pick(item_id: int)
-@onready var pick_id: Label = $pick_id
-
 @export var is_boom: bool = false
 
+@onready var pick_id: Label = $pick_id
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
@@ -17,6 +19,9 @@ func _ready() -> void:
 		
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if _is_eaten:
+		# 如果物体已经被黑洞吞噬，则不再施加任何力
+		return
 	var offset = state.transform.origin - black_hole.position
 	if offset.length() <= 0: return
 	# 1) 计算径向和切向单位向量
