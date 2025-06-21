@@ -211,6 +211,7 @@ func _on_grabbed_pickable_picked(item_id: int) -> void:
 	# 当拾取物品时，处理拾取逻辑
 	print("拾取物品: ", item_id)
 	# 这里可以添加更多的逻辑，比如更新UI或状态等
+	_grabbed_pickable.pick.disconnect(_on_grabbed_pickable_picked)
 	_grabbed_pickable = null
 	_grab_line.visible = false
 
