@@ -178,6 +178,11 @@ layout_mode = 2
 
 [node name="Dialog" parent="HUD" instance=ExtResource("12_y80sm")]
 visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+grow_vertical = 0
 
 [node name="Guide" type="Control" parent="HUD"]
 layout_mode = 3
