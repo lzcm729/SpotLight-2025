@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vnmx4epwh0kg"
-path="res://.godot/imported/new background.png-17134d4b41040fb88a1dc61cff8ab43e.ctex"
+uid="uid://d2qx4hxmxub3c"
+path="res://.godot/imported/health porgress bar.png-f75c2c3356c9ad01008814dc3f353caf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/new background.png"
-dest_files=["res://.godot/imported/new background.png-17134d4b41040fb88a1dc61cff8ab43e.ctex"]
+source_file="res://assets/health porgress bar.png"
+dest_files=["res://.godot/imported/health porgress bar.png-f75c2c3356c9ad01008814dc3f353caf.ctex"]
 
 [params]
 
