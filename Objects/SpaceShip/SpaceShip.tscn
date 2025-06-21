@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_b810l"]
 radius = 20.0
 
-[node name="SpaceShip" type="RigidBody2D" groups=["漂浮物"]]
+[node name="SpaceShip" type="RigidBody2D" groups=["SpaceShip", "漂浮物"]]
 collision_layer = 2
 collision_mask = 0
 mass = 100.0

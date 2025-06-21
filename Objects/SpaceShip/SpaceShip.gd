@@ -29,7 +29,11 @@ var _is_controlled: bool = false  # 是否由玩家控制
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
-<<<<<<< Updated upstream
+	
+	# 将摄像机也添加到组中
+	var camera_node = get_node_or_null("Camera2D")
+	if camera_node:
+		camera_node.add_to_group("Camera2D")
 
 
 func _physics_process(delta: float) -> void:
@@ -37,14 +41,7 @@ func _physics_process(delta: float) -> void:
 	_move_method_2(delta)
 	# _move_method_3(delta)
 
-=======
-	add_to_group("SpaceShip")
-	
-	# 将摄像机也添加到组中
-	var camera_node = get_node_or_null("Camera2D")
-	if camera_node:
-		camera_node.add_to_group("Camera2D")
->>>>>>> Stashed changes
+
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 如果飞船已经被黑洞吞噬，则不再施加任何力
