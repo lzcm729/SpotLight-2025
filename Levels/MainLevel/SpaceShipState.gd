@@ -19,7 +19,7 @@ func _ready() -> void:
 func update_health_display() -> void:
 	var current_health = space_ship.get_health()
 	var max_health = space_ship.max_health
-	var health_percentage = space_ship.get_health_percentage()
+	var _health_percentage = space_ship.get_health_percentage()
 	
 	health_progress.max_value = max_health
 	health_progress.value = current_health
@@ -28,15 +28,15 @@ func update_health_display() -> void:
 func update_energy_display() -> void:
 	var current_energy = space_ship.get_energy()
 	var max_energy = space_ship.max_energy
-	var energy_percentage = space_ship.get_energy_percentage()
+	var _energy_percentage = space_ship.get_energy_percentage()
 	
 	energy_progress.max_value = max_energy
 	energy_progress.value = current_energy
 
 # 血量变化信号处理
-func _on_health_changed(new_health: float, old_health: float) -> void:
+func _on_health_changed(_new_health: float, _old_health: float) -> void:
 	update_health_display()
 
 # 能量变化信号处理
-func _on_energy_changed(new_energy: float, old_energy: float) -> void:
+func _on_energy_changed(_new_energy: float, _old_energy: float) -> void:
 	update_energy_display()
