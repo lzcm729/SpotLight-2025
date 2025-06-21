@@ -45,6 +45,7 @@ func BePickUp(space_ship:SpaceShip) -> void:
 	# 物体被拾取时调用
 	_be_picked_up(space_ship)
 	pick.emit(item_id)
+	$CollisionShape2D.set_deferred("disabled", true)
 	# 播放拾取动画,向上移动并慢慢消失
 	var tween = create_tween()
 	tween.set_parallel(true)  # 设置并行执行
