@@ -25,22 +25,50 @@ var _is_controlled: bool = false  # 是否由玩家控制
 @export var max_power: float = 750000            # 最大推力（Impulse 上限）
 @export var thrust_acceleration: float = 250000  # 推力增长速率 (Impulse 增量/s)
 @export var energy_consumption_rate: float = 5.0  # 能量消耗速率 (per second)
+@export var pickup_attract_speed: float = 100.0  # 吸附速度
 
+var _grabbed_pickable: Pickable = null
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
-	
 	# 将摄像机也添加到组中
 	var camera_node = get_node_or_null("Camera2D")
 	if camera_node:
 		camera_node.add_to_group("Camera2D")
 
 
-func _physics_process(delta: float) -> void:
-	# _move_method_1(delta)
-	_move_method_2(delta)
-	# _move_method_3(delta)
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		var world_pos = get_global_mouse_position()
+		var pick_radius = 32.0
 
+		var circle = CircleShape2D.new()
+		circle.radius = pick_radius
+
+		var q = PhysicsShapeQueryParameters2D.new()
+		q.shape = circle
+		q.transform = Transform2D(0, world_pos)
+		q.collide_with_bodies = true
+
+		var hits = get_world_2d().direct_space_state.intersect_shape(q)
+		for hit in hits:
+			if hit.collider is Pickable:
+				_grabbed_pickable = hit.collider
+				_grabbed_pickable.linear_velocity = Vector2.ZERO
+				break
+
+
+func _physics_process(delta: float) -> void:
+	# 先处理拉取逻辑
+	if _grabbed_pickable:
+		var dir = (global_position - _grabbed_pickable.global_position)
+		var dist = dir.length()
+		if dist < 10.0:
+			_grabbed_pickable.BePickUp(self)
+			_grabbed_pickable = null
+		else:
+			_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
+	_move_method_2(delta)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
