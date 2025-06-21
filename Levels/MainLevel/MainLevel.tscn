@@ -1,35 +1,66 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=19 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="Texture2D" uid="uid://btglyla5bvykb" path="res://assets/daxingkong_0.png" id="1_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="Texture2D" uid="uid://dlobh0q6d50xu" path="res://assets/black hole_0.png" id="2_0fekk"]
+[ext_resource type="PackedScene" uid="uid://ch43mk6ci2t1j" path="res://Manager/StoryManager/StoryManager.tscn" id="2_0ibg0"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
-[ext_resource type="PackedScene" uid="uid://bm5nyfgvamny2" path="res://Manager/TaskManager/TaskManager.tscn" id="3_mqakj"]
+[ext_resource type="Texture2D" uid="uid://cmaosc6nbc747" path="res://assets/shizi.png" id="3_nspbb"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
+[ext_resource type="PackedScene" uid="uid://n0x54vjmwcc4" path="res://Manager/MouseManager/MouseManager.tscn" id="4_mamnk"]
+[ext_resource type="Texture2D" uid="uid://drx83fj5kex4m" path="res://assets/yuani.png" id="4_nspbb"]
 [ext_resource type="Texture2D" uid="uid://ce8erchmqa25m" path="res://assets/Earth_1.2.0.1.png" id="5_tspbq"]
 [ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
-[ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
-[ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
-[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
+[ext_resource type="Script" uid="uid://cq0a27o8bp8l2" path="res://Levels/MainLevel/Guide.gd" id="13_0ibg0"]
+[ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 538.98
 
 [node name="MainLevel" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="BG" type="Node" parent="."]
+
+[node name="Background" type="Sprite2D" parent="BG"]
 z_index = -2
-position = Vector2(773, 399)
+position = Vector2(773, 388)
 scale = Vector2(1.5878, 1.5878)
 texture = ExtResource("1_8rk0s")
+
+[node name="StoryManager" parent="." node_paths=PackedStringArray("space_ship", "daughter_info", "space_ship_state", "dialog", "guide") instance=ExtResource("2_0ibg0")]
+space_ship = NodePath("../Universe/SpaceShip")
+daughter_info = NodePath("../HUD/DaughterInfo")
+space_ship_state = NodePath("../HUD/SpaceShipState")
+dialog = NodePath("../HUD/Dialog")
+guide = NodePath("../HUD/Guide")
+
+[node name="MouseManager" parent="." node_paths=PackedStringArray("hud_layer") instance=ExtResource("4_mamnk")]
+mouse_cursor = ExtResource("3_nspbb")
+mouse_cursor_circle = ExtResource("4_nspbb")
+hud_layer = NodePath("../HUD")
 
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
 space_ship = NodePath("../Universe/SpaceShip")
 black_hole = NodePath("../Universe/BlackHole")
 
-[node name="TaskManager" parent="." instance=ExtResource("3_mqakj")]
+[node name="FirstStory" type="Node" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="FirstStory"]
+z_index = -1
+scroll_offset = Vector2(300, 0)
+repeat_size = Vector2(300, 0)
+autoscroll = Vector2(-30, 0)
+repeat_times = 50
+ignore_camera_scroll = true
+
+[node name="Daxingkong0" type="Sprite2D" parent="FirstStory/Parallax2D"]
+position = Vector2(-927, 576)
+scale = Vector2(0.476132, 0.476132)
+texture = ExtResource("1_8rk0s")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -141,50 +172,28 @@ horizontal_alignment = 1
 [node name="HealthProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="TaskInfo" type="Control" parent="HUD" node_paths=PackedStringArray("task_manager")]
+[node name="Dialog" parent="HUD" instance=ExtResource("12_y80sm")]
+
+[node name="Guide" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -148.0
-offset_right = 180.0
-offset_bottom = 85.0
-grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-script = ExtResource("7_1h6rh")
-task_manager = NodePath("../../TaskManager")
-task_icon_scene = ExtResource("8_tspbq")
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_0ibg0")
 
-[node name="Panel" type="Panel" parent="HUD/TaskInfo"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Guide1" type="Sprite2D" parent="HUD/Guide"]
+position = Vector2(903, 346)
+texture = ExtResource("13_nspbb")
 
-[node name="Label" type="Label" parent="HUD/TaskInfo"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -32.0
-offset_right = 32.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "心愿清单"
-
-[node name="GridContainer" type="GridContainer" parent="HUD/TaskInfo"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.146
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -0.0180016
-grow_horizontal = 2
-grow_vertical = 2
-columns = 2
+[node name="GuideText" type="Label" parent="HUD/Guide"]
+layout_mode = 0
+offset_left = 1031.0
+offset_top = 402.0
+offset_right = 1151.0
+offset_bottom = 444.0
+theme_override_font_sizes/font_size = 30
+text = "指导文本"
 
 [node name="BlackHoleLayers" type="Node" parent="."]
 script = ExtResource("11_8rk0s")
@@ -239,9 +248,11 @@ position = Vector2(31, -57)
 shape = SubResource("CircleShape2D_30g7l")
 
 [node name="SpaceShip" parent="Universe" index="1"]
-position = Vector2(290, 320)
+position = Vector2(-1507, 681)
+rotation = 1.59508
 
-[node name="Camera2D" parent="Universe/SpaceShip" index="6"]
+[node name="Camera2D" parent="Universe/SpaceShip" index="7"]
+position = Vector2(-5.6982e-05, 1.19209e-06)
 zoom = Vector2(2, 2)
 
 [editable path="Universe"]

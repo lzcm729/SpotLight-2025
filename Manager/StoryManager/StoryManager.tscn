@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch43mk6ci2t1j"]
+
+[ext_resource type="Script" uid="uid://7e36f357loxq" path="res://Manager/StoryManager/StoryManager.gd" id="1_q5ora"]
+
+[node name="StoryManager" type="Node"]
+script = ExtResource("1_q5ora")

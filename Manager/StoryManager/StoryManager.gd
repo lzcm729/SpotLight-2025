@@ -1,0 +1,99 @@
+extends Node
+#故事管理器
+
+@export var space_ship : SpaceShip
+
+#主界面的控制
+@export var daughter_info : Control
+@export var space_ship_state : Control
+@export var dialog:Dialog
+@export var guide:Guide
+
+
+
+#游戏进度
+enum GameStage {
+	STAGE_1_INTRO,      # 第一阶段：背景介绍，新手教程
+	STAGE_2_EXPLORATION, # 第二阶段：初次执行任务
+}
+
+# 当前游戏阶段
+var current_stage: GameStage = GameStage.STAGE_1_INTRO
+
+# 游戏进度表 - 每个阶段的故事内容
+var story_progress: Dictionary = {
+	GameStage.STAGE_1_INTRO: {
+		"name": "宇宙的呼唤",
+		"description": "小女孩在宇宙中醒来，发现自己在一个神秘的太空环境中",
+		"story_function": "play_intro_story",
+		"completed": false
+	},
+	GameStage.STAGE_2_EXPLORATION: {
+		"name": "探索未知",
+		"description": "开始探索周围的环境，发现各种神秘物体",
+		"story_function": "play_exploration_story",
+		"completed": false
+	},
+}
+
+func _ready():
+	# 开始当前阶段的故事
+	play_current_stage_story()
+
+
+# 播放当前阶段的故事
+func play_current_stage_story():
+	var stage_data = story_progress[current_stage]
+	if stage_data:
+		var function_name = stage_data["story_function"]
+		if has_method(function_name):
+			call(function_name)
+		else:
+			print("StoryManager: 未找到故事函数: ", function_name)
+
+# 进入下一个阶段
+func advance_to_next_stage():
+	var current_index = current_stage
+	var next_index = current_index + 1
+	
+	if next_index < GameStage.size():
+		current_stage = next_index
+		story_progress[current_index]["completed"] = true
+		play_current_stage_story()
+		print("StoryManager: 进入新阶段: ", story_progress[current_stage]["name"])
+	else:
+		print("StoryManager: 游戏已完成所有阶段")
+
+# 获取当前阶段信息
+func get_current_stage_info() -> Dictionary:
+	return story_progress[current_stage]
+
+
+# ==================== 故事函数 ====================
+
+# 第一阶段故事：介绍
+func play_intro_story():
+	##禁用所有的UI展示，只在星空中漂浮  
+	daughter_info.visible = false
+	space_ship_state.visible = false
+
+	#教学禁用相关操控
+	space_ship._can_rotate = false
+	
+	dialog.set_dialog_visible(true)
+	var dialog1 = ["在吗，约翰森","很抱歉打扰你的日常巡航，宇航局有紧急任务需要你协助","飞船的自由航行功能已解锁，你现在可以自由的控制飞船的航行方向"]
+	dialog.start_dialog(dialog1)
+	await dialog.dialog_completed
+	space_ship._can_rotate = true
+	guide.change_guide_show_state(1,true)
+	
+
+
+
+
+
+
+# 第二阶段故事：探索
+func play_exploration_story():
+	print("StoryManager: 播放探索故事 - 探索未知")
+	# 在这里添加具体的探索故事逻辑
