@@ -11,7 +11,6 @@ func _on_吞噬范围_body_entered(body: Node2D) -> void:
 		# 1) 停止运动，防止物理引擎继续推挤
 		body._is_eaten = true
 		# 2) 延迟释放，避免在物理回调中删除节点导致抖动  
-		# body.call_deferred("queue_free")
 		body.Destroy()
 
 
@@ -26,3 +25,9 @@ func Strengthen() -> void:
 	for obj in floating_objects:
 		if obj is Pickable:
 			obj.tangential_speed *= 10.0  # 增加切向速度
+
+
+func _on_引力范围_body_entered(body: Node2D) -> void:
+	if body is Pickable:
+		body.radial_speed += 10
+		body.tangential_speed += 10

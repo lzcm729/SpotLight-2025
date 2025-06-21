@@ -22,7 +22,7 @@ script = ExtResource("1_cj7jq")
 tangential_speed = 0.0
 radial_speed = 0.0
 max_power = 75000.0
-thrust_acceleration = 15000.0
+thrust_acceleration = 25000.0
 
 [node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(-10, 20)
@@ -59,4 +59,14 @@ shape = SubResource("CircleShape2D_tgbed")
 disabled = true
 debug_color = Color(0, 0.619923, 0.566506, 0.42)
 
+[node name="RangeIndicator" type="Line2D" parent="牵引光束范围"]
+closed = true
+width = 1.0
+default_color = Color(0.391819, 0.391819, 0.391819, 0.392157)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

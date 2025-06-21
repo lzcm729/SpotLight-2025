@@ -35,8 +35,11 @@ var _can_impulse: bool = true # 是否能喷火
 @onready var _grab_line : Line2D = $GrabLine
 @onready var fire_left: GPUParticles2D = $FireLeft
 @onready var fire_right: GPUParticles2D = $FireRight
+@onready var _grab_area := $"牵引光束范围"            # Area2D
+@onready var _range_indicator := _grab_area.get_node("RangeIndicator") as Line2D
 
 func _ready() -> void:
+	_draw_range_indicator()
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
 	# 将摄像机也添加到组中
 	var camera_node = get_node_or_null("Camera2D")
@@ -49,7 +52,7 @@ func _input(event: InputEvent) -> void:
 		var world_pos = get_global_mouse_position()
 		# 如果点击位置超出牵引光束范围则不处理
 		var distance = global_position.distance_to(world_pos)
-		if distance > %"牵引光束范围".shape.radius:
+		if distance > _grab_area.shape.radius:
 			grab_failed.emit()
 			return
 		
@@ -83,7 +86,11 @@ func _physics_process(delta: float) -> void:
 	_move_method_2(delta)
 	_grab_pickable()
 
-
+# 在失败时显示圆环，duration 秒后自动隐藏
+func show_grab_range(duration: float = 1.0) -> void:
+	_range_indicator.visible = true
+	await get_tree().create_timer(duration).timeout
+	_range_indicator.visible = false
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 如果飞船已经被黑洞吞噬，则不再施加任何力
@@ -98,7 +105,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var radial = offset.normalized()
 	var gravitational_constant = 5.0  # 万有引力常数
 	# 施加万有引力
-	var force_magnitude = black_hole.mass * (1/state.inverse_mass) * gravitational_constant / (distance * distance)
+	var force_magnitude = black_hole.mass * (1/state.inverse_mass) * gravitational_constant / (distance * distance * 4)
 	var force = radial * force_magnitude
 	apply_central_force(-force)
 
@@ -149,6 +156,7 @@ func _move_method_1(_delta: float) -> void:
 	else:
 		# 重置推力
 		_current_thrust = 0.0
+
 
 # 使用鼠标点击给飞船施加力
 func _move_method_2(_delta: float) -> void:
@@ -289,3 +297,18 @@ func get_health() -> float:
 # 能量相关方法
 func get_energy() -> float:
 	return energy
+
+# 每次恢复1点能量
+func _on_timer_timeout() -> void:
+	modify_energy(1.0)
+
+
+func _draw_range_indicator() -> void:
+	if _grab_area and _range_indicator:
+		var radius = _grab_area.shape.radius
+		_range_indicator.clear_points()
+		for i in range(36):
+			var angle = i * TAU / 36
+			var point = Vector2(cos(angle), sin(angle)) * radius
+			_range_indicator.add_point(point)
+		_range_indicator.visible = true
