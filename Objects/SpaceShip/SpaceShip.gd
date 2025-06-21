@@ -19,6 +19,7 @@ var black_hole: BlackHole
 var _current_thrust: float = 0.0               # 当前累积推力
 var _is_eaten: bool = false  # 是否被黑洞吞噬
 var _is_controlled: bool = false  # 是否由玩家控制
+var _grabbed_pickable: Pickable = null
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向"下落"速度
@@ -27,7 +28,7 @@ var _is_controlled: bool = false  # 是否由玩家控制
 @export var energy_consumption_rate: float = 5.0  # 能量消耗速率 (per second)
 @export var pickup_attract_speed: float = 100.0  # 吸附速度
 
-var _grabbed_pickable: Pickable = null
+@onready var _grab_line : Line2D = $GrabLine
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
@@ -55,20 +56,28 @@ func _input(event: InputEvent) -> void:
 			if hit.collider is Pickable:
 				_grabbed_pickable = hit.collider
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
+				_grab_line.visible = true
 				break
 
 
 func _physics_process(delta: float) -> void:
-	# 先处理拉取逻辑
+	_move_method_2(delta)
 	if _grabbed_pickable:
+		# 更新连线两端点
+		_grab_line.points = [
+			Vector2.ZERO,
+			to_local(_grabbed_pickable.global_position)
+		]
 		var dir = (global_position - _grabbed_pickable.global_position)
 		var dist = dir.length()
 		if dist < 10.0:
 			_grabbed_pickable.BePickUp(self)
 			_grabbed_pickable = null
+			_grab_line.visible = false
 		else:
 			_grabbed_pickable.linear_velocity = dir.normalized() * pickup_attract_speed
-	_move_method_2(delta)
+	else:
+		_grab_line.visible = false
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

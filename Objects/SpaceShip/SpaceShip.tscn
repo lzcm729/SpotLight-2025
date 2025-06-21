@@ -35,4 +35,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_b810l")
 debug_color = Color(0.695671, 0.494787, 0, 0.42)
 
+[node name="GrabLine" type="Line2D" parent="."]
+visible = false
+
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]
