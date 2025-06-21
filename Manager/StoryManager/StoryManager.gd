@@ -114,20 +114,9 @@ func play_intro_story():
 	instance.radial_speed = 0
 	# 放置在(-1620,620)位置
 	instance.global_position = Vector2(-1620, 620)
-	instance.pick.connect(_on_boom_picked)
 	add_child(instance)
+	await instance.pick
 
-
-
-
-
-# 第二阶段故事：探索
-func play_exploration_story():
-	print("StoryManager: 播放探索故事 - 探索未知")
-	# 在这里添加具体的探索故事逻辑
-
-
-func _on_boom_picked(_item_id: int) -> void:
 	print("StoryManager: 反物质炸弹已被拾取，进入下一阶段")
 	
 	# 销毁炸弹
@@ -144,3 +133,14 @@ func _on_boom_picked(_item_id: int) -> void:
 	guide.change_guide_show_state(3,true)
 	space_ship._can_impulse = true
 	space_ship_state.visible = true
+
+	await space_ship.start_impulsed
+	guide.hide_guide()
+
+
+
+
+# 第二阶段故事：探索
+func play_exploration_story():
+	print("StoryManager: 播放探索故事 - 探索未知")
+	# 在这里添加具体的探索故事逻辑

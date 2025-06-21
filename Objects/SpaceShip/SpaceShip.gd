@@ -6,6 +6,7 @@ signal health_changed(new_health: float, old_health: float)
 signal energy_changed(new_energy: float, old_energy: float)
 signal health_depleted
 signal energy_depleted
+signal start_impulsed
 
 # 飞船属性
 var health: float = 100.0
@@ -174,6 +175,7 @@ func _move_method_2(_delta: float) -> void:
 		# 发射时喷射推进火焰
 		fire_left.emitting = true
 		fire_right.emitting = true
+		start_impulsed.emit()  # 发射冲量信号
 	else:
 		# 未按鼠标或没能量时重置推力
 		_current_thrust = 0.0
