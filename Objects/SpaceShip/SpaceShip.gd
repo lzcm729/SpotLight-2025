@@ -29,7 +29,13 @@ var _is_controlled: bool = false  # 是否由玩家控制
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
-		
+
+
+func _physics_process(delta: float) -> void:
+	# _move_method_1(delta)
+	_move_method_2(delta)
+	# _move_method_3(delta)
+
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 如果飞船已经被黑洞吞噬，则不再施加任何力
@@ -76,7 +82,7 @@ func GetDistanceToBlackHole() -> float:
 
 
 # 使用WASD给飞船施加力
-func _1physics_process(_delta: float) -> void:
+func _move_method_1(_delta: float) -> void:
 	var dir = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
 		dir.y -= 1
@@ -107,7 +113,7 @@ func _1physics_process(_delta: float) -> void:
 		_current_thrust = 0.0
 
 # 使用鼠标点击给飞船施加力
-func _2physics_process(_delta: float) -> void:
+func _move_method_2(_delta: float) -> void:
 	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
 		var target = get_global_mouse_position()
@@ -136,7 +142,7 @@ func _2physics_process(_delta: float) -> void:
 		_current_thrust = 0.0
 
 # 使用鼠标点击改变飞船位置
-func _physics_process(_delta: float) -> void:
+func _move_method_3(_delta: float) -> void:
 	var move_speed = 200.0  # 移动速度
 	# 当鼠标左键按下且有能量时，飞船朝鼠标世界坐标方向移动
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and energy > 0.0:
