@@ -14,9 +14,9 @@ func _process(delta: float) -> void:
 	_time_accumulator += delta
 	if _time_accumulator >= spawn_interval:
 		_time_accumulator -= spawn_interval
-		_spawn_fragment()
+		_spawn_pickable()
 
-func _spawn_fragment() -> void:
+func _spawn_pickable() -> void:
 	if spawn_class == null:
 		return
 	# 实例化并随机选角度放置在黑洞周围
@@ -24,4 +24,4 @@ func _spawn_fragment() -> void:
 	var angle = randf() * TAU
 	instance.global_position = black_hole.global_position + Vector2(cos(angle), sin(angle)) * spawn_radius
 	# 加到当前场景，并加入漂浮物组
-	get_tree().current_scene.add_child(instance)
+	get_parent().add_child(instance)

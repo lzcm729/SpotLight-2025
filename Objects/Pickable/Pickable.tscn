@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://sd1db8rcfp7p" path="res://assets/xx2.png" id="2_vldtf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ryjb1"]
-radius = 20.0
+radius = 16.0
 
 [node name="Pickable" type="RigidBody2D" groups=["Float", "漂浮物"]]
 collision_layer = 4
@@ -17,8 +17,7 @@ tangential_speed = 10.0
 radial_speed = -10.0
 
 [node name="Xx2" type="Sprite2D" parent="."]
-position = Vector2(-3.8147e-06, 3.8147e-06)
-scale = Vector2(0.347222, 0.347222)
+scale = Vector2(0.194444, 0.194444)
 texture = ExtResource("2_vldtf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
