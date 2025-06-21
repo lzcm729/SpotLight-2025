@@ -1,6 +1,6 @@
 extends Control
 class_name Guide
-
+@onready var guide3: Sprite2D = $Guide3
 @onready var guide2: Sprite2D = $Guide2
 @onready var guide1:Sprite2D = $Guide1
 @onready var guidetext: Label = $GuideText
@@ -27,7 +27,11 @@ func change_guide_show_state(guide_id:int,show:bool):
 		2:
 			guide2.visible = show
 			guidetext.visible = show
-			guidetext.text = "点击鼠标右键，抓取炸弹"
+			guidetext.text = "对着炸弹点击鼠标右键，抓过来"
+		3:
+			guide3.visible = show
+			guidetext.visible = show
+			guidetext.text = "点击鼠标左键，加速前进"
 
 
 func hide_guide():

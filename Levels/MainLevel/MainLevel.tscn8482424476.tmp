@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=21 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="Texture2D" uid="uid://btglyla5bvykb" path="res://assets/daxingkong_0.png" id="1_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
+[ext_resource type="Texture2D" path="res://assets/black hole_0.png" id="2_0fekk"]
 [ext_resource type="PackedScene" uid="uid://ch43mk6ci2t1j" path="res://Manager/StoryManager/StoryManager.tscn" id="2_0ibg0"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
 [ext_resource type="Texture2D" uid="uid://cmaosc6nbc747" path="res://assets/shizi.png" id="3_nspbb"]
@@ -177,14 +178,15 @@ layout_mode = 2
 visible = false
 
 [node name="Guide" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_0ibg0")
 
-[node name="Guide3" type="Sprite2D" parent="HUD/Guide" groups=["guide"]]
-position = Vector2(972, 466)
+[node name="Guide3" type="Sprite2D" parent="HUD/Guide"]
+position = Vector2(973, 468)
 texture = ExtResource("14_ca0l4")
 
 [node name="Guide2" type="Sprite2D" parent="HUD/Guide" groups=["guide"]]
@@ -196,15 +198,13 @@ position = Vector2(903, 346)
 texture = ExtResource("13_nspbb")
 
 [node name="GuideText" type="Label" parent="HUD/Guide"]
-custom_minimum_size = Vector2(233, 139)
 layout_mode = 0
 offset_left = 1031.0
 offset_top = 402.0
-offset_right = 1264.0
-offset_bottom = 541.0
+offset_right = 1151.0
+offset_bottom = 444.0
 theme_override_font_sizes/font_size = 30
 text = "指导文本"
-autowrap_mode = 3
 
 [node name="BlackHoleLayers" type="Node" parent="."]
 script = ExtResource("11_8rk0s")
@@ -214,30 +214,35 @@ modulate = Color(1, 1, 1, 0.0392157)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.74038, 1.74038)
+texture = ExtResource("2_0fekk")
 
 [node name="BlackHole2" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0784314)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.23718, 1.23718)
+texture = ExtResource("2_0fekk")
 
 [node name="BlackHole3" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.117647)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.746795, 0.746795)
+texture = ExtResource("2_0fekk")
 
 [node name="BlackHole4" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.196078)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.411859, 0.411859)
+texture = ExtResource("2_0fekk")
 
 [node name="BlackHole5" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.27451)
 z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_0fekk")
 
 [node name="BlackHoleCore" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(0, 0, 0, 1)
@@ -245,6 +250,7 @@ z_index = -1
 z_as_relative = false
 position = Vector2(781, 393)
 scale = Vector2(0.206731, 0.206731)
+texture = ExtResource("2_0fekk")
 
 [node name="Universe" parent="." instance=ExtResource("1_8cxht")]
 position = Vector2(31, -57)

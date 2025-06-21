@@ -110,10 +110,16 @@ func play_intro_story():
 	guide.change_guide_show_state(2,true)
 	
 	var instance = boom.instantiate() as Pickable
+	instance.tangential_speed = 0
+	instance.radial_speed = 0
 	# 放置在(-1620,620)位置
 	instance.global_position = Vector2(-1620, 620)
 	instance.pick.connect(_on_boom_picked)
 	add_child(instance)
+
+
+
+
 
 # 第二阶段故事：探索
 func play_exploration_story():
@@ -123,7 +129,6 @@ func play_exploration_story():
 
 func _on_boom_picked(_item_id: int) -> void:
 	print("StoryManager: 反物质炸弹已被拾取，进入下一阶段")
-	advance_to_next_stage()
 	
 	# 销毁炸弹
 	var boom_instance = get_tree().get_first_node_in_group("Boom")
@@ -131,8 +136,11 @@ func _on_boom_picked(_item_id: int) -> void:
 		boom_instance.Destroy()
 	
 	# 显示下一阶段的提示
+	guide.hide_guide()
 	dialog.set_dialog_visible(true)
-	var dialog3 = ["很好，你已经成功拾取了反物质炸弹","现在你可以前往黑洞，使用炸弹摧毁它"]
+	var dialog3 = ["很好，你已经成功拾取了反物质炸弹","现在你可以前往黑洞，使用炸弹摧毁它","注意你剩余的燃料","出发吧，光荣的战士"]
 	dialog.start_dialog(dialog3)
 	await dialog.dialog_completed
 	guide.change_guide_show_state(3,true)
+	space_ship._can_impulse = true
+	space_ship_state.visible = true
