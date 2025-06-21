@@ -7,7 +7,7 @@ var black_hole: BlackHole
 var _is_eaten: bool = false  # 是否被黑洞吞噬
 
 @export var tangential_speed: float = 100 # 切向速度
-@export var radial_speed: float = -100    # 径向“下落”速度
+@export var radial_speed: float = -100    # 径向"下落"速度
 @export var item_id: int = 0
 
 @onready var pick_id: Label = $pick_id
@@ -45,8 +45,32 @@ func BePickUp(space_ship:SpaceShip) -> void:
 	# 物体被拾取时调用
 	_be_picked_up(space_ship)
 	pick.emit(item_id)
-	queue_free()  # 直接销毁物体
+	# 播放拾取动画,向上移动并慢慢消失
+	var tween = create_tween()
+	tween.set_parallel(true)  # 设置并行执行
+	tween.tween_property(self, "position", self.position + Vector2.UP * 100, 1.0)
+	tween.tween_property(self, "modulate:a", 0.0, 1.0)
+	tween.tween_callback(queue_free).set_delay(1.0)
 
 
 func _be_picked_up(space_ship:SpaceShip) -> void:
 	return
+
+
+func Destroy() -> void:
+	if _is_eaten:
+		# 移动到黑洞的中心，同时慢慢消失
+		var tween = create_tween()
+		tween.set_parallel(true)  # 设置并行执行
+		tween.tween_property(self, "position", black_hole.position + Vector2.UP * 10, 1.0)
+		tween.tween_property(self, "modulate:a", 0.0, 1.0)
+		tween.tween_callback(queue_free).set_delay(1.0)
+	else:
+		_destroy()
+		queue_free()
+		
+
+
+
+func _destroy() -> void:
+	pass

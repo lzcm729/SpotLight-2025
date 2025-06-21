@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bcninw2knw6m" path="res://assets/little girl.png" id="6_ko1cg"]
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bogkq3xejy744" path="res://Objects/TaskIcon/TaskIcon.tscn" id="8_tspbq"]
-[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 538.98
@@ -20,6 +20,7 @@ radius = 538.98
 [node name="MainLevel" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -2
 position = Vector2(773, 399)
 scale = Vector2(1.5878, 1.5878)
 texture = ExtResource("1_8rk0s")
@@ -190,36 +191,43 @@ script = ExtResource("11_8rk0s")
 
 [node name="BlackHole1" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0392157)
+z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.74038, 1.74038)
 texture = ExtResource("2_0fekk")
 
 [node name="BlackHole2" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.0784314)
+z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(1.23718, 1.23718)
 texture = ExtResource("2_0fekk")
 
 [node name="BlackHole3" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.117647)
+z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.746795, 0.746795)
 texture = ExtResource("2_0fekk")
 
 [node name="BlackHole4" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.196078)
+z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.411859, 0.411859)
 texture = ExtResource("2_0fekk")
 
 [node name="BlackHole5" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(1, 1, 1, 0.27451)
+z_index = -1
 position = Vector2(781, 393)
 scale = Vector2(0.23, 0.23)
 texture = ExtResource("2_0fekk")
 
 [node name="BlackHoleCore" type="Sprite2D" parent="BlackHoleLayers"]
 modulate = Color(0, 0, 0, 1)
+z_index = -1
+z_as_relative = false
 position = Vector2(781, 393)
 scale = Vector2(0.206731, 0.206731)
 texture = ExtResource("2_0fekk")

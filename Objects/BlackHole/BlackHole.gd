@@ -11,7 +11,8 @@ func _on_吞噬范围_body_entered(body: Node2D) -> void:
 		# 1) 停止运动，防止物理引擎继续推挤
 		body._is_eaten = true
 		# 2) 延迟释放，避免在物理回调中删除节点导致抖动  
-		body.call_deferred("queue_free")
+		# body.call_deferred("queue_free")
+		body.Destroy()
 
 
 # 返回黑洞的吸引半径

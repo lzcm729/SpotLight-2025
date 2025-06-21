@@ -219,6 +219,10 @@ func _on_拾取范围_body_entered(body: Node2D) -> void:
 	else:
 		print("无法拾取: ", body.name)
 
+
+func Destroy() -> void:
+	queue_free()
+
 #################################下面的血量能源相关
 
 func get_health_percentage() -> float:
