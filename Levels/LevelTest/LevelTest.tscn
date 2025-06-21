@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dumuxw7jmvdut"]
+[gd_scene load_steps=8 format=3 uid="uid://dumuxw7jmvdut"]
 
 [ext_resource type="Script" uid="uid://16d5acuwno3b" path="res://Levels/LevelTest/LevelTest.gd" id="1_aejir"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="1_dr86c"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="4_jlf7i"]
 [ext_resource type="PackedScene" uid="uid://dr8ovisevql15" path="res://Objects/Pickable/Fragment/Fragment.tscn" id="6_0d4eq"]
 [ext_resource type="PackedScene" uid="uid://bstqpg8gy5ra4" path="res://Objects/Spawner/Spawner.tscn" id="6_h1wdp"]
+[ext_resource type="PackedScene" uid="uid://cfqf5rgibhkoa" path="res://Objects/Pickable/Boom/Boom.tscn" id="7_0d4eq"]
 
 [node name="LevelTest" type="Node2D" node_paths=PackedStringArray("black_hole")]
 script = ExtResource("1_aejir")
@@ -42,3 +43,6 @@ freeze_mode = 0
 
 [node name="Spawner" parent="." instance=ExtResource("6_h1wdp")]
 spawn_class = ExtResource("6_0d4eq")
+
+[node name="Boom" parent="." instance=ExtResource("7_0d4eq")]
+position = Vector2(398, 399)

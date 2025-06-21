@@ -9,6 +9,8 @@ extends Node
 @export var dialog:Dialog
 @export var guide:Guide
 
+var boom = preload("res://Objects/Pickable/Boom/Boom.tscn")
+
 #游戏进度
 enum GameStage {
 	STAGE_1_INTRO,      # 第一阶段：背景介绍，新手教程
@@ -107,7 +109,11 @@ func play_intro_story():
 	dialog.start_dialog(dialog2)
 	await dialog.dialog_completed
 	guide.change_guide_show_state(2,true)
-
+	
+	var instance = boom.instantiate() as Pickable
+	# 放置在(-1620,620)位置
+	instance.global_position = Vector2(-1620, 620)
+	add_child(instance)
 
 # 第二阶段故事：探索
 func play_exploration_story():
