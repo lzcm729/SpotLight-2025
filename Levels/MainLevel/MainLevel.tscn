@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=10 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="PackedScene" uid="uid://7qnw6eityjdk" path="res://Manager/DaughterManager/DaughterManager.tscn" id="1_mqakj"]
 [ext_resource type="PackedScene" uid="uid://jn5i8rq6l5vh" path="res://Objects/Sentence/Sentence.tscn" id="2_51lro"]
-[ext_resource type="PackedScene" uid="uid://b35x771tjnleh" path="res://Manager/SpaceShipManager/SpaceShipManager.tscn" id="3_1h6rh"]
 [ext_resource type="PackedScene" uid="uid://bm5nyfgvamny2" path="res://Manager/TaskManager/TaskManager.tscn" id="3_mqakj"]
 [ext_resource type="Script" uid="uid://eh21l21hl8ps" path="res://Levels/MainLevel/SpaceShipState.gd" id="3_smhem"]
 [ext_resource type="Script" uid="uid://cigeiacp7wvdk" path="res://Levels/MainLevel/TaskInfo.gd" id="7_1h6rh"]
@@ -18,8 +17,6 @@ radius = 437.07
 [node name="DaughterManager" parent="." node_paths=PackedStringArray("space_ship", "black_hole") instance=ExtResource("1_mqakj")]
 space_ship = NodePath("../Universe/SpaceShip")
 black_hole = NodePath("../Universe/BlackHole")
-
-[node name="SpaceShipManager" parent="." instance=ExtResource("3_1h6rh")]
 
 [node name="TaskManager" parent="." instance=ExtResource("3_mqakj")]
 
@@ -69,7 +66,7 @@ offset_bottom = 107.0
 
 [node name="CreateTimer" type="Timer" parent="HUD/DaughterInfo/SentenceList"]
 
-[node name="SpaceShipState" type="Control" parent="HUD" node_paths=PackedStringArray("SpaceShipManager")]
+[node name="SpaceShipState" type="Control" parent="HUD" node_paths=PackedStringArray("space_ship")]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -82,7 +79,7 @@ offset_right = 161.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("3_smhem")
-SpaceShipManager = NodePath("../../SpaceShipManager")
+space_ship = NodePath("../../Universe/SpaceShip")
 
 [node name="Panel" type="Panel" parent="HUD/SpaceShipState"]
 layout_mode = 1

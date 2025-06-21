@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b35x771tjnleh"]
-
-[ext_resource type="Script" uid="uid://ctfcatv6jcjta" path="res://Manager/SpaceShipManager/SpaceShipManager.gd" id="1_3sv4n"]
-
-[node name="SpaceShipManager" type="Node"]
-script = ExtResource("1_3sv4n")

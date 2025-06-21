@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://da11t01q5j683"]
+[gd_scene load_steps=6 format=3 uid="uid://da11t01q5j683"]
 
 [ext_resource type="PackedScene" uid="uid://bh7aegyh7egpt" path="res://Objects/SpaceShip/SpaceShip.tscn" id="1_3ntlc"]
 [ext_resource type="PackedScene" uid="uid://c00o1bvhoomm3" path="res://Objects/BlackHole/BlackHole.tscn" id="2_vuhwi"]
 [ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="3_8aayg"]
 [ext_resource type="PackedScene" uid="uid://40slfl7ja0ja" path="res://Objects/Pickable/SelectItem/SelectItem.tscn" id="4_jg2sh"]
+[ext_resource type="PackedScene" uid="uid://boxruok3ywrx2" path="res://Objects/Pickable/BoomItem/BoomItem.tscn" id="5_sxudy"]
 
 [node name="Universe" type="Node2D"]
 
@@ -26,5 +27,8 @@ position = Vector2(335, 99)
 
 [node name="Pickable" parent="SelectItem" index="0"]
 item_id = 1
+
+[node name="BoomItem" parent="." instance=ExtResource("5_sxudy")]
+position = Vector2(290, 202)
 
 [editable path="SelectItem"]

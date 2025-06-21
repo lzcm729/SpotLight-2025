@@ -8,6 +8,8 @@ var black_hole: BlackHole
 signal pick(item_id: int)
 @onready var pick_id: Label = $pick_id
 
+@export var is_boom: bool = false
+
 
 func _ready() -> void:
 	black_hole = get_tree().get_first_node_in_group("BlackHole")
@@ -34,6 +36,8 @@ func _get_current_radial_speed() -> float:
 	# 计算径向速度
 	return radial_speed * (1.0 - percentage)
 
+func check_is_boom() -> bool:
+	return is_boom
 
 func BePickUp(space_ship:SpaceShip) -> void:
 	# 物体被拾取时调用
