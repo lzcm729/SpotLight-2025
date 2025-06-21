@@ -13,6 +13,7 @@ func change_guide_show_state(guide_id:int,show:bool):
 		1:
 			guide1.visible = show
 			guidetext.visible = show
+			guidetext.text = "滑动鼠标更改方向"
 
 
 func hide_guide():
