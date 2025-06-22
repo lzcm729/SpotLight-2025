@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=24 format=3 uid="uid://b5kmfws1g7esq"]
 
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cxpls1jykmehh" path="res://assets/guide/guide3.png" id="14_ca0l4"]
 [ext_resource type="Texture2D" uid="uid://bl7enrnbsuifw" path="res://assets/guide/guide2.png" id="14_xu22b"]
 [ext_resource type="Script" uid="uid://dsxivxi7efgqt" path="res://Levels/MainLevel/LevelUpReward.gd" id="17_s2twg"]
+[ext_resource type="Script" uid="uid://ctksc6that7h1" path="res://Levels/MainLevel/GameGoal.gd" id="18_1e6xi"]
+[ext_resource type="Texture2D" uid="uid://bxj2438s3sxhm" path="res://assets/ui/goal_bg.png" id="18_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
@@ -34,6 +36,7 @@ dialog = NodePath("../HUD/Dialog")
 guide = NodePath("../HUD/Guide")
 
 [node name="MouseManager" parent="." node_paths=PackedStringArray("space_ship", "hud_layer") instance=ExtResource("4_mamnk")]
+process_mode = 3
 mouse_cursor = ExtResource("3_ca0l4")
 mouse_cursor_circle = ExtResource("4_s2twg")
 mouse_cursor_wrong_grab = ExtResource("5_5dgdr")
@@ -273,6 +276,64 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="GameGoal" type="Control" parent="HUD"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("18_1e6xi")
+
+[node name="Bg" type="TextureRect" parent="HUD/GameGoal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -660.5
+offset_top = -90.5
+offset_right = 660.5
+offset_bottom = 90.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("18_5dgdr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameGoal/Bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="GameGoal" type="Label" parent="HUD/GameGoal/Bg/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "游玩目标"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="Label" parent="HUD/GameGoal/Bg/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "牵引反物质炸弹进入黑洞，炸毁它
+注意自身安全！"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BlackHoleLayers" type="Node" parent="."]
 script = ExtResource("11_8rk0s")
 
@@ -355,6 +416,7 @@ position = Vector2(359, -6)
 position = Vector2(353, 63)
 
 [connection signal="pressed" from="HUD/SkipGuide" to="StoryManager" method="_on_skip_guide_pressed"]
+[connection signal="gui_input" from="HUD/GameGoal/Bg" to="HUD/GameGoal" method="_on_bg_gui_input"]
 
 [editable path="Universe"]
 [editable path="Universe/BlackHole"]
