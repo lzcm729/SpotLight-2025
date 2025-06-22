@@ -338,6 +338,13 @@ func gain_experience(amount: int) -> void:
 		experience -= experience_needed
 		level += 1
 		level_up.emit(level)
+		
+		# 查找并显示升级界面
+		var level_up_reward = get_tree().get_first_node_in_group("LevelUpReward")
+		if level_up_reward:
+			level_up_reward.show_upgrade_interface()
+		else:
+			print("警告：未找到LevelUpReward节点")
 
 
 func get_level() -> int:

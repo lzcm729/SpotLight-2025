@@ -1,6 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=30 format=3 uid="uid://b5kmfws1g7esq"]
 
-[ext_resource type="Script" path="res://Levels/MainLevel/MainLevel.gd" id="1_5dgdr"]
+[ext_resource type="Script" uid="uid://cv7hv8hem1070" path="res://Levels/MainLevel/MainLevel.gd" id="1_5dgdr"]
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="Texture2D" uid="uid://btglyla5bvykb" path="res://assets/daxingkong_0.png" id="1_8rk0s"]
@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
 [ext_resource type="Texture2D" uid="uid://cxpls1jykmehh" path="res://assets/guide/guide3.png" id="14_ca0l4"]
 [ext_resource type="Texture2D" uid="uid://bl7enrnbsuifw" path="res://assets/guide/guide2.png" id="14_xu22b"]
-[ext_resource type="Script" uid="uid://dsxivxi7efgqt" path="res://Levels/MainLevel/LevelUpReward.gd" id="17_s2twg"]
 [ext_resource type="Script" uid="uid://ctksc6that7h1" path="res://Levels/MainLevel/GameGoal.gd" id="18_1e6xi"]
 [ext_resource type="Texture2D" uid="uid://bxj2438s3sxhm" path="res://assets/ui/goal_bg.png" id="18_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
@@ -313,27 +312,6 @@ offset_left = -40.0
 offset_bottom = 31.0
 grow_horizontal = 0
 text = "跳过"
-
-[node name="LevelUpReward" type="Control" parent="HUD" node_paths=PackedStringArray("space_ship")]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("17_s2twg")
-space_ship = NodePath("../../Universe/SpaceShip")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/LevelUpReward"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
 
 [node name="GameGoal" type="Control" parent="HUD"]
 process_mode = 3
