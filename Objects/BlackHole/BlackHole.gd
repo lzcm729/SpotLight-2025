@@ -1,6 +1,7 @@
 extends Node2D
 class_name BlackHole
 
+signal ship_gone
 
 @export var mass : float = 1.0e4  # 黑洞质量
 
@@ -12,6 +13,8 @@ func _on_吞噬范围_body_entered(body: Node2D) -> void:
 		body._is_eaten = true
 		# 2) 延迟释放，避免在物理回调中删除节点导致抖动  
 		body.Destroy()
+	if body is SpaceShip:
+		ship_gone.emit()
 
 
 # 返回黑洞的吸引半径
@@ -20,6 +23,8 @@ func GetAttractionRadius() -> float:
 
 
 func Strengthen() -> void:
+	# get_tree().paused = true  # 暂停游戏
+	
 	mass *= 10
 	var floating_objects = get_tree().get_nodes_in_group("漂浮物") as Array[RigidBody2D]
 	for obj in floating_objects:
