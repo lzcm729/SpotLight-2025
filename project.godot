@@ -55,7 +55,7 @@ guide=""
 
 [gui]
 
-theme/custom="res://resources/themes/expedition.tres"
+theme/custom="uid://2qh3aix7i37a"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]
