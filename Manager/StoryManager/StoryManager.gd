@@ -9,6 +9,7 @@ extends Node
 @export var dialog:Dialog
 @export var guide:Guide
 @onready var skip_guide: Button = $"../HUD/SkipGuide"
+@onready var game_goal: GameGoal = $"../HUD/GameGoal"
 
 var boom = preload("res://Objects/Pickable/Boom/Boom.tscn")
 
@@ -155,7 +156,7 @@ func play_intro_story():
 # 第二阶段故事：探索
 func play_daughter_story():
 	print("StoryManager:播放和女儿的童话记录")
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(1.0).timeout
 
 	space_ship.fire_left.emitting = true
 	space_ship.fire_right.emitting = true
@@ -194,6 +195,12 @@ func play_black_hole_story():
 
 	daughter_info.visible = true
 	space_ship_state.visible = true
+
+	#播放游玩目标
+	game_goal.show_game_goal()
+	await game_goal.game_goal_closed
+	
+	
 
 
 
