@@ -34,6 +34,7 @@ func _ready() -> void:
 # 飞船升级时触发
 func _on_space_ship_level_up(new_level: int) -> void:
 	print("LevelUpReward: 飞船升级到等级 ", new_level)
+	space_ship.upgrade_change_movement_method_3()
 	generate_upgrade_options()
 
 # 生成升级选项

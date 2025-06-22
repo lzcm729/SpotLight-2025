@@ -30,6 +30,7 @@ var _is_controlled: bool = false  # 是否由玩家控制
 var _grabbed_pickable: Pickable = null
 var _can_rotate: bool = true  # 是否允许旋转
 var _can_impulse: bool = true # 是否能喷火
+var _move_method: Callable = _move_method_2
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向"下落"速度
@@ -91,7 +92,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	_rotate_towards_pointer()
-	_move_method_2(delta)
+	_move_method.call(delta)
 	_grab_pickable()
 
 # 在失败时显示圆环，duration 秒后自动隐藏
@@ -211,6 +212,9 @@ func _move_method_3(_delta: float) -> void:
 		var offset = target - position
 		if offset.length() > 0:
 			position += offset.normalized() * move_speed * _delta
+		fire_left.emitting = true
+		fire_right.emitting = true
+		start_impulsed.emit()  # 发射冲量信号
 	else:
 		_is_controlled = false  # 如果没有按下鼠标左键，则不再控制飞船
 
@@ -342,3 +346,41 @@ func get_level() -> int:
 
 func get_experience() -> int:
 	return experience
+
+
+#####################
+# 升级接口
+
+# 增加牵引光束范围
+func upgrade_increase_grab_range(amount: float) -> void:
+	if _grab_area and _range_indicator:
+		_grab_area.shape.radius += amount
+		_draw_range_indicator()
+
+# 提高生命上限
+func upgrade_increase_max_health(amount: float) -> void:
+	max_health += amount
+	set_health(health)  # 确保当前血量不超过新上限
+
+
+# 提高能量上限
+func upgrade_increase_max_energy(amount: float) -> void:
+	max_energy += amount
+	set_energy(energy)  # 确保当前能量不超过新上限
+
+
+# 提高推力上限
+func upgrade_increase_max_power(amount: float) -> void:
+	max_power += amount
+	_current_thrust = clamp(_current_thrust, 0.0, max_power)
+
+
+# 提高推力加速度
+func upgrade_increase_thrust_acceleration(amount: float) -> void:
+	thrust_acceleration += amount
+	_current_thrust = clamp(_current_thrust, 0.0, max_power)
+
+
+# 更改移动方式至方式3
+func upgrade_change_movement_method_3() -> void:
+	_move_method = _move_method_3
