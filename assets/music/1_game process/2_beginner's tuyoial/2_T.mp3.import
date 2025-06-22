@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://co5kjr7vtxee"
+path="res://.godot/imported/2_T.mp3-8ec8731283e7362f518e17267c5a3bc0.mp3str"
+
+[deps]
+
+source_file="res://assets/music/1_game process/2_beginner's tuyoial/2_T.mp3"
+dest_files=["res://.godot/imported/2_T.mp3-8ec8731283e7362f518e17267c5a3bc0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

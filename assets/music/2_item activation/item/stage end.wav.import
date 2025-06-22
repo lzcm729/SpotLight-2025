@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dcb34jflx8x8b"
+path="res://.godot/imported/stage end.wav-d881867381802a17db7019d51c003172.sample"
+
+[deps]
+
+source_file="res://assets/music/2_item activation/item/stage end.wav"
+dest_files=["res://.godot/imported/stage end.wav-d881867381802a17db7019d51c003172.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8scfhlcdnylq"
+path="res://.godot/imported/black hole_beng.mp3-0c13afd980c1ffd3144e4e5b6e024e25.mp3str"
+
+[deps]
+
+source_file="res://assets/music/2_item activation/item/black hole_beng.mp3"
+dest_files=["res://.godot/imported/black hole_beng.mp3-0c13afd980c1ffd3144e4e5b6e024e25.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

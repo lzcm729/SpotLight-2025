@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4682oxk8ydsj"
+path="res://.godot/imported/grappling Hook.mp3-d3a30c0099da62eaf2733a0291f88566.mp3str"
+
+[deps]
+
+source_file="res://assets/music/2_item activation/item/grappling Hook.mp3"
+dest_files=["res://.godot/imported/grappling Hook.mp3-d3a30c0099da62eaf2733a0291f88566.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
