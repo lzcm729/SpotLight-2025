@@ -5,14 +5,13 @@ signal game_goal_closed
 
 
 func show_game_goal():
-	#展示的时候游戏暂停
-	get_tree().paused = true
+	#get_tree().paused = true
 	self.visible = true
 
 
 func hide_game_goal():
 	#隐藏的时候游戏恢复
-	get_tree().paused = false
+	#get_tree().paused = false
 	self.visible = false
 	#发送关闭的信号
 	emit_signal("game_goal_closed")
