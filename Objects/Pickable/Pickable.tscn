@@ -24,6 +24,7 @@ texture = ExtResource("2_vldtf")
 shape = SubResource("CircleShape2D_ryjb1")
 
 [node name="pick_id" type="Label" parent="."]
+visible = false
 offset_left = -20.0
 offset_top = -12.0
 offset_right = 20.0
