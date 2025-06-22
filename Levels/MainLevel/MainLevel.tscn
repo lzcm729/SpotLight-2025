@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://djsv6a1ndx4d5" path="res://assets/mouse/circle.png" id="4_s2twg"]
 [ext_resource type="Texture2D" uid="uid://b2hvfoo0cqpa" path="res://assets/mouse/hint.png" id="5_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://cxejfowua8mj0" path="res://assets/human/daughter.png" id="9_xu22b"]
-[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
 [ext_resource type="Script" uid="uid://cq0a27o8bp8l2" path="res://Levels/MainLevel/Guide.gd" id="13_0ibg0"]
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
@@ -438,7 +438,7 @@ shape = SubResource("CircleShape2D_30g7l")
 position = Vector2(-3435, 602)
 rotation = 1.59508
 
-[node name="Camera2D" parent="Universe/SpaceShip" index="9"]
+[node name="Camera2D" parent="Universe/SpaceShip" index="10"]
 zoom = Vector2(2, 2)
 
 [node name="Spawner" parent="Universe" index="4"]
