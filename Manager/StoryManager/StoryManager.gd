@@ -145,6 +145,8 @@ func play_intro_story():
 	var dialog3 = ["很好，你已经成功拾取了反物质炸弹","现在你可以前往黑洞，使用炸弹摧毁它","注意你剩余的燃料","出发吧，光荣的战士"]
 	dialog.start_dialog(dialog3, 1)
 	await dialog.dialog_completed
+	
+	await get_tree().create_timer(2.0).timeout
 	guide.change_guide_show_state(3,true)
 	space_ship._can_impulse = true
 	space_ship_state.visible = true

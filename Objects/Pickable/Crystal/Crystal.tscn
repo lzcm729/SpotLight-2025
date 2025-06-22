@@ -19,4 +19,4 @@ debug_color = Color(0.334484, 0.622433, 5.77569e-07, 0.42)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource("4_60hma")
-volume_db = -4.837
+volume_db = -11.434
