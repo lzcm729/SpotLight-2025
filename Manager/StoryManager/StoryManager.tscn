@@ -8,3 +8,4 @@ script = ExtResource("1_q5ora")
 
 [node name="Stage3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_4ivo3")
+volume_db = -15.479

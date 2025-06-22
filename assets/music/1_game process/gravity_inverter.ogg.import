@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cvnwa0ssojscl"
+path="res://.godot/imported/gravity_inverter.ogg-15cadbc0760133e76b9bd3129cfa4946.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/1_game process/gravity_inverter.ogg"
+dest_files=["res://.godot/imported/gravity_inverter.ogg-15cadbc0760133e76b9bd3129cfa4946.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

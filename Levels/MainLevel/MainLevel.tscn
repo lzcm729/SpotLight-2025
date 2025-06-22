@@ -438,7 +438,7 @@ shape = SubResource("CircleShape2D_30g7l")
 position = Vector2(-3435, 602)
 rotation = 1.59508
 
-[node name="Camera2D" parent="Universe/SpaceShip" index="9"]
+[node name="Camera2D" parent="Universe/SpaceShip" index="10"]
 zoom = Vector2(2, 2)
 
 [node name="Spawner" parent="Universe" index="4"]
