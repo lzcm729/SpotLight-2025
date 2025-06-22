@@ -1,13 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=6 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
 [ext_resource type="Texture2D" uid="uid://weo44pf6n1xb" path="res://assets/top_down view.png" id="2_b810l"]
 [ext_resource type="PackedScene" uid="uid://c40ekmjv8by4v" path="res://assets/Particles/Fire.tscn" id="3_tgbed"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cj7jq"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_b810l"]
-radius = 20.0
+radius = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tgbed"]
 radius = 160.0
@@ -21,8 +19,11 @@ continuous_cd = 2
 script = ExtResource("1_cj7jq")
 tangential_speed = 0.0
 radial_speed = 0.0
-max_power = 75000.0
-thrust_acceleration = 25000.0
+max_power = 80000.0
+thrust_acceleration = 40000.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, -13, 0, -38, 10, -13, 29, 2, 29, 7, 19, 15, 15, 15, 15, 22, 5, 22, 5, 15, -5, 15, -5, 22, -15, 22, -15, 15, -19, 15, -29, 7, -29, 2)
 
 [node name="FireLeft" parent="." instance=ExtResource("3_tgbed")]
 position = Vector2(-10, 20)
@@ -36,10 +37,6 @@ rotation = 1.5708
 position = Vector2(0, -4)
 scale = Vector2(0.345568, 0.345568)
 texture = ExtResource("2_b810l")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_cj7jq")
-debug_color = Color(0.949391, 0.146495, 0.436627, 0.42)
 
 [node name="拾取范围" type="Area2D" parent="."]
 collision_layer = 2
@@ -55,6 +52,7 @@ width = 2.0
 
 [node name="牵引光束范围" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_tgbed")
 disabled = true
 debug_color = Color(0, 0.619923, 0.566506, 0.42)

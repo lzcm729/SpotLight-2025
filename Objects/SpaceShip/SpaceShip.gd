@@ -55,6 +55,12 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		if _grabbed_pickable:
+			# 如果已经有物品被抓取，则先释放它
+			_grabbed_pickable.pick.disconnect(_on_grabbed_pickable_picked)
+			_grabbed_pickable = null
+			_grab_line.visible = false
+
 		var world_pos = get_global_mouse_position()
 		# 如果点击位置超出牵引光束范围则不处理
 		var distance = global_position.distance_to(world_pos)
@@ -75,10 +81,6 @@ func _input(event: InputEvent) -> void:
 		var hits = get_world_2d().direct_space_state.intersect_shape(q)
 		for hit in hits:
 			if hit.collider is Pickable:
-				if _grabbed_pickable:
-					# 如果已经有物品被抓取，则先释放它
-					_grabbed_pickable.pick.disconnect(_on_grabbed_pickable_picked)
-					_grabbed_pickable = null
 				_grabbed_pickable = hit.collider
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
