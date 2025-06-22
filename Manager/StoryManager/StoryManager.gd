@@ -224,7 +224,7 @@ func _on_skip_guide_pressed() -> void:
 
 func _spawn_boom_according_ship(offset: Vector2):
 	var instance = boom.instantiate() as Pickable
-	instance.tangential_speed = 0
-	instance.radial_speed = 0
+	instance.tangential_speed = 20
+	instance.radial_speed = -10
 	instance.global_position = space_ship.position + offset
 	add_child(instance)

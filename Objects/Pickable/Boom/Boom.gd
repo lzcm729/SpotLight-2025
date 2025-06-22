@@ -1,7 +1,7 @@
 extends Pickable
+class_name Boom
 
 func _destroy():
-	black_hole.Strengthen()
 	queue_free()
 
 

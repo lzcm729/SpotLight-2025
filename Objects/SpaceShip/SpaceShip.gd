@@ -31,6 +31,7 @@ var _grabbed_pickable: Pickable = null
 var _can_rotate: bool = true  # 是否允许旋转
 var _can_impulse: bool = true # 是否能喷火
 var _move_method: Callable = _move_method_2
+var _traction_distance := 160.0
 
 @export var tangential_speed: float = 100 # 切向速度
 @export var radial_speed: float = -100    # 径向"下落"速度
@@ -42,8 +43,8 @@ var _move_method: Callable = _move_method_2
 @onready var _grab_line : Line2D = $GrabLine
 @onready var fire_left: GPUParticles2D = $FireLeft
 @onready var fire_right: GPUParticles2D = $FireRight
-@onready var _grab_area := $"牵引光束范围"            # Area2D
-@onready var _range_indicator := _grab_area.get_node("RangeIndicator") as Line2D
+#@onready var _grab_area := $"牵引光束范围"            # Area2D
+@onready var _range_indicator := $"RangeIndicator" as Line2D
 
 func _ready() -> void:
 	_draw_range_indicator()
@@ -65,7 +66,7 @@ func _input(event: InputEvent) -> void:
 		var world_pos = get_global_mouse_position()
 		# 如果点击位置超出牵引光束范围则不处理
 		var distance = global_position.distance_to(world_pos)
-		if distance > _grab_area.shape.radius:
+		if distance > _traction_distance:
 			grab_failed.emit()
 			return
 		
@@ -95,11 +96,6 @@ func _physics_process(delta: float) -> void:
 	_move_method.call(delta)
 	_grab_pickable()
 
-# 在失败时显示圆环，duration 秒后自动隐藏
-func show_grab_range(duration: float = 1.0) -> void:
-	_range_indicator.visible = true
-	await get_tree().create_timer(duration).timeout
-	_range_indicator.visible = false
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# 如果飞船已经被黑洞吞噬，则不再施加任何力
@@ -212,6 +208,9 @@ func _move_method_3(_delta: float) -> void:
 		var offset = target - position
 		if offset.length() > 0:
 			position += offset.normalized() * move_speed * _delta
+			# 消耗能量
+			var used = energy_consumption_rate * _delta
+			modify_energy(-used)
 		fire_left.emitting = true
 		fire_right.emitting = true
 		start_impulsed.emit()  # 发射冲量信号
@@ -316,14 +315,12 @@ func _on_timer_timeout() -> void:
 
 
 func _draw_range_indicator() -> void:
-	if _grab_area and _range_indicator:
-		var radius = _grab_area.shape.radius
-		_range_indicator.clear_points()
-		for i in range(36):
-			var angle = i * TAU / 36
-			var point = Vector2(cos(angle), sin(angle)) * radius
-			_range_indicator.add_point(point)
-		_range_indicator.visible = true
+	_range_indicator.clear_points()
+	for i in range(36):
+		var angle = i * TAU / 36
+		var point = Vector2(cos(angle), sin(angle)) * _traction_distance
+		_range_indicator.add_point(point)
+	_range_indicator.visible = true
 
 
 #################################等级相关方法
@@ -353,9 +350,8 @@ func get_experience() -> int:
 
 # 增加牵引光束范围
 func upgrade_increase_grab_range(amount: float) -> void:
-	if _grab_area and _range_indicator:
-		_grab_area.shape.radius += amount
-		_draw_range_indicator()
+	_traction_distance += amount
+	_draw_range_indicator()
 
 # 提高生命上限
 func upgrade_increase_max_health(amount: float) -> void:
@@ -383,4 +379,16 @@ func upgrade_increase_thrust_acceleration(amount: float) -> void:
 
 # 更改移动方式至方式3
 func upgrade_change_movement_method_3() -> void:
+	# 清除身上的力
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
 	_move_method = _move_method_3
+
+
+# 减少能源消耗
+func upgrade_decrease_energy_consumption(amount: float) -> void:
+	energy_consumption_rate = max(0.1, energy_consumption_rate - amount)  # 确保不小于0.1
+	print("新的能源消耗速率: ", energy_consumption_rate)
+	# 如果当前能量低于新速率，则重置能量
+	if energy < energy_consumption_rate:
+		set_energy(energy_consumption_rate)
