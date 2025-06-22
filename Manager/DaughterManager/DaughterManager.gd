@@ -320,7 +320,7 @@ func set_time_speed(speed_multiplier: float):
 		# 不在范围内时只更新周期时间，不启动Timer
 		current_cycle_time = base_cycle_time / time_speed
 	
-	print("时间速度调整为：", speed_multiplier, "倍速（", current_cycle_time, "秒/岁），在黑洞范围内：", is_in_black_hole_range)
+	# print("时间速度调整为：", speed_multiplier, "倍速（", current_cycle_time, "秒/岁），在黑洞范围内：", is_in_black_hole_range)
 
 # Timer超时回调函数
 func _on_age_pass_timeout():

@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
 [ext_resource type="Texture2D" uid="uid://cxpls1jykmehh" path="res://assets/guide/guide3.png" id="14_ca0l4"]
 [ext_resource type="Texture2D" uid="uid://bl7enrnbsuifw" path="res://assets/guide/guide2.png" id="14_xu22b"]
-[ext_resource type="Script" path="res://Levels/MainLevel/LevelUpReward.gd" id="17_s2twg"]
+[ext_resource type="Script" uid="uid://dsxivxi7efgqt" path="res://Levels/MainLevel/LevelUpReward.gd" id="17_s2twg"]
 [ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
@@ -264,6 +264,7 @@ script = ExtResource("17_s2twg")
 space_ship = NodePath("../../Universe/SpaceShip")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/LevelUpReward"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
