@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://buehqtg6ecocd"]
+[gd_scene load_steps=13 format=3 uid="uid://buehqtg6ecocd"]
 
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_game_template/base/scripts/pause_menu_controller.gd" id="1_onvsj"]
 [ext_resource type="PackedScene" uid="uid://b51ffq7jnmic5" path="res://scenes/overlaid_menus/pause_menu.tscn" id="2_onvsj"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bifqmlemht8b2" path="res://scenes/overlaid_menus/game_won_menu.tscn" id="8_3re04"]
 [ext_resource type="PackedScene" uid="uid://cvr36eb0r2bje" path="res://scenes/overlaid_menus/level_lost_menu.tscn" id="9_ascoc"]
 [ext_resource type="PackedScene" uid="uid://fi7nwkte06g2" path="res://scenes/overlaid_menus/level_won_menu.tscn" id="10_wr4n6"]
+[ext_resource type="Script" uid="uid://dsxivxi7efgqt" path="res://Levels/MainLevel/LevelUpReward.gd" id="11_bmy5n"]
+[ext_resource type="PackedScene" uid="uid://7rh03lgdfidy" path="res://Objects/UpgradeCard/UpgradeCard.tscn" id="12_7aihr"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -61,3 +63,32 @@ audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 script = ExtResource("6_bmy5n")
+
+[node name="LevelUpReward" type="Control" parent="." groups=["LevelUpReward"]]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_bmy5n")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUpReward"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="UpgradeCard1" parent="LevelUpReward/HBoxContainer" instance=ExtResource("12_7aihr")]
+layout_mode = 2
+
+[node name="UpgradeCard2" parent="LevelUpReward/HBoxContainer" instance=ExtResource("12_7aihr")]
+layout_mode = 2
+
+[node name="UpgradeCard3" parent="LevelUpReward/HBoxContainer" instance=ExtResource("12_7aihr")]
+layout_mode = 2
