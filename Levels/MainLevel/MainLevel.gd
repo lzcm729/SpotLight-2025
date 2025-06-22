@@ -7,7 +7,7 @@ var boomed = false  # 是否已经生成过炸弹
 
 @onready var black_hole = $Universe/BlackHole
 @onready var space_ship = $Universe/SpaceShip
-
+@onready var daughter_manager: Node = $DaughterManager
 
 func _ready() -> void:
 	black_hole.ship_gone.connect(_on_ship_gone)

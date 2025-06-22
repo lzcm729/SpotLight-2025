@@ -12,6 +12,8 @@ extends Node
 @export_file("*.tscn") var main_menu_scene : String
 ## Optional path to an ending scene.
 @export_file("*.tscn") var ending_scene : String
+@export_file("*.tscn") var HEND : String
+@export_file("*.tscn") var BEND : String
 @export var auto_load : bool = true
 @export_group("Screens")
 ## Optional reference to a loading screen in the scene.
@@ -54,10 +56,10 @@ func _advance_and_load_main_menu() -> void:
 	_load_main_menu()
 
 func _load_ending() -> void:
-	if ending_scene:
-		SceneLoader.load_scene(ending_scene)
+	if current_level.daughter_manager.global_daughter_age <= 30:
+		SceneLoader.load_scene(HEND)
 	else:
-		_load_main_menu()
+		SceneLoader.load_scene(BEND)
 
 func _on_level_lost() -> void:
 	if level_lost_scene:
