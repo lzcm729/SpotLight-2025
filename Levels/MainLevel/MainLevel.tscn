@@ -1,6 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://b5kmfws1g7esq"]
+[gd_scene load_steps=31 format=3 uid="uid://b5kmfws1g7esq"]
 
-[ext_resource type="Script" uid="uid://cv7hv8hem1070" path="res://Levels/MainLevel/MainLevel.gd" id="1_5dgdr"]
+[ext_resource type="Script" path="res://Levels/MainLevel/MainLevel.gd" id="1_5dgdr"]
 [ext_resource type="Script" uid="uid://bknqsox4y8of1" path="res://Levels/MainLevel/DaughterInfo.gd" id="1_7ry3r"]
 [ext_resource type="PackedScene" uid="uid://da11t01q5j683" path="res://Levels/Universe/Universe.tscn" id="1_8cxht"]
 [ext_resource type="Texture2D" uid="uid://btglyla5bvykb" path="res://assets/daxingkong_0.png" id="1_8rk0s"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://djsv6a1ndx4d5" path="res://assets/mouse/circle.png" id="4_s2twg"]
 [ext_resource type="Texture2D" uid="uid://b2hvfoo0cqpa" path="res://assets/mouse/hint.png" id="5_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://cxejfowua8mj0" path="res://assets/human/daughter.png" id="9_xu22b"]
-[ext_resource type="Script" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
+[ext_resource type="Script" uid="uid://duha0yp7k67m4" path="res://Levels/MainLevel/BlackHoleLayers.gd" id="11_8rk0s"]
 [ext_resource type="PackedScene" uid="uid://wsujvbh7haji" path="res://scenes/Dialog/Dialog.tscn" id="12_y80sm"]
 [ext_resource type="Script" uid="uid://cq0a27o8bp8l2" path="res://Levels/MainLevel/Guide.gd" id="13_0ibg0"]
 [ext_resource type="Texture2D" uid="uid://718vsn8g5h3t" path="res://assets/guide/guide_ring.png" id="13_nspbb"]
@@ -23,6 +23,24 @@
 [ext_resource type="Script" uid="uid://ctksc6that7h1" path="res://Levels/MainLevel/GameGoal.gd" id="18_1e6xi"]
 [ext_resource type="Texture2D" uid="uid://bxj2438s3sxhm" path="res://assets/ui/goal_bg.png" id="18_5dgdr"]
 [ext_resource type="Texture2D" uid="uid://uy5l1wv5yv72" path="res://assets/black hole_0.png" id="18_ca0l4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2qhc"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx0hc"]
+bg_color = Color(0.392934, 0.755936, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ha50k"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyutw"]
+bg_color = Color(0.120562, 0.539979, 2.88785e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_waegj"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04sny"]
+bg_color = Color(0.822918, 0.739778, 0.169323, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30g7l"]
 radius = 839.87
@@ -91,8 +109,8 @@ texture = ExtResource("1_8rk0s")
 [node name="DaughterInfo" type="Control" parent="HUD" node_paths=PackedStringArray("DaughterManager")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 553.0
-offset_bottom = 182.0
+offset_right = 431.0
+offset_bottom = 720.0
 mouse_filter = 1
 script = ExtResource("1_7ry3r")
 DaughterManager = NodePath("../../DaughterManager")
@@ -120,10 +138,10 @@ offset_bottom = 169.0
 
 [node name="SentenceList" type="VBoxContainer" parent="HUD/DaughterInfo"]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 20.0
-offset_right = 450.0
-offset_bottom = 107.0
+offset_left = 7.0
+offset_top = 172.0
+offset_right = 402.0
+offset_bottom = 557.0
 
 [node name="CreateTimer" type="Timer" parent="HUD/DaughterInfo/SentenceList"]
 
@@ -171,6 +189,9 @@ horizontal_alignment = 1
 
 [node name="EnergyProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_g2qhc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kx0hc")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HUD/SpaceShipState/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -184,6 +205,9 @@ horizontal_alignment = 1
 
 [node name="HealthProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_ha50k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tyutw")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HUD/SpaceShipState/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -197,6 +221,9 @@ horizontal_alignment = 1
 
 [node name="LevelProgress" type="ProgressBar" parent="HUD/SpaceShipState/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_waegj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_04sny")
 
 [node name="Dialog" parent="HUD" instance=ExtResource("12_y80sm")]
 visible = false
@@ -208,44 +235,74 @@ grow_vertical = 0
 
 [node name="Guide" type="Control" parent="HUD"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("13_0ibg0")
 
 [node name="Guide1" type="TextureRect" parent="HUD/Guide" groups=["guide"]]
-layout_mode = 0
-offset_left = 742.0
-offset_top = 64.0
-offset_right = 1066.0
-offset_bottom = 634.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -291.0
+offset_right = -216.0
+offset_bottom = 279.0
+grow_horizontal = 0
+grow_vertical = 2
 texture = ExtResource("13_nspbb")
 
 [node name="GuideText" type="Label" parent="HUD/Guide"]
 custom_minimum_size = Vector2(233, 139)
-layout_mode = 0
-offset_left = 1031.0
-offset_top = 402.0
-offset_right = 1264.0
-offset_bottom = 541.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 38.0
+offset_right = 2.0
+offset_bottom = 177.0
+grow_horizontal = 0
+grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "指导文本"
 autowrap_mode = 3
 
 [node name="Guide2" type="TextureRect" parent="HUD/Guide" groups=["guide"]]
-layout_mode = 0
-offset_left = 927.0
-offset_top = 387.0
-offset_right = 1053.0
-offset_bottom = 531.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -353.0
+offset_top = 28.0
+offset_right = -227.0
+offset_bottom = 172.0
+grow_horizontal = 0
+grow_vertical = 2
 texture = ExtResource("14_xu22b")
 
 [node name="Guide3" type="TextureRect" parent="HUD/Guide" groups=["guide"]]
-layout_mode = 0
-offset_left = 909.0
-offset_top = 399.0
-offset_right = 1035.0
-offset_bottom = 537.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -371.0
+offset_top = 39.0
+offset_right = -245.0
+offset_bottom = 177.0
+grow_horizontal = 0
+grow_vertical = 2
 texture = ExtResource("14_ca0l4")
 
 [node name="SkipGuide" type="Button" parent="HUD"]
