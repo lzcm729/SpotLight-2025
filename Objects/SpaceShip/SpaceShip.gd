@@ -45,6 +45,7 @@ var _traction_distance := 160.0
 @onready var fire_right: GPUParticles2D = $FireRight
 #@onready var _grab_area := $"牵引光束范围"            # Area2D
 @onready var _range_indicator := $"RangeIndicator" as Line2D
+@onready var fire_emit_sound: AudioStreamPlayer = $FireEmitSound
 
 func _ready() -> void:
 	_draw_range_indicator()
@@ -192,10 +193,16 @@ func _move_method_2(_delta: float) -> void:
 		# 发射时喷射推进火焰
 		fire_left.emitting = true
 		fire_right.emitting = true
+		# 播放喷火音效
+		if fire_emit_sound and not fire_emit_sound.playing:
+			fire_emit_sound.play()
 		start_impulsed.emit()  # 发射冲量信号
 	else:
 		# 未按鼠标或没能量时重置推力
 		_current_thrust = 0.0
+		# 停止喷火音效
+		if fire_emit_sound and fire_emit_sound.playing:
+			fire_emit_sound.stop()
 
 # 使用鼠标点击改变飞船位置
 func _move_method_3(_delta: float) -> void:
@@ -213,9 +220,15 @@ func _move_method_3(_delta: float) -> void:
 			modify_energy(-used)
 		fire_left.emitting = true
 		fire_right.emitting = true
+		# 播放喷火音效
+		if fire_emit_sound and not fire_emit_sound.playing:
+			fire_emit_sound.play()
 		start_impulsed.emit()  # 发射冲量信号
 	else:
 		_is_controlled = false  # 如果没有按下鼠标左键，则不再控制飞船
+		# 停止喷火音效
+		if fire_emit_sound and fire_emit_sound.playing:
+			fire_emit_sound.stop()
 
 
 func _grab_pickable() -> void:

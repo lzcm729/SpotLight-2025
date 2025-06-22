@@ -4,6 +4,7 @@ extends Node
 @export var mouse_cursor_circle: Texture2D
 @export var mouse_cursor_wrong_grab:Texture2D
 @export var space_ship:SpaceShip
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 # 鼠标光标节点
 var cursor_sprite: Sprite2D
@@ -131,13 +132,18 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				_show_click_circle(last_mouse_pos)
+				# 播放点击音频
+				if audio_stream_player:
+					audio_stream_player.play()
 			else:
 				_hide_click_circle()
 		
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed:
 				# 右键按下时，由外部接口决定是否显示错误抓取光标
-				pass
+				# 播放点击音频
+				if audio_stream_player:
+					audio_stream_player.play()
 			else:
 				_hide_wrong_grab_cursor()
 

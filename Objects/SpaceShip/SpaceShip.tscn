@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh7aegyh7egpt"]
+[gd_scene load_steps=7 format=3 uid="uid://bh7aegyh7egpt"]
 
 [ext_resource type="Script" uid="uid://bsbpsau4dcddu" path="res://Objects/SpaceShip/SpaceShip.gd" id="1_cj7jq"]
 [ext_resource type="Texture2D" uid="uid://weo44pf6n1xb" path="res://assets/top_down view.png" id="2_b810l"]
 [ext_resource type="PackedScene" uid="uid://c40ekmjv8by4v" path="res://assets/Particles/Fire.tscn" id="3_tgbed"]
+[ext_resource type="AudioStream" uid="uid://bq77xvvhvgphn" path="res://assets/music/2_item activation/ui/qubodupFireLoop.ogg" id="4_6585m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b810l"]
 radius = 24.0
@@ -66,6 +67,9 @@ position = Vector2(0, -1)
 closed = true
 width = 1.0
 default_color = Color(0.391819, 0.391819, 0.391819, 0.392157)
+
+[node name="FireEmitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6585m")
 
 [connection signal="body_entered" from="拾取范围" to="." method="_on_拾取范围_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
