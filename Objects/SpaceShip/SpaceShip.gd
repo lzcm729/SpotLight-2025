@@ -187,7 +187,7 @@ func _move_method_2(_delta: float) -> void:
 
 			# 分解、削弱切向分量
 			var f_radial = radial * force.dot(radial)
-			var f_tangential = tangential * force.dot(tangential) * 0.1 # 调节切向分量的强度（越小摆动越弱）
+			var f_tangential = tangential * force.dot(tangential) * 0.3 # 调节切向分量的强度（越小摆动越弱）
 			apply_central_impulse(f_radial + f_tangential)
 		# 发射时喷射推进火焰
 		fire_left.emitting = true
