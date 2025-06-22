@@ -346,6 +346,7 @@ mouse_filter = 0
 texture = ExtResource("18_5dgdr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameGoal/Bg"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -369,6 +370,33 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "牵引反物质炸弹进入黑洞，炸毁它
 注意自身安全！"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD/GameGoal/Bg"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="GameGoal" type="Label" parent="HUD/GameGoal/Bg/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "游玩目标"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="Label" parent="HUD/GameGoal/Bg/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "第二颗炸弹已经生成，快去黑洞边缘寻找！"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -438,7 +466,7 @@ shape = SubResource("CircleShape2D_30g7l")
 position = Vector2(-3435, 602)
 rotation = 1.59508
 
-[node name="Camera2D" parent="Universe/SpaceShip" index="10"]
+[node name="Camera2D" parent="Universe/SpaceShip" index="11"]
 zoom = Vector2(2, 2)
 
 [node name="Spawner" parent="Universe" index="4"]

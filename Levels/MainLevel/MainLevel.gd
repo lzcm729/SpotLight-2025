@@ -8,6 +8,7 @@ var boomed = false  # 是否已经生成过炸弹
 @onready var black_hole = $Universe/BlackHole
 @onready var space_ship = $Universe/SpaceShip
 @onready var daughter_manager: Node = $DaughterManager
+@onready var game_goal: GameGoal = $HUD/GameGoal
 
 func _ready() -> void:
 	black_hole.ship_gone.connect(_on_ship_gone)
@@ -43,5 +44,6 @@ func SpawnSecondBomb() -> void:
 	# 在黑洞边缘随机一个位置
 	var pos = black_hole.position + Vector2(randf_range(-black_hole.GetAttractionRadius(), black_hole.GetAttractionRadius()), randf_range(-black_hole.GetAttractionRadius(), black_hole.GetAttractionRadius()))
 	second_bomb.position = pos
+	game_goal.show_game_goal_2()
 	second_bomb.set_deferred("freeze", false)  # 解冻炸弹，使其开始运动
 	$Universe.add_child(second_bomb)  # 添加到场景中

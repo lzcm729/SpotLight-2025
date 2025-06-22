@@ -46,6 +46,7 @@ var _traction_distance := 160.0
 #@onready var _grab_area := $"牵引光束范围"            # Area2D
 @onready var _range_indicator := $"RangeIndicator" as Line2D
 @onready var fire_emit_sound: AudioStreamPlayer = $FireEmitSound
+@onready var grab_success: AudioStreamPlayer = $GrabSuccess
 
 func _ready() -> void:
 	_draw_range_indicator()
@@ -88,6 +89,7 @@ func _input(event: InputEvent) -> void:
 				_grabbed_pickable.linear_velocity = Vector2.ZERO
 				_grabbed_pickable.pick.connect(_on_grabbed_pickable_picked)
 				_grab_line.visible = true
+				grab_success.play()
 				return
 		grab_failed.emit()
 
