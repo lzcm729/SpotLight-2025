@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbgsehmsj18io"]
+[gd_scene load_steps=3 format=3 uid="uid://dbgsehmsj18io"]
 
 [ext_resource type="Texture2D" uid="uid://bkuk7rxrtockv" path="res://end animation/h END/hd end (if time 30).png" id="1_okw64"]
+[ext_resource type="AudioStream" uid="uid://bws6gk761qsge" path="res://assets/music/1_game process/4_end/1.mp3" id="2_dywny"]
 
 [node name="HappyEnding" type="Control"]
 layout_mode = 3
@@ -18,3 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_okw64")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dywny")
+autoplay = true

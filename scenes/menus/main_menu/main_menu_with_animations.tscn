@@ -428,7 +428,7 @@ theme_override_constants/margin_top = 100
 modulate = Color(1, 1, 1, 0)
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 96
 text = "早日回家"
 
 [node name="SubTitleMargin" parent="MenuContainer" index="1"]
