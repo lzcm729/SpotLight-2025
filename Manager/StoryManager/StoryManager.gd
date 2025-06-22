@@ -10,6 +10,7 @@ extends Node
 @export var guide:Guide
 @onready var skip_guide: Button = $"../HUD/SkipGuide"
 @onready var game_goal: GameGoal = $"../HUD/GameGoal"
+@onready var stage_3: AudioStreamPlayer = $Stage3
 
 var boom = preload("res://Objects/Pickable/Boom/Boom.tscn")
 
@@ -199,8 +200,16 @@ func play_black_hole_story():
 	#播放游玩目标
 	game_goal.show_game_goal()
 	await game_goal.game_goal_closed
+
+	#关掉其他音乐，播放stage
+	# 停止其他音乐播放器
+	var other_music_players = get_tree().get_nodes_in_group("BackgroundMusicPlayer")
+	for player in other_music_players:
+		if player is AudioStreamPlayer and player != stage_3:
+			player.stop()
 	
-	
+	# 播放stage_3音乐
+	stage_3.play()
 
 
 

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch43mk6ci2t1j"]
+[gd_scene load_steps=3 format=3 uid="uid://ch43mk6ci2t1j"]
 
 [ext_resource type="Script" uid="uid://7e36f357loxq" path="res://Manager/StoryManager/StoryManager.gd" id="1_q5ora"]
+[ext_resource type="AudioStream" uid="uid://byns714xbq62s" path="res://assets/music/1_game process/1_open/lively_bouncy.mp3" id="2_4ivo3"]
 
 [node name="StoryManager" type="Node"]
 script = ExtResource("1_q5ora")
+
+[node name="Stage3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4ivo3")

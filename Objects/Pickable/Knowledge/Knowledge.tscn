@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://gvoaqrdh15k5"]
+[gd_scene load_steps=4 format=3 uid="uid://gvoaqrdh15k5"]
 
 [ext_resource type="PackedScene" uid="uid://b50e4gduaeyb7" path="res://Objects/Pickable/Pickable.tscn" id="1_5muah"]
 [ext_resource type="Script" uid="uid://qew6m1fn3sp8" path="res://Objects/Pickable/Knowledge/Knowledge.gd" id="2_x4rr4"]
+[ext_resource type="AudioStream" uid="uid://xr4rk8fl0gf7" path="res://assets/music/2_item activation/item/pleasing-bell.wav" id="3_x4rr4"]
 
 [node name="Knowledge" instance=ExtResource("1_5muah")]
 script = ExtResource("2_x4rr4")
@@ -9,3 +10,6 @@ item_id = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
 debug_color = Color(0.759227, 0.453028, 0, 0.42)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource("3_x4rr4")

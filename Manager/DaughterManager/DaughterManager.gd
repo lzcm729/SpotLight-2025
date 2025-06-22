@@ -2,7 +2,7 @@ extends Node
 
 # 全局存储女儿当前年龄
 var global_daughter_age: int = 8
-var time_speed: float = 1.0
+var time_speed: float = 1.01
 @onready var age_pass: Timer = $AgePass
 
 @export var space_ship: SpaceShip
@@ -164,7 +164,8 @@ func check_black_hole_range():
 			print("进入黑洞引力范围，开始年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ", 当前速度: ", time_speed, "倍)")
 		else:
 			# 离开黑洞范围，暂停Timer
-			pause_age_timer()
+			# pause_age_timer()
+			time_speed = 1.01
 			print("离开黑洞引力范围，暂停年龄增长 (距离: ", distance_to_black_hole, ", 引力半径: ", gravity_radius, ")")
 
 # 根据距离更新速度
