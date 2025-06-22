@@ -13,3 +13,13 @@ func _ready() -> void:
 	
 func _on_ship_gone() -> void:
 	level_lost.emit()
+
+
+func RestartLevel() -> void:
+	# 重置飞船状态
+	space_ship.set_health(space_ship.max_health)
+	space_ship.set_energy(space_ship.max_energy)
+	space_ship.position = Vector2(100, 400)  # 重置位置
+	space_ship.rotation = 0.0  # 重置旋转角度
+	space_ship.freeze = false  # 解除冻结状态
+	space_ship.visible = true  # 重新显示飞船

@@ -8,13 +8,19 @@ signal ship_gone
 
 # 吞噬物体
 func _on_吞噬范围_body_entered(body: Node2D) -> void:
+	if body is SpaceShip:
+		body.linear_velocity = Vector2.ZERO
+		body.angular_velocity = 0.0
+		body.set_deferred("freeze", true)  # 冻结飞船
+		body.visible = false
+		ship_gone.emit()
+		return
 	if body is RigidBody2D:
 		# 1) 停止运动，防止物理引擎继续推挤
 		body._is_eaten = true
 		# 2) 延迟释放，避免在物理回调中删除节点导致抖动  
 		body.Destroy()
-	if body is SpaceShip:
-		ship_gone.emit()
+
 
 
 # 返回黑洞的吸引半径

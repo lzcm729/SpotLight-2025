@@ -85,7 +85,8 @@ func _load_next_level() -> void:
 	load_current_level()
 
 func _reload_level() -> void:
-	load_current_level()
+	current_level.RestartLevel()
+	# load_current_level()
 
 func _load_win_screen_or_ending() -> void:
 	if game_won_scene:
